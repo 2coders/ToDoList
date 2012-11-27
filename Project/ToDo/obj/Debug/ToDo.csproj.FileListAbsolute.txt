@@ -1,0 +1,15 @@
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\ApplicationIcon.png
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\Background.png
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\ToDo.dll
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\ToDo.pdb
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\App.g.i.cs
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\MainPage.g.i.cs
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\ToDo.g.resources
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\ToDo.dll
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\ToDo.pdb
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\AppManifest.xaml
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\Bin\Debug\ToDo.xap
+C:\Users\YC\Documents\GitHub\ToDoList\Project\ToDo\obj\Debug\XapCacheFile.xml

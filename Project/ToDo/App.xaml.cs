@@ -12,11 +12,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ToDo.ViewModel;
+using ToDo.Model;
 
 namespace ToDo
 {
     public partial class App : Application
     {
+        // The static ViewModel, to be used across the application.
+        private static ToDoViewModel viewModel;
+        public static ToDoViewModel ViewModel
+        {
+            get { return viewModel; }
+        }
+
         /// <summary>
         ///提供对电话应用程序的根框架的轻松访问。
         /// </summary>
@@ -57,6 +66,24 @@ namespace ToDo
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            // Specify the local database connection string.
+            string DBConnectionString = "Data Source=isostore:/ToDo.sdf";
+
+            // Create the database if it does not exist.
+            using (ToDoDataContext db = new ToDoDataContext(DBConnectionString))
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the local database.
+                    db.CreateDatabase();
+                }
+            }
+
+            // Create the ViewModel object.
+            viewModel = new ToDoViewModel(DBConnectionString);
+
+            // Query the local database and load observable collections.
+            viewModel.LoadCollectionsFromDatabase();
         }
 
         // 应用程序启动(例如，从“开始”菜单启动)时执行的代码

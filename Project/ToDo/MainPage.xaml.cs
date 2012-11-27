@@ -20,5 +20,10 @@ namespace ToDo
         {
             InitializeComponent();
         }
+
+        private void deleteTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
