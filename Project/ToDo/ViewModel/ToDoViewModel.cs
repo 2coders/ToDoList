@@ -28,6 +28,54 @@ namespace ToDo.ViewModel
             }
         }
 
+        // Today to-do items.
+        private ObservableCollection<ToDoItem> _todayToDoItems;
+        public ObservableCollection<ToDoItem> TodayToDoItems
+        {
+            get { return _todayToDoItems; }
+            set
+            {
+                _todayToDoItems = value;
+                NotifyPropertyChanged("TodayToDoItems");
+            }
+        }
+
+        // Tomorrow to-do items.
+        private ObservableCollection<ToDoItem> _tomorrowToDoItems;
+        public ObservableCollection<ToDoItem> TomorrowToDoItems
+        {
+            get { return _tomorrowToDoItems; }
+            set
+            {
+                _tomorrowToDoItems = value;
+                NotifyPropertyChanged("TomorrowToDoItems");
+            }
+        }
+
+        // Later to-do items.
+        private ObservableCollection<ToDoItem> _laterToDoItems;
+        public ObservableCollection<ToDoItem> LaterToDoItems
+        {
+            get { return _laterToDoItems; }
+            set
+            {
+                _laterToDoItems = value;
+                NotifyPropertyChanged("LaterToDoItems");
+            }
+        }
+
+        // Done to-do items.
+        private ObservableCollection<ToDoItem> _completedToDoItems;
+        public ObservableCollection<ToDoItem> CompletedToDoItems
+        {
+            get { return _completedToDoItems; }
+            set
+            {
+                _completedToDoItems = value;
+                NotifyPropertyChanged("CompletedToDoItems");
+            }
+        }
+
         // Write changes in the data context to the database.
         public void SaveChangesToDB()
         {
@@ -44,6 +92,27 @@ namespace ToDo.ViewModel
 
             // Query the database and load all to-do items.
             AllToDoItems = new ObservableCollection<ToDoItem>(toDoItemsInDB);
+
+            var todayToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+                                     where todo.RemindTime < System.DateTime.Today.AddDays(1)
+                                     select todo;
+            TodayToDoItems = new ObservableCollection<ToDoItem>(todayToDoItemsInDB);
+
+            var tomorrowToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+                                        where todo.RemindTime < System.DateTime.Today.AddDays(2)
+                                        && todo.RemindTime > System.DateTime.Today.AddDays(1)
+                                     select todo;
+            TomorrowToDoItems = new ObservableCollection<ToDoItem>(tomorrowToDoItemsInDB);
+
+            var laterToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+                                        where todo.RemindTime > System.DateTime.Today.AddDays(2)
+                                        select todo;
+            LaterToDoItems = new ObservableCollection<ToDoItem>(laterToDoItemsInDB);
+
+            var completedToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+                                     where todo.IsComplete == true
+                                     select todo;
+            CompletedToDoItems = new ObservableCollection<ToDoItem>(completedToDoItemsInDB);
 
         }
 

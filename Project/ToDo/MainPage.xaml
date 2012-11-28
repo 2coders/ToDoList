@@ -74,7 +74,7 @@
 
                         <ListBox 
                             x:Name="allToDoItemsListBox" 
-                            ItemsSource="{Binding AllToDoItems}" 
+                            ItemsSource="{Binding TodayToDoItems}" 
                             Margin="12, 0, 12, 0" Width="440" 
                             ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
