@@ -84,19 +84,19 @@ namespace ToDo.Model
         }
 
         // 完成状态
-        private bool _isComplete;
+        private bool _isCompleted;
 
         [Column]
-        public bool IsComplete
+        public bool IsCompleted
         {
-            get { return _isComplete; }
+            get { return _isCompleted; }
             set
             {
-                if (_isComplete != value)
+                if (_isCompleted != value)
                 {
-                    NotifyPropertyChanging("IsComplete");
-                    _isComplete = value;
-                    NotifyPropertyChanged("IsComplete");
+                    NotifyPropertyChanging("IsCompleted");
+                    _isCompleted = value;
+                    NotifyPropertyChanged("IsCompleted");
                 }
             }
         }

@@ -16,18 +16,6 @@ namespace ToDo.ViewModel
             toDoDB = new ToDoDataContext(toDoDBConnectionString);
         }
 
-        // All to-do items.
-        private ObservableCollection<ToDoItem> _allToDoItems;
-        public ObservableCollection<ToDoItem> AllToDoItems
-        {
-            get { return _allToDoItems; }
-            set
-            {
-                _allToDoItems = value;
-                NotifyPropertyChanged("AllToDoItems");
-            }
-        }
-
         // Today to-do items.
         private ObservableCollection<ToDoItem> _todayToDoItems;
         public ObservableCollection<ToDoItem> TodayToDoItems
@@ -86,13 +74,6 @@ namespace ToDo.ViewModel
         public void LoadCollectionsFromDatabase()
         {
 
-            // Specify the query for all to-do items in the database.
-            var toDoItemsInDB = from ToDoItem todo in toDoDB.Items
-                                select todo;
-
-            // Query the database and load all to-do items.
-            AllToDoItems = new ObservableCollection<ToDoItem>(toDoItemsInDB);
-
             var todayToDoItemsInDB = from ToDoItem todo in toDoDB.Items
                                      where todo.RemindTime < System.DateTime.Today.AddDays(1)
                                      select todo;
@@ -110,7 +91,7 @@ namespace ToDo.ViewModel
             LaterToDoItems = new ObservableCollection<ToDoItem>(laterToDoItemsInDB);
 
             var completedToDoItemsInDB = from ToDoItem todo in toDoDB.Items
-                                     where todo.IsComplete == true
+                                     where todo.IsCompleted == true
                                      select todo;
             CompletedToDoItems = new ObservableCollection<ToDoItem>(completedToDoItemsInDB);
 
@@ -126,15 +107,12 @@ namespace ToDo.ViewModel
             toDoDB.SubmitChanges();
 
             // Add a to-do item to the "all" observable collection.
-            AllToDoItems.Add(newToDoItem);
+            TodayToDoItems.Add(newToDoItem);
         }
 
         // Remove a to-do task item from the database and collections.
         public void DeleteToDoItem(ToDoItem toDoForDelete)
         {
-
-            // Remove the to-do item from the "all" observable collection.
-            AllToDoItems.Remove(toDoForDelete);
 
             // Remove the to-do item from the data context.
             toDoDB.Items.DeleteOnSubmit(toDoForDelete);

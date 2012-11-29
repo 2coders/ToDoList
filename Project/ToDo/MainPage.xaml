@@ -26,11 +26,11 @@
                 </Grid.ColumnDefinitions>
 
                 <CheckBox 
-                    IsChecked="{Binding IsComplete, Mode=TwoWay}" 
+                    IsChecked="{Binding IsCompleted, Mode=TwoWay}" 
                     Grid.Column="0" VerticalAlignment="Top"/>
 
                 <TextBlock 
-                    Text="{Binding ItemName}" 
+                    Text="{Binding Title, Mode=TwoWay}"
                     FontSize="{StaticResource PhoneFontSizeLarge}" 
                     Grid.Column="1" Grid.ColumnSpan="2" 
                     VerticalAlignment="Top" Margin="-36, 12, 0, 0"/>
@@ -62,13 +62,29 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="PageTitle" Text="ToDo" Margin="9,-7,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
-        </StackPanel>
 
+            <StackPanel x:Name="TopBar" Grid.Row="0" Margin="3" Orientation="Horizontal">
+                <TextBox x:Name="newTodoItem" Margin="5" Width="350">
+                    <TextBox.InputScope>
+                        <InputScope>
+                            <InputScopeName NameValue="Text"></InputScopeName>
+                        </InputScope>
+                    </TextBox.InputScope>
+                </TextBox>
+                
+                <Button x:Name="add" Content="Add" Click="add_Click"></Button>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        
         <!--ContentPanel - place additional content here.-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <controls:Pivot Margin="0, -36, 0, 0">
 
                 <controls:PivotItem Header="All">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto">
+                    
                     <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">
                         <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontStyle="Normal" FontSize="56" />
 
@@ -95,8 +111,8 @@
                             ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
                         
                     </StackPanel>
-                    
-                    
+
+                    </ScrollViewer>
                 </controls:PivotItem>
 
                 <controls:PivotItem Header="Setting">
