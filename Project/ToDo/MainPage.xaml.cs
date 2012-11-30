@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
 using ToDo.Model;
@@ -46,6 +38,20 @@ namespace ToDo
                 newTodoItem.Text = "";
             }
             
+        }
+
+        private void TextBlock_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tbx = sender as TextBox;
+            StackPanel parent = tbx.Parent as StackPanel;
+            parent.Children[1].Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tbx = sender as TextBox;
+            StackPanel parent = tbx.Parent as StackPanel;
+            parent.Children[1].Visibility = System.Windows.Visibility.Collapsed;
         }
     }
 }

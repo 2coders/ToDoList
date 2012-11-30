@@ -16,68 +16,41 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ToDoListBoxItemTemplate">
-
-            <Grid HorizontalAlignment="Stretch" Width="420">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-
-                <CheckBox 
-                    IsChecked="{Binding IsCompleted, Mode=TwoWay}" 
-                    Grid.Column="0" VerticalAlignment="Top"/>
-
-                <TextBlock 
+            <StackPanel Orientation="Vertical" Background="Gray" Margin="0,5,0,5">
+                <TextBox
                     Text="{Binding Title, Mode=TwoWay}"
-                    FontSize="{StaticResource PhoneFontSizeLarge}" 
-                    Grid.Column="1" Grid.ColumnSpan="2" 
-                    VerticalAlignment="Top" Margin="-36, 12, 0, 0"/>
+                    FontSize="{StaticResource PhoneFontSizeLarge}"
+                    GotFocus="TextBlock_GotFocus" LostFocus="TextBlock_LostFocus" />
 
-                <Button                                
-                    Grid.Column="3"
-                    x:Name="deleteTaskButton"
-                    BorderThickness="0"                                                                  
-                    Margin="0, -18, 0, 0"
-                    Click="deleteTaskButton_Click">
-
-                 <Image 
-                    Source="/Images/ApplicationIcon.png"
-                    Height="75"
-                    Width="75"/>
-
-                </Button>
-            </Grid>
+                <StackPanel Visibility="Collapsed" Orientation="Horizontal">
+                    <Button Content="Flag" Width="100"></Button>
+                    <Button Content="Ring" Width="100"></Button>
+                    <Button Content="Category" Width="100"></Button>
+                    <Button Content="Note" Width="100"></Button>
+                </StackPanel>
+            </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
-    <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="PageTitle" Text="ToDo" Margin="9,-7,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
+        <StackPanel x:Name="TopBar" Grid.Row="0" Margin="0" Orientation="Horizontal">
+            <TextBox x:Name="newTodoItem" Margin="0" Width="402">
+                <TextBox.InputScope>
+                    <InputScope>
+                        <InputScopeName NameValue="Text"></InputScopeName>
+                    </InputScope>
+                </TextBox.InputScope>
+            </TextBox>
 
-            <StackPanel x:Name="TopBar" Grid.Row="0" Margin="3" Orientation="Horizontal">
-                <TextBox x:Name="newTodoItem" Margin="5" Width="350">
-                    <TextBox.InputScope>
-                        <InputScope>
-                            <InputScopeName NameValue="Text"></InputScopeName>
-                        </InputScope>
-                    </TextBox.InputScope>
-                </TextBox>
-                
-                <Button x:Name="add" Content="Add" Click="add_Click"></Button>
-            </StackPanel>
-            
+            <Button x:Name="add" Content="+" Click="add_Click" Width="74"></Button>
         </StackPanel>
-        
-        
+
+
         <!--ContentPanel - place additional content here.-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <controls:Pivot Margin="0, -36, 0, 0">
