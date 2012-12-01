@@ -9,6 +9,7 @@ namespace ToDo
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private UIElement shownButtons = null;
         // 构造函数
         public MainPage()
         {
@@ -40,18 +41,55 @@ namespace ToDo
             
         }
 
-        private void TextBlock_GotFocus(object sender, RoutedEventArgs e)
+        private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            TextBox tbx = sender as TextBox;
+            if (shownButtons != null)
+            {
+                shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            FrameworkElement tbx = sender as FrameworkElement;
             StackPanel parent = tbx.Parent as StackPanel;
-            parent.Children[1].Visibility = System.Windows.Visibility.Visible;
+            if((shownButtons = parent.Children[1]) != null)
+            {
+                shownButtons.Visibility = System.Windows.Visibility.Visible;
+            }
+            
         }
 
-        private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
+        private void TodayTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            TextBox tbx = sender as TextBox;
-            StackPanel parent = tbx.Parent as StackPanel;
-            parent.Children[1].Visibility = System.Windows.Visibility.Collapsed;
+            if(todayToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            {
+                todayToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                todayToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void TomorrowTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (tomorrowToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            {
+                tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void LaterTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (laterToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            {
+                laterToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                laterToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
+            }
         }
     }
 }

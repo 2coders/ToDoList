@@ -17,10 +17,10 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ToDoListBoxItemTemplate">
             <StackPanel Orientation="Vertical" Background="Gray" Margin="0,5,0,5">
-                <TextBox
-                    Text="{Binding Title, Mode=TwoWay}"
-                    FontSize="{StaticResource PhoneFontSizeLarge}"
-                    GotFocus="TextBlock_GotFocus" LostFocus="TextBlock_LostFocus" />
+                <TextBlock
+                    Text="{Binding Title, Mode=OneWay}"
+                    FontSize="{StaticResource PhoneFontSizeSmall}" 
+                    MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
 
                 <StackPanel Visibility="Collapsed" Orientation="Horizontal">
                     <Button Content="Flag" Width="100"></Button>
@@ -56,34 +56,48 @@
             <controls:Pivot Margin="0, -36, 0, 0">
 
                 <controls:PivotItem Header="All">
-                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto">
-                    
-                    <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">
-                        <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontStyle="Normal" FontSize="56" />
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto"> 
+                        <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">
+                            <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" 
+                                       Style="{StaticResource PhoneTextTitle1Style}" 
+                                       FontStyle="Normal"
+                                       MouseLeftButtonDown="TodayTitle_MouseLeftButtonDown"/>
 
-                        <ListBox 
-                            x:Name="allToDoItemsListBox" 
-                            ItemsSource="{Binding TodayToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            <ListBox 
+                                x:Name="todayToDoItemsListBox" 
+                                Visibility="Visible"
+                                ItemsSource="{Binding TodayToDoItems}" 
+                                Margin="12, 0, 12, 0" Width="440" 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                        <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="56" />
+                            <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" 
+                                       Style="{StaticResource PhoneTextTitle1Style}" 
+                                       FontStyle="Normal"
+                                       MouseLeftButtonDown="TomorrowTitle_MouseLeftButtonDown"/>
 
-                        <ListBox 
-                            x:Name="tomorrowToDoItemsListBox" 
-                            ItemsSource="{Binding AllToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            <ListBox 
+                                x:Name="tomorrowToDoItemsListBox" 
+                                Visibility="Collapsed"
+                                ItemsSource="{Binding TodayToDoItems}" 
+                                Margin="12, 0, 12, 0" Width="440" 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                        <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="56" />
+                            <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0"
+                                       Style="{StaticResource PhoneTextTitle1Style}"
+                                       FontStyle="Normal"
+                                       MouseLeftButtonDown="LaterTitle_MouseLeftButtonDown"/>
 
-                        <ListBox 
-                            x:Name="laterToDoItemsListBox" 
-                            ItemsSource="{Binding AllToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            <ListBox 
+                                x:Name="laterToDoItemsListBox" 
+                                Visibility="Collapsed"
+                                ItemsSource="{Binding TodayToDoItems}" 
+                                Margin="12, 0, 12, 0" Width="440" 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
                         
-                    </StackPanel>
+                        </StackPanel>
 
                     </ScrollViewer>
                 </controls:PivotItem>
