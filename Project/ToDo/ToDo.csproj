@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Model\ToDoDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\TileModel.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 
 using ToDo.Model;
+using ToDo.ViewModel;
 
 namespace ToDo
 {
@@ -37,6 +38,8 @@ namespace ToDo
 
                 App.ViewModel.AddToDoItem(item);
                 newTodoItem.Text = "";
+
+                TileModel.updateTile();
             }
             
         }

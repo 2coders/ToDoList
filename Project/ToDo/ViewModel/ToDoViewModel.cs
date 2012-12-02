@@ -52,7 +52,7 @@ namespace ToDo.ViewModel
             }
         }
 
-        // Done to-do items.
+        // Completed to-do items.
         private ObservableCollection<ToDoItem> _completedToDoItems;
         public ObservableCollection<ToDoItem> CompletedToDoItems
         {
@@ -63,6 +63,8 @@ namespace ToDo.ViewModel
                 NotifyPropertyChanged("CompletedToDoItems");
             }
         }
+
+       
 
         // Write changes in the data context to the database.
         public void SaveChangesToDB()
@@ -120,6 +122,21 @@ namespace ToDo.ViewModel
             // Save changes to the database.
             toDoDB.SubmitChanges();
         }
+
+        public int getIncompletedItemCount()
+        {
+            var incompletedItemsInDB = from ToDoItem todo in toDoDB.Items
+                                     where todo.IsCompleted == false
+                                     select todo;
+            ObservableCollection<ToDoItem> incompletedItems = new ObservableCollection<ToDoItem>(incompletedItemsInDB);
+            if (incompletedItems != null && incompletedItems.Count > 0)
+            {
+                return incompletedItems.Count;
+            }
+            return 0;
+        }
+
+
 
         #region INotifyPropertyChanged Members
 
