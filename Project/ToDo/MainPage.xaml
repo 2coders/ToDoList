@@ -19,13 +19,13 @@
             <StackPanel Orientation="Vertical" Background="Gray" Margin="0,5,0,5">
                 <TextBlock
                     Text="{Binding Title, Mode=OneWay}"
-                    FontSize="{StaticResource PhoneFontSizeSmall}" 
+                    FontSize="32" 
                     MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
 
                 <StackPanel Visibility="Collapsed" Orientation="Horizontal">
                     <Button x:Name="FlagButton" Content="Flag" />
                     <Button x:Name="RemindButton"  Content="Remind" />
-                    <Button x:Name="NoteButton" Content="Note" />
+                    <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
@@ -44,7 +44,7 @@
             <!--<controls:Pivot Margin="0, 0, 0, 0">-->
 
                 <!--<controls:PivotItem Header="All">-->
-                    <ScrollViewer Margin="0,0,0,0"
+                    <ScrollViewer Margin="0,0,0,0" Height="700"
                         VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto"
                         MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp"> 
                         <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">

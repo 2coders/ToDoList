@@ -4,8 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Controls;
 using ToDo.ViewModel;
-
 using ToDo.Model;
+using ToDo.Controls;
 
 namespace ToDo
 {
@@ -96,6 +96,11 @@ namespace ToDo
         private void ScrollViewer_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void NoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            PopupWindow.ShowWindow(new NoteControl());
         }
     }
 }
