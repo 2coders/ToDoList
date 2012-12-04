@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Controls;
-
+using ToDo.ViewModel;
 
 using ToDo.Model;
 
