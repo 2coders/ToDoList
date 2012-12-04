@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Controls;
 
+
 using ToDo.Model;
-using ToDo.ViewModel;
 
 namespace ToDo
 {
     public partial class MainPage : PhoneApplicationPage
     {
         private UIElement shownButtons = null;
-        // 构造函数
+
         public MainPage()
         {
             InitializeComponent();
 
             this.DataContext = App.ViewModel;
-        }
-
-        private void deleteTaskButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -41,10 +37,9 @@ namespace ToDo
 
                 TileModel.updateTile();
             }
-            
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TextBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (shownButtons != null)
             {
@@ -52,16 +47,19 @@ namespace ToDo
             }
             FrameworkElement tbx = sender as FrameworkElement;
             StackPanel parent = tbx.Parent as StackPanel;
-            if((shownButtons = parent.Children[1]) != null)
+            if ((shownButtons != parent.Children[1]) && ((shownButtons = parent.Children[1]) != null))
             {
                 shownButtons.Visibility = System.Windows.Visibility.Visible;
             }
-            
+            else
+            {
+                shownButtons = null;
+            }
         }
 
-        private void TodayTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TodayTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if(todayToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            if (todayToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
             {
                 todayToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
             }
@@ -71,7 +69,7 @@ namespace ToDo
             }
         }
 
-        private void TomorrowTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TomorrowTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (tomorrowToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
             {
@@ -83,7 +81,7 @@ namespace ToDo
             }
         }
 
-        private void LaterTitle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void LaterTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (laterToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
             {
@@ -93,6 +91,11 @@ namespace ToDo
             {
                 laterToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
             }
+        }
+
+        private void ScrollViewer_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
