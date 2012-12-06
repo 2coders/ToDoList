@@ -102,5 +102,15 @@ namespace ToDo
         {
             PopupWindow.ShowWindow(new NoteControl());
         }
+
+        private void FlagButton_Click(object sender, RoutedEventArgs e)
+        {
+            StackPanel panel = (sender as FrameworkElement).Parent as StackPanel;
+            panel = panel.Parent as StackPanel;
+            TextBlock flagTextBlock = (panel.Children[0] as StackPanel).Children[0] as TextBlock;
+            flagTextBlock.Text = (flagTextBlock.Text == "0") ? "1" : "0";
+
+            App.ViewModel.SaveChangesToDB();
+        }
     }
 }

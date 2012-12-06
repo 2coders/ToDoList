@@ -17,13 +17,15 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ToDoListBoxItemTemplate">
             <StackPanel Orientation="Vertical" Background="Gray" Margin="0,5,0,5">
-                <TextBlock
-                    Text="{Binding Title, Mode=OneWay}"
-                    FontSize="32" 
-                    MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>
+                <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
+                    <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
+                    <TextBlock
+                        Text="{Binding Title, Mode=TwoWay}"
+                        FontSize="32" />
+                </StackPanel>
 
                 <StackPanel Visibility="Collapsed" Orientation="Horizontal">
-                    <Button x:Name="FlagButton" Content="Flag" />
+                    <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" />
                     <Button x:Name="RemindButton"  Content="Remind" />
                     <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
                 </StackPanel>

@@ -78,6 +78,7 @@ namespace ToDo.ViewModel
 
             var todayToDoItemsInDB = from ToDoItem todo in toDoDB.Items
                                      where todo.RemindTime < System.DateTime.Today.AddDays(1)
+                                     orderby todo.Priority descending
                                      select todo;
             TodayToDoItems = new ObservableCollection<ToDoItem>(todayToDoItemsInDB);
 
