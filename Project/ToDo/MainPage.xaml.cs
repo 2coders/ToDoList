@@ -37,6 +37,7 @@ namespace ToDo
 
                 TileModel.updateTile();
             }
+            
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -111,6 +112,16 @@ namespace ToDo
             flagTextBlock.Text = (flagTextBlock.Text == "0") ? "1" : "0";
 
             App.ViewModel.SaveChangesToDB();
+        }
+
+        private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showNewNote(object sender, EventArgs e)
+        {
+            PopupWindow.ShowWindow(new NoteControl());
         }
     }
 }

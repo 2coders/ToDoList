@@ -86,6 +86,7 @@ namespace ToDo.Controls
 
         public static void ShowWindow(Control control)
         {
+            
             if (mWindow == null)
             {
                 mWindow = new PopupWindow { content = control };
