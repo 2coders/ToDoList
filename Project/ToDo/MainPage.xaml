@@ -33,29 +33,18 @@
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
-    <StackPanel x:Name="LayoutRoot" Background="Transparent" Margin="0,0,0,0">
-        
-        <StackPanel x:Name="TopBar" Grid.Row="0" Margin="0" Orientation="Horizontal">
-            <TextBox x:Name="newTodoItem" Margin="0" Width="402" />
+    <StackPanel x:Name="LayoutRoot" Background="White" Margin="0,0,0,0">
 
-            <Button x:Name="add" Content="+" Click="add_Click" Width="74"></Button>
-        </StackPanel>
-
-        <!--ContentPanel - place additional content here.-->
-        <!--<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">-->
-            <!--<controls:Pivot Margin="0, 0, 0, 0">-->
-
-                <!--<controls:PivotItem Header="All">-->
-                    <ScrollViewer Margin="0,0,0,0" Height="700"
+        <ScrollViewer Margin="0,0,0,0" Height="700"
                         VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto"
-                        MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp"> 
-                        <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">
-                            <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" 
+                        MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
+            <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="12,17,0,28">
+                <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" 
                                        Style="{StaticResource PhoneTextTitle1Style}" 
                                        FontStyle="Normal"
-                                       MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp"/>
+                                       MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp" Foreground="{StaticResource PhoneAccentBrush}"/>
 
-                            <ListBox 
+                <ListBox 
                                 x:Name="todayToDoItemsListBox" 
                                 Visibility="Visible"
                                 ItemsSource="{Binding TodayToDoItems}" 
@@ -63,12 +52,13 @@
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                 ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                            <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" 
+                <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" 
                                        Style="{StaticResource PhoneTextTitle1Style}" 
                                        FontStyle="Normal"
+                                        Foreground="{StaticResource PhoneAccentBrush}"
                                        MouseLeftButtonUp="TomorrowTitle_MouseLeftButtonUp"/>
 
-                            <ListBox 
+                <ListBox 
                                 x:Name="tomorrowToDoItemsListBox" 
                                 Visibility="Collapsed"
                                 ItemsSource="{Binding TodayToDoItems}" 
@@ -76,37 +66,32 @@
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                 ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                            <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0"
+                <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0"
                                        Style="{StaticResource PhoneTextTitle1Style}"
                                        FontStyle="Normal"
+                                       Foreground="{StaticResource PhoneAccentBrush}"
                                        MouseLeftButtonUp="LaterTitle_MouseLeftButtonUp"/>
 
-                            <ListBox 
+                <ListBox 
                                 x:Name="laterToDoItemsListBox" 
                                 Visibility="Collapsed"
                                 ItemsSource="{Binding TodayToDoItems}" 
                                 Margin="12, 0, 12, 0" Width="440" 
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                 ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
-                        
-                        </StackPanel>
 
-                    </ScrollViewer>
-                <!--</controls:PivotItem>-->
+            </StackPanel>
 
-                <!--<controls:PivotItem Header="Setting">
-                </controls:PivotItem>-->
+        </ScrollViewer>
 
-            <!--</controls:Pivot>-->
-        <!--</Grid>-->
 
     </StackPanel>
 
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="showNewNote"/>
-       
+            <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="showNewNote_click"/>
+
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="编辑"/>
                 <shell:ApplicationBarMenuItem Text="设置"/>

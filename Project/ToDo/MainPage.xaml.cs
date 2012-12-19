@@ -20,26 +20,6 @@ namespace ToDo
             this.DataContext = App.ViewModel;
         }
 
-        private void add_Click(object sender, RoutedEventArgs e)
-        {
-            if (newTodoItem.Text.Length > 0)
-            {
-                ToDoItem item = new ToDoItem();
-                item.Title = newTodoItem.Text;
-                item.CreateTime = DateTime.Now;
-                item.RemindTime = DateTime.Now;
-                item.IsCompleted = false;
-                item.Note = "";
-                item.Priority = 0;
-
-                App.ViewModel.AddToDoItem(item);
-                newTodoItem.Text = "";
-
-                TileModel.updateTile();
-            }
-            
-        }
-
         private void TextBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (shownButtons != null)
@@ -114,9 +94,9 @@ namespace ToDo
             App.ViewModel.SaveChangesToDB();
         }
 
-        private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
+        private void showNewNote_click(object sender, EventArgs e)
         {
-
+            PopupWindow.ShowWindow(new NoteControl());
         }
 
         private void showNewNote(object sender, EventArgs e)

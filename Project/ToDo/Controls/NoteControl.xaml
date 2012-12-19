@@ -10,7 +10,7 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
-        <Button Content="是" Height="72" HorizontalAlignment="Left" Margin="48,213,0,0" Name="button1" VerticalAlignment="Top" Width="160" />
+        <Button Content="是" Height="72" HorizontalAlignment="Left" Margin="48,213,0,0" Name="positiveBtn" VerticalAlignment="Top" Width="160" Click="positiveBtn_Click" />
         <Button Content="关闭" Height="72" HorizontalAlignment="Left" Margin="257,213,0,0" Name="button2" VerticalAlignment="Top" Width="160" Click="button2_Click" />
         <TextBox x:Name="ContentTextBox" Height="200" HorizontalAlignment="Left" Margin="48,23,0,0" VerticalAlignment="Top" Width="369" />
     </Grid>
