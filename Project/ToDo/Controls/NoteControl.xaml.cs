@@ -36,25 +36,33 @@ namespace ToDo.Controls
 
         private void positiveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ContentTextBox.Text.Length > 0)
+            string content = ContentTextBox.Text;
+            if (content.Length > 0)
             {
-                ToDoItem item = new ToDoItem();
-                item.Title = ContentTextBox.Text;
-                item.CreateTime = DateTime.Now;
-                item.RemindTime = DateTime.Now;
-                item.IsCompleted = false;
-                item.Note = "";
-                item.Priority = 0;
-
-                App.ViewModel.AddToDoItem(item);
+                addNewsItem(content);
                 ContentTextBox.Text = "";
-
                 TileModel.updateTile();
                 PopupWindow.HideWindow();
             }
         }
 
-      
+        #region 增加新项目
+        private void addNewsItem(string content)
+        {
+            ToDoItem item = new ToDoItem();
+            item.Title = content;
+            item.CreateTime = DateTime.Now;
+            item.RemindTime = DateTime.Now;
+            item.IsCompleted = false;
+            item.Note = "";
+            item.Priority = 0;
+            App.ViewModel.AddToDoItem(item);
+
+            System.Diagnostics.Debug.WriteLine("Debug Message");
+        }
+        #endregion
+
+
 
     }
 }
