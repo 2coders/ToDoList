@@ -22,13 +22,6 @@ namespace ToDo.Controls
             InitializeComponent();
         }
 
-
-
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-            PopupWindow.HideWindow();
-        }
-
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
             ContentTextBox.Focus();
@@ -61,6 +54,11 @@ namespace ToDo.Controls
             System.Diagnostics.Debug.WriteLine("Debug Message");
         }
         #endregion
+
+        private void UserControl_Tap(object sender, GestureEventArgs e)
+        {
+            PopupWindow.HideWindow();
+        }
 
 
 
