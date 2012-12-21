@@ -30,23 +30,20 @@
         <!--ContentPanel - 在此处放置其他内容-->
         <StackPanel x:Name="TitlePanel2" Grid.Row="1" Margin="12,17,0,28">
 
-            <toolkit:DatePicker x:Name="datePicker" Header="DatePicker日期选择控件"
- Value="2/3/2010" />
-            <toolkit:TimePicker x:Name="timePicker" Header="TimePicker时间选择控件"
- ValueStringFormat="{}{0:T}"/>
+            <ToggleButton x:Name="reminder_switch" Width="100" />
+            <toolkit:DatePicker x:Name="datePicker" Header="Remind Date"
+ Value="" />
+            <toolkit:TimePicker x:Name="timePicker" Header="Remind Time"
+ ValueStringFormat="{}{0:t}"/>
         </StackPanel>
     </Grid>
  
     <!--演示 ApplicationBar 用法的示例代码-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="按钮 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="按钮 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="菜单项 1"/>
-                <shell:ApplicationBarMenuItem Text="菜单项 2"/>
-            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/done.png" Text="done"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/cancel.png" Text="cancel"/>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

@@ -103,5 +103,10 @@ namespace ToDo
         {
             PopupWindow.ShowWindow(new NoteControl());
         }
+
+        private void Remind_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/ReminderPage.xaml", UriKind.Relative));
+        }
     }
 }

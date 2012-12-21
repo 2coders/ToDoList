@@ -73,8 +73,8 @@
     </Compile>
     <Compile Include="Model\ToDoDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemiderPage.xaml.cs">
-      <DependentUpon>RemiderPage.xaml</DependentUpon>
+    <Compile Include="ReminderPage.xaml.cs">
+      <DependentUpon>ReminderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TileModel.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
@@ -92,7 +92,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RemiderPage.xaml">
+    <Page Include="ReminderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,7 +116,7 @@
     </Content>
     <Content Include="Images\add.png" />
     <Content Include="Images\cancel.png" />
-    <Content Include="Images\check.png" />
+    <Content Include="Images\done.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\favs.png" />
