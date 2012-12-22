@@ -7,12 +7,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:ToDo.Converters"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <local:DateConverter x:Key="DateConverter" />
+        <local:TimeConverter x:Key="TimeConverter" />
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -30,16 +36,16 @@
         <!--ContentPanel - 在此处放置其他内容-->
         <StackPanel x:Name="TitlePanel2" Grid.Row="1" Margin="12,17,0,28">
             <ToggleButton x:Name="reminder_switch" Width="100" />
-            <toolkit:DatePicker x:Name="datePicker" Header="Remind Date" Value="" />
-            <toolkit:TimePicker x:Name="timePicker" Header="Remind Time" ValueStringFormat="{}{0:t}"/>
+            <toolkit:DatePicker x:Name="datePicker" Header="Remind Date" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource DateConverter}}" />
+            <toolkit:TimePicker x:Name="timePicker" Header="Remind Time" ValueStringFormat="{}{0:t}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource TimeConverter}}"/>
         </StackPanel>
     </Grid>
 
     <!--演示 ApplicationBar 用法的示例代码-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="date_picker" IconUri="/Images/done.png" Text="done" Click="ApplicationBarDone_Click"/>
-            <shell:ApplicationBarIconButton x:Name="time_picker" IconUri="/Images/cancel.png" Text="cancel"/>
+            <shell:ApplicationBarIconButton x:Name="done" IconUri="/Images/done.png" Text="done" Click="ApplicationBarDone_Click"/>
+            <shell:ApplicationBarIconButton x:Name="cancel" IconUri="/Images/cancel.png" Text="cancel" Click="ApplicationBarCancel_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

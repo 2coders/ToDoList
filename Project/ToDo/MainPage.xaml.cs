@@ -112,7 +112,12 @@ namespace ToDo
 
         private void Remind_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/ReminderPage.xaml?id=", UriKind.Relative));
+            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            if (item != null)
+            {
+                App.TodoParams = item;
+                NavigationService.Navigate(new Uri("/ReminderPage.xaml", UriKind.Relative));
+            }
         }
     }
 }

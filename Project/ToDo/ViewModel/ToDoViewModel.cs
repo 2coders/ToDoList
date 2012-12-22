@@ -140,7 +140,6 @@ namespace ToDo.ViewModel
         // Write changes in the data context to the database.
         public void SaveChangesToDB()
         {
-
             toDoDBContext.SubmitChanges();
         }
 

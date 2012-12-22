@@ -26,6 +26,9 @@ namespace ToDo
             get { return viewModel; }
         }
 
+        // The static params
+        public static ToDoItem TodoParams { get; set; }
+
         /// <summary>
         ///提供对电话应用程序的根框架的轻松访问。
         /// </summary>

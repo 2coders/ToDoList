@@ -11,27 +11,33 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using ToDo.Model;
+using System.Diagnostics;
 
 namespace ToDo
 {
     public partial class RemiderPage : PhoneApplicationPage
     {
-        private int id;
 
         public RemiderPage()
         {
             InitializeComponent();
-            this.DataContext = App.ViewModel;
-
-            id = int.Parse(NavigationContext.QueryString["id"]);
+            this.DataContext = App.TodoParams;
         }
 
         private void ApplicationBarDone_Click(object sender, EventArgs e)
         {
-            string date = this.date_picker.Text;
-            string time = this.time_picker.Text;
-            DateTime newDateTime = Convert.ToDateTime(date + time);
-            App.ViewModel.updateRemindTime(id, newDateTime);
+            string date = this.datePicker.ValueString;
+            string time = this.timePicker.ValueString;
+            Debug.WriteLine(date + time);
+            DateTime newDateTime = Convert.ToDateTime(date + " "+ time);
+            App.ViewModel.updateRemindTime(App.TodoParams.Id, newDateTime);
+
+            NavigationService.GoBack();
+        }
+
+        private void ApplicationBarCancel_Click(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
         

@@ -38,7 +38,6 @@ namespace ToDo.Controls
             ToDoItem item = new ToDoItem();
             item.Title = content;
             item.CreateTime = DateTime.Now;
-            item.RemindTime = DateTime.Now;
             item.IsCompleted = false;
             item.Note = "";
             item.Priority = 0;
@@ -48,7 +47,7 @@ namespace ToDo.Controls
         }
         #endregion
 
-
+       
 
 
     }

@@ -68,6 +68,8 @@
       <DependentUpon>NoteControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupWindow.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -130,7 +132,6 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
