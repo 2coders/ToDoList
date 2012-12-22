@@ -30,7 +30,8 @@ namespace ToDo
             string time = this.timePicker.ValueString;
             Debug.WriteLine(date + time);
             DateTime newDateTime = Convert.ToDateTime(date + " "+ time);
-            App.ViewModel.updateRemindTime(App.TodoParams.Id, newDateTime);
+            App.TodoParams.RemindTime = newDateTime;
+            App.ViewModel.SaveChangesToDB();
 
             NavigationService.GoBack();
         }
