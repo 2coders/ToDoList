@@ -27,16 +27,9 @@ namespace ToDo.Controls
             ContentTextBox.Focus();
         }
 
-        private void positiveBtn_Click(object sender, RoutedEventArgs e)
+        private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            string content = ContentTextBox.Text;
-            if (content.Length > 0)
-            {
-                addNewsItem(content);
-                ContentTextBox.Text = "";
-                TileModel.updateTile();
-                PopupWindow.HideWindow();
-            }
+            PopupWindow.HideWindow();
         }
 
         #region 增加新项目
@@ -55,10 +48,6 @@ namespace ToDo.Controls
         }
         #endregion
 
-        private void UserControl_Tap(object sender, GestureEventArgs e)
-        {
-            PopupWindow.HideWindow();
-        }
 
 
 
