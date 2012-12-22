@@ -81,7 +81,13 @@ namespace ToDo
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
         {
-            PopupWindow.ShowWindow(new NoteControl());
+            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            if (item != null)
+            {
+                PopupWindow.ShowWindow(new NoteControl());
+                MessageBox.Show(item.ToString());
+            }
+            
         }
 
         private void FlagButton_Click(object sender, RoutedEventArgs e)
@@ -106,7 +112,7 @@ namespace ToDo
 
         private void Remind_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/ReminderPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/ReminderPage.xaml?id=", UriKind.Relative));
         }
     }
 }

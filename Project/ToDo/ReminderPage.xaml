@@ -41,8 +41,8 @@
     <!--演示 ApplicationBar 用法的示例代码-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/done.png" Text="done"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/cancel.png" Text="cancel"/>
+            <shell:ApplicationBarIconButton x:Name="date_picker" IconUri="/Images/done.png" Text="done" Click="ApplicationBarDone_Click"/>
+            <shell:ApplicationBarIconButton x:Name="time_picker" IconUri="/Images/cancel.png" Text="cancel"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

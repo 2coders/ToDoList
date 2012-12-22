@@ -16,7 +16,7 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ToDoListBoxItemTemplate">
-            <StackPanel Orientation="Vertical" Width="480"  Background="Gray" Margin="0,5,0,5">
+            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,5,0,5">
                 <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
                     <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
                     <TextBlock
@@ -32,53 +32,56 @@
             </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
+    
 
-    <StackPanel x:Name="LayoutRoot" Background="White" Margin="0,0,0,0">
+    <StackPanel x:Name="LayoutRoot" Background="White" Width="Auto" Height="800" Margin="0,0,0,0">
 
         <ScrollViewer Margin="0,0,0,0" Height="Auto" 
-                        VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Visible"
+                        HorizontalScrollBarVisibility="Disabled"
                         MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
             <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="0,0,0,0">
                 <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" 
-                                       Style="{StaticResource PhoneTextTitle1Style}" 
-                                       FontStyle="Normal"
-                                       MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp" Foreground="{StaticResource PhoneAccentBrush}"/>
+                           Style="{StaticResource PhoneTextTitle1Style}" 
+                           FontStyle="Normal"
+                           MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp"
+                           Foreground="{StaticResource PhoneAccentBrush}"/>
 
                 <ListBox 
-                                x:Name="todayToDoItemsListBox" 
-                                Visibility="Visible"
-                                ItemsSource="{Binding TodayToDoItems}" 
-                                Margin="12, 0, 12, 0" Width="440" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            x:Name="todayToDoItemsListBox" 
+                            Visibility="Visible"
+                            ItemsSource="{Binding TodayToDoItems}" 
+                            Margin="12, 0, 12, 0" Width="440" 
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
                 <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" 
-                                       Style="{StaticResource PhoneTextTitle1Style}" 
-                                       FontStyle="Normal"
-                                        Foreground="{StaticResource PhoneAccentBrush}"
-                                       MouseLeftButtonUp="TomorrowTitle_MouseLeftButtonUp"/>
+                            Style="{StaticResource PhoneTextTitle1Style}" 
+                            FontStyle="Normal"
+                            Foreground="{StaticResource PhoneAccentBrush}"
+                            MouseLeftButtonUp="TomorrowTitle_MouseLeftButtonUp"/>
 
                 <ListBox 
-                                x:Name="tomorrowToDoItemsListBox" 
-                                Visibility="Collapsed"
-                                ItemsSource="{Binding TomorrowToDoItems}" 
-                                Margin="12, 0, 12, 0" Width="440" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            x:Name="tomorrowToDoItemsListBox" 
+                            Visibility="Collapsed"
+                            ItemsSource="{Binding TomorrowToDoItems}" 
+                            Margin="12, 0, 12, 0" Width="440" 
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
                 <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0"
-                                       Style="{StaticResource PhoneTextTitle1Style}"
-                                       FontStyle="Normal"
-                                       Foreground="{StaticResource PhoneAccentBrush}"
-                                       MouseLeftButtonUp="LaterTitle_MouseLeftButtonUp"/>
+                            Style="{StaticResource PhoneTextTitle1Style}"
+                            FontStyle="Normal"
+                            Foreground="{StaticResource PhoneAccentBrush}"
+                            MouseLeftButtonUp="LaterTitle_MouseLeftButtonUp"/>
 
                 <ListBox 
-                                x:Name="laterToDoItemsListBox" 
-                                Visibility="Collapsed"
-                                ItemsSource="{Binding LaterToDoItems}" 
-                                Margin="12, 0, 12, 0" Width="440" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                            x:Name="laterToDoItemsListBox" 
+                            Visibility="Collapsed"
+                            ItemsSource="{Binding LaterToDoItems}" 
+                            Margin="12, 0, 12, 0" Width="440" 
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
             </StackPanel>
 

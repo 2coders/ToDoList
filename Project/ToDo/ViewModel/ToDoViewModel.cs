@@ -2,18 +2,19 @@
 using ToDo.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System;
 
 namespace ToDo.ViewModel
 {
     public class ToDoViewModel : INotifyPropertyChanged
     {
          // LINQ to SQL data context for the local database.
-        private ToDoDataContext toDoDB;
+        private ToDoDataContext toDoDBContext;
 
         // Class constructor, create the data context object.
         public ToDoViewModel(string toDoDBConnectionString)
         {
-            toDoDB = new ToDoDataContext(toDoDBConnectionString);
+            toDoDBContext = new ToDoDataContext(toDoDBConnectionString);
         }
 
         // Today to-do items.
@@ -64,36 +65,29 @@ namespace ToDo.ViewModel
             }
         }
 
-       
-
-        // Write changes in the data context to the database.
-        public void SaveChangesToDB()
-        {
-            toDoDB.SubmitChanges();
-        }
 
         // Query database and load the collections and list used by the pivot pages.
         public void LoadCollectionsFromDatabase()
         {
 
-            var todayToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+            var todayToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.RemindTime < System.DateTime.Today.AddDays(1)
                                      orderby todo.Priority descending
                                      select todo;
             TodayToDoItems = new ObservableCollection<ToDoItem>(todayToDoItemsInDB);
 
-            var tomorrowToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+            var tomorrowToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                         where todo.RemindTime < System.DateTime.Today.AddDays(2)
                                         && todo.RemindTime > System.DateTime.Today.AddDays(1)
                                      select todo;
             TomorrowToDoItems = new ObservableCollection<ToDoItem>(tomorrowToDoItemsInDB);
 
-            var laterToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+            var laterToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                         where todo.RemindTime > System.DateTime.Today.AddDays(2)
                                         select todo;
             LaterToDoItems = new ObservableCollection<ToDoItem>(laterToDoItemsInDB);
 
-            var completedToDoItemsInDB = from ToDoItem todo in toDoDB.Items
+            var completedToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.IsCompleted == true
                                      select todo;
             CompletedToDoItems = new ObservableCollection<ToDoItem>(completedToDoItemsInDB);
@@ -104,10 +98,10 @@ namespace ToDo.ViewModel
         public void AddToDoItem(ToDoItem newToDoItem)
         {
             // Add a to-do item to the data context.
-            toDoDB.Items.InsertOnSubmit(newToDoItem);
+            toDoDBContext.Items.InsertOnSubmit(newToDoItem);
 
             // Save changes to the database.
-            toDoDB.SubmitChanges();
+            toDoDBContext.SubmitChanges();
 
             // Add a to-do item to the "all" observable collection.
             TodayToDoItems.Add(newToDoItem);
@@ -118,15 +112,41 @@ namespace ToDo.ViewModel
         {
 
             // Remove the to-do item from the data context.
-            toDoDB.Items.DeleteOnSubmit(toDoForDelete);
+            toDoDBContext.Items.DeleteOnSubmit(toDoForDelete);
 
             // Save changes to the database.
-            toDoDB.SubmitChanges();
+            toDoDBContext.SubmitChanges();
+        }
+
+        // Write changes in the data context to the database. 
+        public void updateToDoItem(ToDoItem newItem)
+        {
+            ToDoItem oldItem = toDoDBContext.Items.Single(item => item.Id == newItem.Id);
+            oldItem.IsCompleted = newItem.IsCompleted;
+            oldItem.Note = newItem.Note;
+            oldItem.Priority = newItem.Priority;
+            oldItem.RemindTime = newItem.RemindTime;
+            oldItem.Title = newItem.Title;
+            toDoDBContext.SubmitChanges();
+        }
+
+        public void updateRemindTime(int id, DateTime newDateTime)
+        {
+            ToDoItem oldItem = toDoDBContext.Items.Single(item => item.Id == id);
+            oldItem.RemindTime = newDateTime;
+            toDoDBContext.SubmitChanges();
+        }
+
+        // Write changes in the data context to the database.
+        public void SaveChangesToDB()
+        {
+
+            toDoDBContext.SubmitChanges();
         }
 
         public int getIncompletedItemCount()
         {
-            var incompletedItemsInDB = from ToDoItem todo in toDoDB.Items
+            var incompletedItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.IsCompleted == false
                                      select todo;
             ObservableCollection<ToDoItem> incompletedItems = new ObservableCollection<ToDoItem>(incompletedItemsInDB);
