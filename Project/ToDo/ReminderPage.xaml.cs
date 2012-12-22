@@ -40,6 +40,18 @@ namespace ToDo
             NavigationService.GoBack();
         }
 
+        private void reminderSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.datePicker.IsEnabled = false;
+            this.timePicker.IsEnabled = false;
+        }
+
+        private void reminderSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            this.datePicker.IsEnabled = true;
+            this.timePicker.IsEnabled = true;
+        }
+
         
     }
 }
