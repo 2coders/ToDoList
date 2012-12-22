@@ -29,15 +29,12 @@
 
         <!--ContentPanel - 在此处放置其他内容-->
         <StackPanel x:Name="TitlePanel2" Grid.Row="1" Margin="12,17,0,28">
-
             <ToggleButton x:Name="reminder_switch" Width="100" />
-            <toolkit:DatePicker x:Name="datePicker" Header="Remind Date"
- Value="" />
-            <toolkit:TimePicker x:Name="timePicker" Header="Remind Time"
- ValueStringFormat="{}{0:t}"/>
+            <toolkit:DatePicker x:Name="datePicker" Header="Remind Date" Value="" />
+            <toolkit:TimePicker x:Name="timePicker" Header="Remind Time" ValueStringFormat="{}{0:t}"/>
         </StackPanel>
     </Grid>
- 
+
     <!--演示 ApplicationBar 用法的示例代码-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
