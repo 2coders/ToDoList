@@ -15,6 +15,7 @@
                  Margin="48,23,0,0" VerticalAlignment="Top" Width="369"
                  Background="Transparent" BorderThickness="0"
                  TextWrapping="Wrap" AcceptsReturn="True" 
-                 LostFocus="ContentTextBox_LostFocus" />
+                 LostFocus="ContentTextBox_LostFocus"
+                 Text="{Binding Note, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

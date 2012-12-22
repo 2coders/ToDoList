@@ -84,8 +84,7 @@ namespace ToDo
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
-                PopupWindow.ShowWindow(new NoteControl());
-                MessageBox.Show(item.ToString());
+                PopupWindow.ShowWindow(new NoteControl(item));
             }
             
         }

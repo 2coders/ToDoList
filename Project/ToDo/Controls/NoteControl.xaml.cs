@@ -22,13 +22,21 @@ namespace ToDo.Controls
             InitializeComponent();
         }
 
+        public NoteControl(ToDoItem item)
+            : this()
+        {
+            this.DataContext = item;
+        }
+
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
             ContentTextBox.Focus();
+            ContentTextBox.SelectionStart = ContentTextBox.Text.Length;
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
         }
 
