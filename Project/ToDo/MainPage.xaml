@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<phone:PhoneApplicationPage
     x:Class="ToDo.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -15,25 +15,25 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls">
 
     <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="ToDoListBoxItemTemplate">
-            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,0,0,2">
-                <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
-                    <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
-                    <TextBlock
-                        Text="{Binding Title, Mode=TwoWay}"
-                        FontSize="32" />
-                </StackPanel>
+            <DataTemplate x:Key="ListItemTemplate">
+                <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="-50,5,0,5">
+                    <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
+                        <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Title, Mode=TwoWay}" FontSize="32" />
+                    </StackPanel>
 
-                <StackPanel Visibility="Collapsed" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Visibility="Collapsed" Orientation="Horizontal">
                         <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" />
                         <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click"/>
                         <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
                     </StackPanel>
-                    <TextBlock Text="{Binding Note}" Width="480" TextWrapping="Wrap"/>
                 </StackPanel>
-            </StackPanel>
+            </DataTemplate>
+
+        <DataTemplate x:Key="ExpanderTemplate">
+            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,5,0,5" />
         </DataTemplate>
+
     </phone:PhoneApplicationPage.Resources>
 
 
@@ -41,55 +41,64 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-       
+
 
         <ScrollViewer Margin="5,0,5,0" Height="Auto" 
                         VerticalScrollBarVisibility="Visible"
                         HorizontalScrollBarVisibility="Disabled"
                         MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
-            
+
             <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="0,0,0,0">
-                <TextBlock x:Name="TodayTitle" Text="Today" Margin="0,0,0,0" 
-                           Style="{StaticResource PhoneTextTitle1Style}" 
-                           FontStyle="Normal"
-                           MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp"
-                           Foreground="{StaticResource PhoneAccentBrush}"/>
 
-                <ListBox 
-                            x:Name="todayToDoItemsListBox" 
-                            Visibility="Visible"
-                            ItemsSource="{Binding TodayToDoItems}" 
-                            Margin="0,0,0,0"
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                <toolkit:ExpanderView IsExpanded="True" 
+                                      Header="Today"
+                                      FontSize="40"
+                                      x:Name="todayToDoItemsListBox"
+                                      FontStyle="Normal"
+                                      Foreground="{StaticResource PhoneAccentBrush}"
+                                      HorizontalAlignment="Left" 
+                                      Height="Auto" Margin="10,66,0,0"
+                                      VerticalAlignment="Top" 
+                                      ItemsSource="{Binding TodayToDoItems}"
+                                      ExpanderTemplate="{StaticResource ExpanderTemplate}"
+                                      ItemTemplate="{StaticResource ListItemTemplate}"
+                                      Width="Auto">
+                    <!--<toolkit:ExpanderView.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="40" Text="{Binding Header}"/>
+                        </DataTemplate>
+                        
+                    </toolkit:ExpanderView.HeaderTemplate>-->
+                   
+                </toolkit:ExpanderView>
 
-                <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="0,0,0,0" 
-                            Style="{StaticResource PhoneTextTitle1Style}" 
-                            FontStyle="Normal"
-                            Foreground="{StaticResource PhoneAccentBrush}"
-                            MouseLeftButtonUp="TomorrowTitle_MouseLeftButtonUp"/>
+                <toolkit:ExpanderView IsExpanded="True" 
+                                      Header="Tomorrow"
+                                      FontSize="40"
+                                      x:Name="tomorrowToDoItemsListBox"
+                                      FontStyle="Normal"
+                                      Foreground="{StaticResource PhoneAccentBrush}"
+                                      HorizontalAlignment="Left" 
+                                      Height="Auto" Margin="10,66,0,0"
+                                      VerticalAlignment="Top" 
+                                      ItemsSource="{Binding TomorrowToDoItems}"
+                                      ItemTemplate="{StaticResource ListItemTemplate}"
+                                      ExpanderTemplate="{StaticResource ExpanderTemplate}"
+                                      Width="Auto" />
 
-                <ListBox 
-                            x:Name="tomorrowToDoItemsListBox" 
-                            Visibility="Collapsed"
-                            ItemsSource="{Binding TomorrowToDoItems}" 
-                            Margin="0,0,0,0" Width="440" 
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
-
-                <TextBlock x:Name="LaterTitle" Text="Later" Margin="0,0,0,0"
-                            Style="{StaticResource PhoneTextTitle1Style}"
-                            FontStyle="Normal"
-                            Foreground="{StaticResource PhoneAccentBrush}"
-                            MouseLeftButtonUp="LaterTitle_MouseLeftButtonUp"/>
-
-                <ListBox 
-                            x:Name="laterToDoItemsListBox" 
-                            Visibility="Collapsed"
-                            ItemsSource="{Binding LaterToDoItems}" 
-                            Margin="0,0,0,0" Width="440" 
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                            ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
+                <toolkit:ExpanderView IsExpanded="True" 
+                                      Header="Later"
+                                      FontSize="40"
+                                      x:Name="laterToDoItemsListBox"
+                                      FontStyle="Normal"
+                                      Foreground="{StaticResource PhoneAccentBrush}"
+                                      HorizontalAlignment="Left" 
+                                      Height="Auto" Margin="10,66,0,0"
+                                      VerticalAlignment="Top" 
+                                      ItemTemplate="{StaticResource ListItemTemplate}"
+                                      ExpanderTemplate="{StaticResource ExpanderTemplate}"
+                                      ItemsSource="{Binding LaterToDoItems}" 
+                                      Width="Auto"/>
 
             </StackPanel>
 

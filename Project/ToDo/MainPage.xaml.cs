@@ -40,26 +40,26 @@ namespace ToDo
 
         private void TodayTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (todayToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
-            {
-                todayToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else
-            {
-                todayToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
-            }
+            //if (todayToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            //{
+            //    todayToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    todayToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
+            //}
         }
 
         private void TomorrowTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (tomorrowToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
-            {
-                tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else
-            {
-                tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
-            }
+            //if (tomorrowToDoItemsListBox.Visibility == System.Windows.Visibility.Visible)
+            //{
+            //    tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    tomorrowToDoItemsListBox.Visibility = System.Windows.Visibility.Visible;
+            //}
         }
 
         private void LaterTitle_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
