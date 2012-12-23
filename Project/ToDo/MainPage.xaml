@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -16,7 +16,7 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ToDoListBoxItemTemplate">
-            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,5,0,5">
+            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,0,0,2">
                 <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
                     <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
                     <TextBlock
@@ -24,10 +24,13 @@
                         FontSize="32" />
                 </StackPanel>
 
-                <StackPanel Visibility="Collapsed" Orientation="Horizontal">
-                    <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" />
-                    <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click"/>
-                    <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
+                <StackPanel Visibility="Collapsed" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" />
+                        <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click"/>
+                        <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Note}" Width="480" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
@@ -40,13 +43,13 @@
         </Grid.RowDefinitions>
        
 
-        <ScrollViewer Margin="0,0,0,0" Height="Auto" 
+        <ScrollViewer Margin="5,0,5,0" Height="Auto" 
                         VerticalScrollBarVisibility="Visible"
                         HorizontalScrollBarVisibility="Disabled"
                         MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
             
             <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="0,0,0,0">
-                <TextBlock x:Name="TodayTitle" Text="Today" Margin="9,-7,0,0" 
+                <TextBlock x:Name="TodayTitle" Text="Today" Margin="0,0,0,0" 
                            Style="{StaticResource PhoneTextTitle1Style}" 
                            FontStyle="Normal"
                            MouseLeftButtonUp="TodayTitle_MouseLeftButtonUp"
@@ -56,11 +59,11 @@
                             x:Name="todayToDoItemsListBox" 
                             Visibility="Visible"
                             ItemsSource="{Binding TodayToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
+                            Margin="0,0,0,0"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                             ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="9,-7,0,0" 
+                <TextBlock x:Name="TomorrowTitle" Text="Tomorrow" Margin="0,0,0,0" 
                             Style="{StaticResource PhoneTextTitle1Style}" 
                             FontStyle="Normal"
                             Foreground="{StaticResource PhoneAccentBrush}"
@@ -70,11 +73,11 @@
                             x:Name="tomorrowToDoItemsListBox" 
                             Visibility="Collapsed"
                             ItemsSource="{Binding TomorrowToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
+                            Margin="0,0,0,0" Width="440" 
                             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                             ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
-                <TextBlock x:Name="LaterTitle" Text="Later" Margin="9,-7,0,0"
+                <TextBlock x:Name="LaterTitle" Text="Later" Margin="0,0,0,0"
                             Style="{StaticResource PhoneTextTitle1Style}"
                             FontStyle="Normal"
                             Foreground="{StaticResource PhoneAccentBrush}"
@@ -84,7 +87,7 @@
                             x:Name="laterToDoItemsListBox" 
                             Visibility="Collapsed"
                             ItemsSource="{Binding LaterToDoItems}" 
-                            Margin="12, 0, 12, 0" Width="440" 
+                            Margin="0,0,0,0" Width="440" 
                             ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                             ItemTemplate="{StaticResource ToDoListBoxItemTemplate}" />
 
