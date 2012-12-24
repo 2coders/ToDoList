@@ -115,7 +115,7 @@ namespace ToDo
             if (item != null)
             {
                 App.TodoParams = item;
-                NavigationService.Navigate(new Uri("/ReminderPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("ReminderPage.xaml", UriKind.Relative));
             }
         }
     }
