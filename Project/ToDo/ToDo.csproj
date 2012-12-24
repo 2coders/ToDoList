@@ -73,15 +73,12 @@
     <Compile Include="Controls\PopupWindow.cs" />
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
-    <Compile Include="ExpanderView.xaml.cs">
-      <DependentUpon>ExpanderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ToDoDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReminderPage.xaml.cs">
+    <Compile Include="Views\ReminderPage.xaml.cs">
       <DependentUpon>ReminderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TileModel.cs" />
@@ -96,15 +93,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpanderView.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ReminderPage.xaml">
+    <Page Include="Views\ReminderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,9 +139,7 @@
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
