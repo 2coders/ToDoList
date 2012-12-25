@@ -53,7 +53,7 @@
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Today"
                                       FontSize="40"
-                                      x:Name="todayToDoItemsListBox"
+                                      x:Name="todayExpanderView"
                                       FontStyle="Normal"
                                       Foreground="{StaticResource PhoneAccentBrush}"
                                       HorizontalAlignment="Left" 

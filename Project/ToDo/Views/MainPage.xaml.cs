@@ -6,6 +6,7 @@ using Microsoft.Phone.Controls;
 using ToDo.ViewModel;
 using ToDo.Model;
 using ToDo.Controls;
+using ToDo.Utils;
 
 namespace ToDo
 {
@@ -22,15 +23,26 @@ namespace ToDo
 
         private void TextBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (shownButtons != null)
-            {
-                shownButtons.Visibility = System.Windows.Visibility.Collapsed;
-            }
             FrameworkElement tbx = sender as FrameworkElement;
             StackPanel parent = tbx.Parent as StackPanel;
+
+            if (shownButtons != null)
+            {
+
+                if (shownButtons != parent.Children[1])
+                {
+                    shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+                }
+                else
+                {
+                    AnimationUtils.Fold(shownButtons);
+                }
+            }
+            
             if ((shownButtons != parent.Children[1]) && ((shownButtons = parent.Children[1]) != null))
             {
-                shownButtons.Visibility = System.Windows.Visibility.Visible;
+                //AnimationUtils.Expand(shownButtons);
+                AnimationUtils.Split(todayExpanderView, shownButtons as FrameworkElement);
             }
             else
             {
