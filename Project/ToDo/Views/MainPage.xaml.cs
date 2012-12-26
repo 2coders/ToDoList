@@ -103,16 +103,12 @@ namespace ToDo
 
         private void FlagButton_Click(object sender, RoutedEventArgs e)
         {
-            StackPanel panel = (sender as FrameworkElement).Parent as StackPanel;
-            if (panel != null)
+            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            if (item != null)
             {
-                TextBlock flagTextBlock = panel.Children[0] as TextBlock;
-                if (flagTextBlock != null)
-                {
-                    flagTextBlock.Text = (flagTextBlock.Text == "0") ? "1" : "0";
-                    App.ViewModel.SaveChangesToDB();
-                }
-                
+                //switch the priority between 0 and 1
+                item.Priority = 1 - item.Priority;
+                App.ViewModel.SaveChangesToDB();
             }
         }
 

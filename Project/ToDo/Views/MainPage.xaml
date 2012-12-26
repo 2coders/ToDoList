@@ -26,7 +26,6 @@
                 </Border>
 
                 <StackPanel Visibility="Collapsed" Orientation="Horizontal">
-                    <TextBlock Text="{Binding Priority, Mode=TwoWay}" Visibility="Collapsed" />
                     <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                     <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
                     <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
