@@ -8,12 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
+    FontSize="48"
+    Foreground="#FF1BA1E2"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
     xmlns:local="clr-namespace:ToDo.Converters"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480">
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480" BorderBrush="Transparent">
 
     <phone:PhoneApplicationPage.Resources>
 
@@ -21,24 +21,38 @@
         <local:IsCompletedConverter x:Key="IsCompletedConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
-            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="-50,5,0,5">
-                <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
-                        BorderThickness="5,0,0,0" Tap="Border_Tap">
-                    <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="32" Margin="5,2,2,0" />
-                </Border>
-                <StackPanel Visibility="Collapsed" Orientation="Horizontal">
-                    <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                    <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                    <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
+            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,10">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
+                </Border.BorderBrush>
+                <StackPanel Orientation="Vertical" Width="480" Background="Transparent" >
+                    <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
+                            BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
+                        <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="24" Margin="5,2,2,0" >
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Border>
+                
+                    <StackPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,10">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
+                        </StackPanel.Background>
+                        <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                        <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                        <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                    </StackPanel>
+                
+                    <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
+                                Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
+                        <Line Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}"  X2="1" Margin="0,25,0,0"/>
+                    </StackPanel>
+                    <toolkit:GestureService.GestureListener>
+                        <toolkit:GestureListener   Flick="GestureListener_Flick" />
+                    </toolkit:GestureService.GestureListener>
                 </StackPanel>
-                <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
-                            Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
-                    <TextBlock Text="────────────────────────" Foreground="Gray"/>
-                </StackPanel>
-                <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener   Flick="GestureListener_Flick" />
-                </toolkit:GestureService.GestureListener>
-            </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="ExpanderTemplate">
@@ -63,34 +77,33 @@
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Today"
-                                      FontSize="40"
+                                      FontSize="48"
                                       x:Name="todayExpanderView"
+									  Foreground="#FF1BA1E2"
                                       FontStyle="Normal"
-                                      Foreground="{StaticResource PhoneAccentBrush}"
                                       HorizontalAlignment="Left" 
-                                      Height="Auto" Margin="10,66,0,0"
+                                      Height="Auto" Margin="10,50,0,0"
                                       VerticalAlignment="Top" 
                                       ItemsSource="{Binding TodayToDoItems}"
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"
-                                      Width="Auto">
+                                      Width="Auto" BorderBrush="Transparent" Background="Transparent"/>
+
                     <!--<toolkit:ExpanderView.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock FontSize="40" Text="{Binding Header}"/>
                         </DataTemplate>
                         
                     </toolkit:ExpanderView.HeaderTemplate>-->
-                   
-                </toolkit:ExpanderView>
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Tomorrow"
-                                      FontSize="40"
+                                      FontSize="48"
                                       x:Name="tomorrowToDoItemsListBox"
+									  Foreground="#FF1BA1E2"
                                       FontStyle="Normal"
-                                      Foreground="{StaticResource PhoneAccentBrush}"
                                       HorizontalAlignment="Left" 
-                                      Height="Auto" Margin="10,66,0,0"
+                                      Height="Auto" Margin="10,10,0,0"
                                       VerticalAlignment="Top" 
                                       ItemsSource="{Binding TomorrowToDoItems}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"
@@ -99,18 +112,18 @@
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Later"
-                                      FontSize="40"
+                                      FontSize="48"
                                       x:Name="laterToDoItemsListBox"
-                                      FontStyle="Normal"
-                                      Foreground="{StaticResource PhoneAccentBrush}"
+                                      Foreground="#FF1BA1E2"
                                       HorizontalAlignment="Left" 
-                                      Height="Auto" Margin="10,66,0,0"
+                                      Height="Auto" Margin="10,10,0,0"
                                       VerticalAlignment="Top" 
                                       ItemTemplate="{StaticResource ListItemTemplate}"
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemsSource="{Binding LaterToDoItems}" 
                                       Width="Auto"/>
 
+                <Line Stretch="Fill" Stroke="#FFB92222"  Fill="#FF2B8327" X2="1"/>
             </StackPanel>
 
         </ScrollViewer>
