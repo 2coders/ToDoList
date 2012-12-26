@@ -9,9 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-
 using ToDo.Model;
-using ToDo.ViewModel;
 
 namespace ToDo.Controls
 {
@@ -38,27 +36,6 @@ namespace ToDo.Controls
         {
             App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
-            addNewsItem(ContentTextBox.Text);
         }
-
-        #region 增加新项目
-        private void addNewsItem(string content)
-        {
-            ToDoItem item = new ToDoItem();
-            item.Title = content;
-            item.CreateTime = DateTime.Now;
-            item.RemindTime = DateTime.Now;
-            item.IsCompleted = false;
-            item.Note = "";
-            item.Priority = 0;
-            App.ViewModel.AddToDoItem(item);
-
-            System.Diagnostics.Debug.WriteLine("Debug Message");
-        }
-        #endregion
-
-       
-
-
     }
 }

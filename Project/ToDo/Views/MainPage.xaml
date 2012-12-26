@@ -24,7 +24,7 @@
             <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="-50,5,0,5">
                 <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
                         BorderThickness="5,0,0,0" Tap="Border_Tap">
-                    <TextBlock Text="{Binding Title, Mode=TwoWay}" FontSize="32" Margin="5,2,2,0" />
+                    <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="32" Margin="5,2,2,0" />
                 </Border>
                 <StackPanel Visibility="Collapsed" Orientation="Horizontal">
                     <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
@@ -120,7 +120,7 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="showNewNote_click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
 
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="编辑"/>

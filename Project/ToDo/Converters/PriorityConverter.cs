@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace ToDo.Converters
 {
@@ -10,7 +11,9 @@ namespace ToDo.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return ((int)value) == 1 ? "Red" : "Transpant";
+            SolidColorBrush brush = new SolidColorBrush();
+            brush.Color = ((int)value) == 1 ? Colors.Red : Colors.Transparent;
+            return brush;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

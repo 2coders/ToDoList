@@ -26,6 +26,11 @@ namespace ToDo
             e.Handled = true;
         }
 
+        private void CreateItem_Click(object sender, EventArgs e)
+        {
+            PopupWindow.ShowWindow(new CreateItemControl());
+        }
+
         private void NoteButton_Click(object sender, RoutedEventArgs e)
         {
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
@@ -44,16 +49,6 @@ namespace ToDo
                 item.Priority = 1 - item.Priority;
                 App.ViewModel.SaveChangesToDB();
             }
-        }
-
-        private void showNewNote_click(object sender, EventArgs e)
-        {
-            PopupWindow.ShowWindow(new NoteControl());
-        }
-
-        private void showNewNote(object sender, EventArgs e)
-        {
-            PopupWindow.ShowWindow(new NoteControl());
         }
 
         private void Remind_Click(object sender, EventArgs e)
