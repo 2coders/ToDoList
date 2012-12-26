@@ -74,7 +74,9 @@
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Converters\PriorityConverter.cs" />
+    <Compile Include="Converters\IsCompletedConverter.cs" />
     <Compile Include="Utils\AnimationUtils.cs" />
+    <Compile Include="Utils\Log.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
