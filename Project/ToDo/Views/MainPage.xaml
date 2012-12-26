@@ -12,23 +12,27 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls">
+    xmlns:local="clr-namespace:ToDo.Converters"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480">
 
     <phone:PhoneApplicationPage.Resources>
-            <DataTemplate x:Key="ListItemTemplate">
-                <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="-50,5,0,5">
-                    <StackPanel Orientation="Vertical" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
-                        <TextBlock Text="{Binding Priority, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Title, Mode=TwoWay}" FontSize="32" />
-                    </StackPanel>
 
-                    <StackPanel Visibility="Collapsed" Orientation="Horizontal">
-                        <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" />
-                        <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click"/>
-                        <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" />
-                    </StackPanel>
+        <local:PriorityConverter x:Key="PriorityConverter" />
+        
+        <DataTemplate x:Key="ListItemTemplate">
+            <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="-50,5,0,5">
+                <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}" BorderThickness="5,0,0,0" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
+                    <TextBlock Text="{Binding Title, Mode=TwoWay}" FontSize="32" Margin="5,2,2,0" />
+                </Border>
+
+                <StackPanel Visibility="Collapsed" Orientation="Horizontal">
+                    <TextBlock Text="{Binding Priority, Mode=TwoWay}" Visibility="Collapsed" />
+                    <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                    <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                    <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                 </StackPanel>
-            </DataTemplate>
+            </StackPanel>
+        </DataTemplate>
 
         <DataTemplate x:Key="ExpanderTemplate">
             <StackPanel Orientation="Vertical" Width="480" Background="Gray" Margin="0,5,0,5" />

@@ -73,6 +73,7 @@
     <Compile Include="Controls\PopupWindow.cs" />
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
+    <Compile Include="Converters\PriorityConverter.cs" />
     <Compile Include="Utils\AnimationUtils.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

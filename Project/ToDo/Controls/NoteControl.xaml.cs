@@ -38,6 +38,7 @@ namespace ToDo.Controls
         {
             App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
+            addNewsItem(ContentTextBox.Text);
         }
 
         #region 增加新项目
@@ -46,6 +47,7 @@ namespace ToDo.Controls
             ToDoItem item = new ToDoItem();
             item.Title = content;
             item.CreateTime = DateTime.Now;
+            item.RemindTime = DateTime.Now;
             item.IsCompleted = false;
             item.Note = "";
             item.Priority = 0;
