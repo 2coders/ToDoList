@@ -61,6 +61,38 @@ namespace ToDo
             }
         }
 
+        private void Complete_Click(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement button = sender as FrameworkElement;
+            ToDoItem item = button.DataContext as ToDoItem;
+            if (item != null)
+            {
+                if (item.IsCompleted)
+                {
+                    item.IsCompleted = false;
+                }
+                else
+                {
+                    if (shownButtons != null)
+                    {
+                        shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                    item.IsCompleted = true;
+                    //StackPanel sp1 = button.Parent as StackPanel;
+                    //StackPanel sp2 = sp1.Parent as StackPanel;
+                    //StackPanel sp3 = sp2.Children[2] as StackPanel;
+                    //AnimationUtils.LineTranslate(sp3.Children[0]);
+                }
+            }
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            App.ViewModel.DeleteToDoItem(item);
+        }
+
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
         {
             if (e.Direction == System.Windows.Controls.Orientation.Horizontal)
@@ -112,5 +144,6 @@ namespace ToDo
                 shownButtons = null;
             }
         }
+
     }
 }

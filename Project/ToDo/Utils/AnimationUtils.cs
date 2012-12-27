@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using System.Windows.Shapes;
 
 namespace ToDo.Utils
 {
@@ -23,8 +24,6 @@ namespace ToDo.Utils
             {
                 return;
             }
-
-            
 
             int count = expander.Items.Count;
             for (int i = 1; i < count; i++)
@@ -221,6 +220,52 @@ namespace ToDo.Utils
                 container.Visibility = Visibility.Collapsed;
             };
         }
+
+        public static void LineTranslate(object sender)
+        {
+            Line container = sender as Line;
+            if (container == null)
+            {
+                return;
+            }
+
+            Storyboard storyBoard = new Storyboard();
+            IEasingFunction quadraticEase = new QuadraticEase { EasingMode = EasingMode.EaseOut };
+            int initialKeyTime = InitialKeyTime;
+            int finalKeyTime = 500;
+
+            TranslateTransform translation = new TranslateTransform();
+            container.RenderTransform = translation;
+
+            DoubleAnimationUsingKeyFrames transAnimation = new DoubleAnimationUsingKeyFrames();
+
+            EasingDoubleKeyFrame transKeyFrame_1 = new EasingDoubleKeyFrame();
+            transKeyFrame_1.EasingFunction = quadraticEase;
+            transKeyFrame_1.KeyTime = TimeSpan.FromMilliseconds(0.0);
+            transKeyFrame_1.Value = -300.0;
+
+            EasingDoubleKeyFrame transKeyFrame_2 = new EasingDoubleKeyFrame();
+            transKeyFrame_2.EasingFunction = quadraticEase;
+            transKeyFrame_2.KeyTime = TimeSpan.FromMilliseconds(initialKeyTime);
+            transKeyFrame_2.Value = 0.0;
+
+            EasingDoubleKeyFrame transKeyFrame_3 = new EasingDoubleKeyFrame();
+            transKeyFrame_3.EasingFunction = quadraticEase;
+            transKeyFrame_3.KeyTime = TimeSpan.FromMilliseconds(finalKeyTime);
+            transKeyFrame_3.Value = 0.0;
+
+            transAnimation.KeyFrames.Add(transKeyFrame_1);
+            transAnimation.KeyFrames.Add(transKeyFrame_2);
+            transAnimation.KeyFrames.Add(transKeyFrame_3);
+
+            Storyboard.SetTarget(transAnimation, translation);
+            Storyboard.SetTargetProperty(transAnimation, new PropertyPath(TranslateTransform.XProperty));
+            storyBoard.Children.Add(transAnimation);
+
+            storyBoard.Begin();
+        }
+
+
 
     }
 }

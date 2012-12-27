@@ -39,14 +39,16 @@
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                         </StackPanel.Background>
+                        <Button x:Name="CompleteButton" Content="Complete" Click="Complete_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                        <Button x:Name="DeleteButton" Content="Delete" Click="Delete_Click" FontSize="16" BorderThickness="1,0,1,0" />
                     </StackPanel>
                 
                     <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
                                 Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
-                        <Line Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}"  X2="1" Margin="0,25,0,0"/>
+                        <Line x:Name="CompleteLine" Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}" X2="1" Margin="0,25,0,0"/>
                     </StackPanel>
                     <toolkit:GestureService.GestureListener>
                         <toolkit:GestureListener   Flick="GestureListener_Flick" />
@@ -123,7 +125,6 @@
                                       ItemsSource="{Binding LaterToDoItems}" 
                                       Width="Auto"/>
 
-                <Line Stretch="Fill" Stroke="#FFB92222"  Fill="#FF2B8327" X2="1"/>
             </StackPanel>
 
         </ScrollViewer>
