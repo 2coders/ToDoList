@@ -8,6 +8,7 @@ namespace ToDo.ViewModel
 {
     public class ToDoViewModel : INotifyPropertyChanged
     {
+
          // LINQ to SQL data context for the local database.
         private ToDoDataContext toDoDBContext;
 
@@ -116,6 +117,8 @@ namespace ToDo.ViewModel
 
             // Save changes to the database.
             toDoDBContext.SubmitChanges();
+
+            TodayToDoItems.Remove(toDoForDelete);
         }
 
         // Write changes in the data context to the database. 

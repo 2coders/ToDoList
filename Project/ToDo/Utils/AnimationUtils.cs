@@ -17,6 +17,8 @@ namespace ToDo.Utils
 
         private const int FinalKeyTime = 250;
 
+        public const double AnimationHeightHide = 0;
+
 
         public static void Split(ExpanderView expander, FrameworkElement currentView)
         {
@@ -263,6 +265,39 @@ namespace ToDo.Utils
             storyBoard.Children.Add(transAnimation);
 
             storyBoard.Begin();
+        }
+
+        public static void ChangeHeight(FrameworkElement container, double to, double clock)
+        {
+            if (container != null)
+            {
+                Storyboard storyboard = new Storyboard();
+                DoubleAnimation heightAnimation = new DoubleAnimation();
+                Storyboard.SetTarget(heightAnimation, container);
+                Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+                Duration duration = TimeSpan.FromSeconds(clock);
+                heightAnimation.Duration = duration;
+                IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+                heightAnimation.EasingFunction = easingFunction;
+
+                heightAnimation.From = container.ActualHeight;
+                heightAnimation.To = to;
+                storyboard.Children.Add(heightAnimation);
+
+                if (to == AnimationHeightHide)
+                {
+                    storyboard.Completed += delegate(object sender, EventArgs e)
+                    {
+                        container.Visibility = Visibility.Collapsed;
+                    };
+                }
+                else
+                {
+                    container.Visibility = Visibility.Visible;
+                }
+
+                storyboard.Begin();
+            }
         }
 
 

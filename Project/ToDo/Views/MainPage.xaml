@@ -35,7 +35,7 @@
                         </TextBlock>
                     </Border>
                 
-                    <StackPanel Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,10">
+                    <StackPanel x:Name="ToolBar" Visibility="Collapsed" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                         </StackPanel.Background>

@@ -172,6 +172,50 @@ namespace PhoneApp2
             container.Visibility = Visibility.Collapsed;
         }
 
+        private void cc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement container = sender as FrameworkElement;
+            if (container != null)
+            {
+                Storyboard storyboard = new Storyboard();
+                DoubleAnimation heightAnimation = new DoubleAnimation();
+                Storyboard.SetTarget(heightAnimation, container);
+                Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+                Duration duration = TimeSpan.FromSeconds(0.2);
+                heightAnimation.Duration = duration;
+                IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+                heightAnimation.EasingFunction = easingFunction;
+
+                heightAnimation.From = container.ActualHeight;
+                heightAnimation.To = container.ActualHeight * 2;
+                storyboard.Children.Add(heightAnimation);
+
+                storyboard.Begin();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement container = cc;
+            if (container != null)
+            {
+                Storyboard storyboard = new Storyboard();
+                DoubleAnimation heightAnimation = new DoubleAnimation();
+                Storyboard.SetTarget(heightAnimation, container);
+                Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+                Duration duration = TimeSpan.FromSeconds(0.2);
+                heightAnimation.Duration = duration;
+                IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+                heightAnimation.EasingFunction = easingFunction;
+
+                heightAnimation.From = container.ActualHeight;
+                heightAnimation.To = container.ActualHeight / 2;
+                storyboard.Children.Add(heightAnimation);
+
+                storyboard.Begin();
+            }
+        }
+
 
     }
 }

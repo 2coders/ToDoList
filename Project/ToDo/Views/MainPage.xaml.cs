@@ -97,15 +97,20 @@ namespace ToDo
         {
             if (e.Direction == System.Windows.Controls.Orientation.Horizontal)
             {
-                ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+                StackPanel parent = sender as StackPanel;
+                if(parent == null)
+                {
+                    return;
+                }
+                ToDoItem item = parent.DataContext as ToDoItem;
                 if (item != null)
                 {
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
                         item.IsCompleted = true;
-                        if (shownButtons != null)
+                        if (shownButtons != null && parent.FindName("ToolBar") == shownButtons)
                         {
-                            shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+                            AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
                         }
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
@@ -124,20 +129,19 @@ namespace ToDo
             if (shownButtons != null)
             {
 
-                //if (shownButtons != parent.Children[1])
+                if (shownButtons != parent.Children[1])
                 {
-                    shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+                    AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
                 }
-                //else
-                //{
-                //    AnimationUtils.Fold(shownButtons);
-                //}
+                else
+                {
+                    AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
+                }
             }
 
             if ((shownButtons != parent.Children[1]) && ((shownButtons = parent.Children[1]) != null))
             {
-                AnimationUtils.Expand(shownButtons);
-                //AnimationUtils.Split(todayExpanderView, shownButtons as FrameworkElement);
+                AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, 50, 0.2);
             }
             else
             {
