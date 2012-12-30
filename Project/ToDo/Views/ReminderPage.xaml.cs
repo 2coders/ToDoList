@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using ToDo.Model;
 using System.Diagnostics;
+using Microsoft.Phone.Scheduler;
 
 namespace ToDo
 {
@@ -28,12 +29,34 @@ namespace ToDo
         {
             DateTime date = (DateTime) this.datePicker.Value;
             DateTime time = (DateTime) this.timePicker.Value;
-            DateTime newDateTime = date + time.TimeOfDay;
-            App.TodoParams.RemindTime = newDateTime;
+            DateTime beginTime = date + time.TimeOfDay;
+            App.TodoParams.RemindTime = beginTime;
+            SetReminder(beginTime);
             App.ViewModel.SaveChangesToDB();
 
             NavigationService.GoBack();
         }
+
+        #region set reminder
+        private void SetReminder(DateTime beginTime)
+        {
+            string name = App.TodoParams.Id.ToString();
+            if (ScheduledActionService.Find(name) != null)
+            {
+                ScheduledActionService.Remove(name);
+            }
+
+            Reminder reminder = new Reminder(name)
+            {
+                Title = App.TodoParams.Title,
+                Content = App.TodoParams.Note,
+                BeginTime = beginTime,
+                RecurrenceType = RecurrenceInterval.None
+            };
+            ScheduledActionService.Add(reminder);
+
+        }
+        #endregion
 
         private void ApplicationBarCancel_Click(object sender, EventArgs e)
         {
