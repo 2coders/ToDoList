@@ -26,10 +26,9 @@ namespace ToDo
 
         private void ApplicationBarDone_Click(object sender, EventArgs e)
         {
-            string date = this.datePicker.ValueString;
-            string time = this.timePicker.ValueString;
-            Debug.WriteLine(date + time);
-            DateTime newDateTime = Convert.ToDateTime(date + " "+ time);
+            DateTime date = (DateTime) this.datePicker.Value;
+            DateTime time = (DateTime) this.timePicker.Value;
+            DateTime newDateTime = date + time.TimeOfDay;
             App.TodoParams.RemindTime = newDateTime;
             App.ViewModel.SaveChangesToDB();
 
