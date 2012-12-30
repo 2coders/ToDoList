@@ -12,7 +12,9 @@ namespace ToDo
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private UIElement shownButtons = null;
+        private const string TAG = "MainPage";
+
+        private UIElement mCurrentToolbar = null;
 
         public MainPage()
         {
@@ -73,15 +75,11 @@ namespace ToDo
                 }
                 else
                 {
-                    if (shownButtons != null)
+                    if (mCurrentToolbar != null)
                     {
-                        shownButtons.Visibility = System.Windows.Visibility.Collapsed;
+                        mCurrentToolbar.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     item.IsCompleted = true;
-                    //StackPanel sp1 = button.Parent as StackPanel;
-                    //StackPanel sp2 = sp1.Parent as StackPanel;
-                    //StackPanel sp3 = sp2.Children[2] as StackPanel;
-                    //AnimationUtils.LineTranslate(sp3.Children[0]);
                 }
             }
 
@@ -100,6 +98,7 @@ namespace ToDo
                 StackPanel parent = sender as StackPanel;
                 if(parent == null)
                 {
+                    Log.Error(TAG, "GestureListener_Flick, parent is null.");
                     return;
                 }
                 ToDoItem item = parent.DataContext as ToDoItem;
@@ -108,9 +107,9 @@ namespace ToDo
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
                         item.IsCompleted = true;
-                        if (shownButtons != null && parent.FindName("ToolBar") == shownButtons)
+                        if (mCurrentToolbar != null && parent.FindName("ToolBar") == mCurrentToolbar)
                         {
-                            AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
+                            AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
                         }
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
@@ -124,28 +123,38 @@ namespace ToDo
         private void Border_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             FrameworkElement tbx = sender as FrameworkElement;
+            if (tbx == null)
+            {
+                Log.Error(TAG, "Border_Tap, tbx is null.");
+                return;
+            }
             StackPanel parent = tbx.Parent as StackPanel;
-
-            if (shownButtons != null)
+            if (parent == null)
+            {
+                Log.Error(TAG, "Border_Tap, parent is null.");
+                return;
+            }
+            UIElement newSelectedToolbar = parent.FindName("ToolBar") as UIElement;
+            if (mCurrentToolbar != null)
             {
 
-                if (shownButtons != parent.Children[1])
+                if (mCurrentToolbar != newSelectedToolbar)
                 {
-                    AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
+                    AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
                 }
                 else
                 {
-                    AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
+                    AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
                 }
             }
 
-            if ((shownButtons != parent.Children[1]) && ((shownButtons = parent.Children[1]) != null))
+            if ((mCurrentToolbar != newSelectedToolbar) && ((mCurrentToolbar = newSelectedToolbar) != null))
             {
-                AnimationUtils.ChangeHeight(shownButtons as FrameworkElement, 50, 0.2);
+                AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, 50, 0.2);
             }
             else
             {
-                shownButtons = null;
+                mCurrentToolbar = null;
             }
         }
 
