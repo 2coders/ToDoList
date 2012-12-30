@@ -103,14 +103,12 @@ namespace ToDo
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
                         item.IsCompleted = true;
-                        if (mCurrentItemPanel == parent)
-                        {
-                            this.HideItemDetails(mCurrentItemPanel);
-                        }
+                        this.SetItemCompleted(parent);
+
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
                     {
-                        item.IsCompleted = false;
+                        this.SetItemNotCompleted(parent, item);
                     }
                 }
             }
@@ -133,16 +131,6 @@ namespace ToDo
             
             if (mCurrentItemPanel != null)
             {
-
-                if (mCurrentItemPanel != parent)
-                {
-                    //AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
-                }
-                else
-                {
-                    //AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
-                }
-
                 HideItemDetails(mCurrentItemPanel);
             }
 
@@ -172,7 +160,7 @@ namespace ToDo
             AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.2);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
-            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 1, 0.2);
+            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 1, 0.3);
 
             storyboard.Begin();
         }
@@ -182,10 +170,45 @@ namespace ToDo
             Storyboard storyboard = new Storyboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
-            AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.0);
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.3);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
-            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.2);
+            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.3);
+
+            storyboard.Begin();
+        }
+
+        private void SetItemCompleted(StackPanel parent)
+        {
+            Storyboard storyboard = new Storyboard();
+
+            FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
+            AnimationUtils.SetWidthAnimation(storyboard, completedLine, 400, 0.3);
+            if (mCurrentItemPanel == parent)
+            {
+                FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
+                AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.3);
+
+                FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
+                AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.3);
+
+                mCurrentItemPanel = null;
+            }
+
+            storyboard.Begin();
+        }
+
+        private void SetItemNotCompleted(StackPanel parent, ToDoItem item)
+        {
+            Storyboard storyboard = new Storyboard();
+
+            FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
+            AnimationUtils.SetWidthAnimation(storyboard, completedLine, 0, 0.3);
+
+            storyboard.Completed += delegate(object sender, EventArgs e)
+            {
+                item.IsCompleted = false;
+            };
 
             storyboard.Begin();
         }

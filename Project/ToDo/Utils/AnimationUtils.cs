@@ -288,6 +288,43 @@ namespace ToDo.Utils
             
             storyboard.Children.Add(opacityAnimation);
         }
+
+
+        public static void SetWidthAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
+        {
+            if (storyboard == null || container == null)
+            {
+                return;
+            }
+
+            DoubleAnimation widthAnimation = new DoubleAnimation();
+            Storyboard.SetTarget(widthAnimation, container);
+            Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(FrameworkElement.WidthProperty));
+
+            Duration duration = TimeSpan.FromSeconds(clock);
+            widthAnimation.Duration = duration;
+
+            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            widthAnimation.EasingFunction = easingFunction;
+
+            widthAnimation.From = container.ActualWidth;
+            widthAnimation.To = to;
+
+            storyboard.Children.Add(widthAnimation);
+
+            if (to == AnimationHeightHide)
+            {
+                storyboard.Completed += delegate(object sender, EventArgs e)
+                {
+                    container.Visibility = Visibility.Collapsed;
+                };
+            }
+            else
+            {
+                container.Visibility = Visibility.Visible;
+            }
+        }
+
         public static void SetHeightAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
         {
             if (storyboard == null || container == null)

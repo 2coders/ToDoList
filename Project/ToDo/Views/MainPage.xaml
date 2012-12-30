@@ -34,14 +34,17 @@
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
                             </TextBlock>
-                            <Button x:Name="ModifyButton" Margin="0,0,0,0" HorizontalAlignment="Right" Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0">
+                            <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0">
                                 <Button.Background>
                                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                                 </Button.Background>
                             </Button>
                         </StackPanel>
                     </Border>
-                
+                    <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
+                                Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
+                        <Line x:Name="CompletedLine" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}" X2="1" Margin="0,25,0,0"/>
+                    </StackPanel>
                     <StackPanel x:Name="ToolBar" Visibility="Collapsed" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
@@ -51,10 +54,6 @@
                         <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="DeleteButton" Content="Delete" Click="Delete_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                    </StackPanel>
-                    <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
-                                Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
-                        <Line x:Name="CompleteLine" Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}" X2="1" Margin="0,25,0,0"/>
                     </StackPanel>
                     <toolkit:GestureService.GestureListener>
                         <toolkit:GestureListener   Flick="GestureListener_Flick" />
