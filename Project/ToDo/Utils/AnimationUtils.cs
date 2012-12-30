@@ -267,40 +267,60 @@ namespace ToDo.Utils
             storyBoard.Begin();
         }
 
-        public static void ChangeHeight(FrameworkElement container, double to, double clock)
+        public static void SetOpacityAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
         {
-            if (container != null)
+            if (storyboard == null || container == null)
             {
-                Storyboard storyboard = new Storyboard();
-                DoubleAnimation heightAnimation = new DoubleAnimation();
-                Storyboard.SetTarget(heightAnimation, container);
-                Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(FrameworkElement.HeightProperty));
-                Duration duration = TimeSpan.FromSeconds(clock);
-                heightAnimation.Duration = duration;
-                IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
-                heightAnimation.EasingFunction = easingFunction;
+                return;
+            }
+            DoubleAnimation opacityAnimation = new DoubleAnimation();
+            Storyboard.SetTarget(opacityAnimation, container);
+            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
+            
+            Duration opacityDuration = TimeSpan.FromSeconds(clock);
+            opacityAnimation.Duration = opacityDuration;
+            
+            IEasingFunction opacityEasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            opacityAnimation.EasingFunction = opacityEasingFunction;
 
-                heightAnimation.From = container.ActualHeight;
-                heightAnimation.To = to;
-                storyboard.Children.Add(heightAnimation);
+            opacityAnimation.From = container.Opacity;
+            opacityAnimation.To = to;
+            
+            storyboard.Children.Add(opacityAnimation);
+        }
+        public static void SetHeightAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
+        {
+            if (storyboard == null || container == null)
+            {
+                return;
+            }
 
-                if (to == AnimationHeightHide)
+            DoubleAnimation heightAnimation = new DoubleAnimation();
+            Storyboard.SetTarget(heightAnimation, container);
+            Storyboard.SetTargetProperty(heightAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+            
+            Duration duration = TimeSpan.FromSeconds(clock);
+            heightAnimation.Duration = duration;
+            
+            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            heightAnimation.EasingFunction = easingFunction;
+
+            heightAnimation.From = container.ActualHeight;
+            heightAnimation.To = to;
+            
+            storyboard.Children.Add(heightAnimation);
+
+            if (to == AnimationHeightHide)
+            {
+                storyboard.Completed += delegate(object sender, EventArgs e)
                 {
-                    storyboard.Completed += delegate(object sender, EventArgs e)
-                    {
-                        container.Visibility = Visibility.Collapsed;
-                    };
-                }
-                else
-                {
-                    container.Visibility = Visibility.Visible;
-                }
-
-                storyboard.Begin();
+                    container.Visibility = Visibility.Collapsed;
+                };
+            }
+            else
+            {
+                container.Visibility = Visibility.Visible;
             }
         }
-
-
-
     }
 }

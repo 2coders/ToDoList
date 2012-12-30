@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Media.Animation;
 using Microsoft.Phone.Controls;
-using ToDo.ViewModel;
-using ToDo.Model;
 using ToDo.Controls;
+using ToDo.Model;
 using ToDo.Utils;
 
 namespace ToDo
@@ -14,7 +13,7 @@ namespace ToDo
     {
         private const string TAG = "MainPage";
 
-        private UIElement mCurrentToolbar = null;
+        private StackPanel mCurrentItemPanel = null;
 
         public MainPage()
         {
@@ -22,6 +21,11 @@ namespace ToDo
 
             this.DataContext = App.ViewModel;
         }
+
+        /// <summary>
+        /// Event Hander Function
+        /// </summary>
+        #region Event Hander Function
 
         private void ScrollViewer_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -73,14 +77,6 @@ namespace ToDo
                 {
                     item.IsCompleted = false;
                 }
-                else
-                {
-                    if (mCurrentToolbar != null)
-                    {
-                        mCurrentToolbar.Visibility = System.Windows.Visibility.Collapsed;
-                    }
-                    item.IsCompleted = true;
-                }
             }
 
         }
@@ -96,7 +92,7 @@ namespace ToDo
             if (e.Direction == System.Windows.Controls.Orientation.Horizontal)
             {
                 StackPanel parent = sender as StackPanel;
-                if(parent == null)
+                if (parent == null)
                 {
                     Log.Error(TAG, "GestureListener_Flick, parent is null.");
                     return;
@@ -107,9 +103,9 @@ namespace ToDo
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
                         item.IsCompleted = true;
-                        if (mCurrentToolbar != null && parent.FindName("ToolBar") == mCurrentToolbar)
+                        if (mCurrentItemPanel == parent)
                         {
-                            AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
+                            this.HideItemDetails(mCurrentItemPanel);
                         }
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
@@ -134,29 +130,66 @@ namespace ToDo
                 Log.Error(TAG, "Border_Tap, parent is null.");
                 return;
             }
-            UIElement newSelectedToolbar = parent.FindName("ToolBar") as UIElement;
-            if (mCurrentToolbar != null)
+            
+            if (mCurrentItemPanel != null)
             {
 
-                if (mCurrentToolbar != newSelectedToolbar)
+                if (mCurrentItemPanel != parent)
                 {
-                    AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
+                    //AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0);
                 }
                 else
                 {
-                    AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
+                    //AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, AnimationUtils.AnimationHeightHide, 0.3);
                 }
+
+                HideItemDetails(mCurrentItemPanel);
             }
 
-            if ((mCurrentToolbar != newSelectedToolbar) && ((mCurrentToolbar = newSelectedToolbar) != null))
+            if (mCurrentItemPanel != parent)
             {
-                AnimationUtils.ChangeHeight(mCurrentToolbar as FrameworkElement, 50, 0.2);
+                mCurrentItemPanel = parent;
+                this.ShowItemDetails(mCurrentItemPanel);
             }
             else
             {
-                mCurrentToolbar = null;
+                mCurrentItemPanel = null;
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Private Function
+        /// </summary>
+        #region Private Function
+
+        private void ShowItemDetails(StackPanel parent)
+        {
+            Storyboard storyboard = new Storyboard();
+
+            FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.2);
+
+            FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
+            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 1, 0.2);
+
+            storyboard.Begin();
+        }
+
+        private void HideItemDetails(StackPanel parent)
+        {
+            Storyboard storyboard = new Storyboard();
+
+            FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.0);
+
+            FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
+            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.2);
+
+            storyboard.Begin();
+        }
+
+        #endregion
     }
 }
