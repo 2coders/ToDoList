@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows;
 using Microsoft.Phone.Controls;
 using System.Windows.Shapes;
+using ToDo.Model;
 
 namespace ToDo.Utils
 {
@@ -19,6 +20,88 @@ namespace ToDo.Utils
 
         public const double AnimationHeightHide = 0;
 
+
+        public static void ItemsTranslation(ExpanderView expander, ToDoItem deleteItem, int from, int to)
+        {
+
+            if (expander == null || expander.Items.Count == 0)
+            {
+                return;
+            }
+
+            FrameworkElement first = expander.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
+            double height = first.ActualHeight;
+
+            Storyboard storyBoard = new Storyboard();
+            IEasingFunction quadraticEase = new QuadraticEase { EasingMode = EasingMode.EaseOut };
+            int initialKeyTime = InitialKeyTime;
+            int finalKeyTime = FinalKeyTime;
+
+            TranslateTransform translation = new TranslateTransform();
+            DoubleAnimationUsingKeyFrames transAnimation = new DoubleAnimationUsingKeyFrames();
+
+            EasingDoubleKeyFrame transKeyFrame_1 = new EasingDoubleKeyFrame();
+            transKeyFrame_1.EasingFunction = quadraticEase;
+            transKeyFrame_1.KeyTime = TimeSpan.FromMilliseconds(0.0);
+            transKeyFrame_1.Value = 0.0;
+
+            EasingDoubleKeyFrame transKeyFrame_2 = new EasingDoubleKeyFrame();
+            transKeyFrame_2.EasingFunction = quadraticEase;
+            transKeyFrame_2.KeyTime = TimeSpan.FromMilliseconds(initialKeyTime);
+            transKeyFrame_2.Value = 0.0;
+
+            EasingDoubleKeyFrame transKeyFrame_3 = new EasingDoubleKeyFrame();
+            transKeyFrame_3.EasingFunction = quadraticEase;
+            transKeyFrame_3.KeyTime = TimeSpan.FromMilliseconds(finalKeyTime);
+            transKeyFrame_3.Value = -50;
+
+            transAnimation.KeyFrames.Add(transKeyFrame_1);
+            transAnimation.KeyFrames.Add(transKeyFrame_2);
+            transAnimation.KeyFrames.Add(transKeyFrame_3);
+
+            Storyboard.SetTarget(transAnimation, translation);
+            Storyboard.SetTargetProperty(transAnimation, new PropertyPath(TranslateTransform.YProperty));
+
+
+            DoubleAnimationUsingKeyFrames opacityAnimation = new DoubleAnimationUsingKeyFrames();
+
+            EasingDoubleKeyFrame opacityKeyFrame_1 = new EasingDoubleKeyFrame();
+            opacityKeyFrame_1.EasingFunction = quadraticEase;
+            opacityKeyFrame_1.KeyTime = TimeSpan.FromMilliseconds(0.0);
+            opacityKeyFrame_1.Value = 1.0;
+
+            EasingDoubleKeyFrame opacityKeyFrame_2 = new EasingDoubleKeyFrame();
+            opacityKeyFrame_2.EasingFunction = quadraticEase;
+            opacityKeyFrame_2.KeyTime = TimeSpan.FromMilliseconds(initialKeyTime - 150);
+            opacityKeyFrame_2.Value = 0.5;
+
+            EasingDoubleKeyFrame opacityKeyFrame_3 = new EasingDoubleKeyFrame();
+            opacityKeyFrame_3.EasingFunction = quadraticEase;
+            opacityKeyFrame_3.KeyTime = TimeSpan.FromMilliseconds(finalKeyTime);
+            opacityKeyFrame_3.Value = 0;
+
+            opacityAnimation.KeyFrames.Add(opacityKeyFrame_1);
+            opacityAnimation.KeyFrames.Add(opacityKeyFrame_2);
+            opacityAnimation.KeyFrames.Add(opacityKeyFrame_3);
+
+            Storyboard.SetTarget(opacityAnimation, first);
+            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
+
+            storyBoard.Children.Add(opacityAnimation);
+            storyBoard.Children.Add(transAnimation);
+
+            for (int i = from; i < to; i++)
+            {
+                FrameworkElement item = expander.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+                item.RenderTransform = translation;
+            }
+            storyBoard.Begin();
+
+            storyBoard.Completed += delegate(object sender, EventArgs e)
+            {
+                App.ViewModel.DeleteToDoItem(deleteItem);
+            };
+        }
 
         public static void Split(ExpanderView expander, FrameworkElement currentView)
         {

@@ -83,7 +83,9 @@ namespace ToDo
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            FrameworkElement ui = sender as FrameworkElement;
+            ToDoItem item = ui.DataContext as ToDoItem;
+            //AnimationUtils.ItemsTranslation(todayExpanderView, item, 1, todayExpanderView.Items.Count);
             App.ViewModel.DeleteToDoItem(item);
         }
 
