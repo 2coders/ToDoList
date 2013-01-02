@@ -109,7 +109,7 @@ namespace ToDo
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
                     {
-                        this.SetItemNotCompleted(parent, item);
+                        this.SetItemUnCompleted(parent, item);
                     }
                 }
             }
@@ -149,6 +149,39 @@ namespace ToDo
         private void ModifyButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             
+        }
+
+        #endregion
+
+        /// <summary>
+        /// ScrollVeiwer ScrollTo Animation Extend
+        /// </summary>
+        #region ScrollVeiwer ScrollTo Animation Extend
+
+        private DependencyProperty ScrowViewerVerticalOffsetProperty =
+            DependencyProperty.Register("ScrollViewerVerticalOffset",
+            typeof(double),
+            typeof(MainPage),
+            new PropertyMetadata(0.0, new PropertyChangedCallback(OnVerticalChanged))
+            );
+
+        private static void OnVerticalChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            MainPage page = d as MainPage;
+            double value = Convert.ToDouble(e.NewValue);
+            page.MainScrollViewer.ScrollToVerticalOffset(value);
+        }
+
+        private double ScrollViewerVerticalOffset
+        {
+            get
+            {
+                return Convert.ToDouble(this.GetValue(ScrowViewerVerticalOffsetProperty));
+            }
+            set
+            {
+                this.SetValue(ScrowViewerVerticalOffsetProperty, value);
+            }
         }
 
         #endregion
@@ -204,7 +237,7 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void SetItemNotCompleted(StackPanel parent, ToDoItem item)
+        private void SetItemUnCompleted(StackPanel parent, ToDoItem item)
         {
             var storyboard = AnimationUtils.GetStoryboard();
 

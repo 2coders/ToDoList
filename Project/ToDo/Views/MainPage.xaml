@@ -77,10 +77,11 @@
         </Grid.RowDefinitions>
 
 
-        <ScrollViewer Margin="5,0,5,0" Height="Auto" 
-                        VerticalScrollBarVisibility="Visible"
-                        HorizontalScrollBarVisibility="Disabled"
-                        MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
+        <ScrollViewer x:Name="MainScrollViewer"
+                      Margin="5,0,5,0" Height="Auto" 
+                      VerticalScrollBarVisibility="Visible"
+                      HorizontalScrollBarVisibility="Disabled"
+                      MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
 
             <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="0,0,0,0">
 
@@ -97,13 +98,6 @@
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"
                                       Width="Auto" BorderBrush="Transparent" Background="Transparent"/>
-
-                    <!--<toolkit:ExpanderView.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock FontSize="40" Text="{Binding Header}"/>
-                        </DataTemplate>
-                        
-                    </toolkit:ExpanderView.HeaderTemplate>-->
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Tomorrow"
@@ -131,6 +125,8 @@
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemsSource="{Binding LaterToDoItems}" 
                                       Width="Auto"/>
+                
+                <StackPanel x:Name="VacancyStackPanel" Height="0"/>
 
             </StackPanel>
 
