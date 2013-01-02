@@ -34,7 +34,9 @@
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
                             </TextBlock>
-                            <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0">
+                            <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" 
+                                    Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0"
+                                    Tap="ModifyButton_Tap">
                                 <Button.Background>
                                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                                 </Button.Background>

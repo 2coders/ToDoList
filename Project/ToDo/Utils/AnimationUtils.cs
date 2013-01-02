@@ -20,6 +20,10 @@ namespace ToDo.Utils
 
         public const double AnimationHeightHide = 0;
 
+        public static Storyboard GetStoryboard()
+        {
+            return new Storyboard();
+        }
 
         public static void ItemsTranslation(ExpanderView expander, ToDoItem deleteItem, int from, int to)
         {

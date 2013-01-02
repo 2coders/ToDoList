@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using Microsoft.Phone.Controls;
 using ToDo.Controls;
 using ToDo.Model;
@@ -147,6 +146,11 @@ namespace ToDo
             }
         }
 
+        private void ModifyButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+        }
+
         #endregion
 
         /// <summary>
@@ -156,7 +160,7 @@ namespace ToDo
 
         private void ShowItemDetails(StackPanel parent)
         {
-            Storyboard storyboard = new Storyboard();
+            var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
             AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.2);
@@ -169,7 +173,7 @@ namespace ToDo
 
         private void HideItemDetails(StackPanel parent)
         {
-            Storyboard storyboard = new Storyboard();
+            var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
             AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.3);
@@ -182,7 +186,7 @@ namespace ToDo
 
         private void SetItemCompleted(StackPanel parent)
         {
-            Storyboard storyboard = new Storyboard();
+            var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
             AnimationUtils.SetWidthAnimation(storyboard, completedLine, 400, 0.3);
@@ -202,7 +206,7 @@ namespace ToDo
 
         private void SetItemNotCompleted(StackPanel parent, ToDoItem item)
         {
-            Storyboard storyboard = new Storyboard();
+            var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
             AnimationUtils.SetWidthAnimation(storyboard, completedLine, 0, 0.3);
@@ -216,5 +220,6 @@ namespace ToDo
         }
 
         #endregion
+
     }
 }
