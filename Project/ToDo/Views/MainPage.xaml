@@ -21,7 +21,7 @@
         <local:IsCompletedConverter x:Key="IsCompletedConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
-            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,10">
+            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,10" x:Name="ListItem">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                 </Border.BorderBrush>

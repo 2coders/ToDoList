@@ -84,8 +84,8 @@ namespace ToDo
         {
             FrameworkElement ui = sender as FrameworkElement;
             ToDoItem item = ui.DataContext as ToDoItem;
-            //AnimationUtils.ItemsTranslation(todayExpanderView, item, 1, todayExpanderView.Items.Count);
-            App.ViewModel.DeleteToDoItem(item);
+            AnimationUtils.RemoveTranslation(ui.FindName("ListItem"));
+            //App.ViewModel.DeleteToDoItem(item);
         }
 
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
