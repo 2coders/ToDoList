@@ -33,7 +33,7 @@ namespace ToDo
 
         private void CreateItem_Click(object sender, EventArgs e)
         {
-            PopupWindow.ShowWindow(new CreateItemControl());
+            CreateItem();
         }
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
@@ -146,7 +146,23 @@ namespace ToDo
 
         private void ModifyButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
+            var transform = (sender as Button).TransformToVisual(Application.Current.RootVisual);
+            var offset = transform.Transform(new Point(0, 0));
+            Log.Info(TAG, "ModifyButton_Tap:" + offset.ToString());
+
+
+
+            var storyboard = AnimationUtils.GetStoryboard();
+            AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, 600, 0.3);
+            AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
+                MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + 600, 0.5);
+            storyboard.Begin();
+
+            Log.Info(TAG, "ModifyButton_Tap,VacancyStackPanel.Height:" + VacancyStackPanel.Height);
+
+
+
+            e.Handled = true;
         }
 
         #endregion
@@ -188,6 +204,27 @@ namespace ToDo
         /// Private Function
         /// </summary>
         #region Private Function
+
+        private void CreateItem()
+        {
+            var transform = todayExpanderView.TransformToVisual(Application.Current.RootVisual);
+            var pointOffset = transform.Transform(new Point(0, 0));
+            double verticalOffset = pointOffset.Y - 50;
+
+            var storyboard = AnimationUtils.GetStoryboard();
+            if (verticalOffset > 0)
+            {
+                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
+            }
+            AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
+                MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.5);
+
+            storyboard.Completed += delegate(object sender, EventArgs e)
+            {
+                PopupWindow.ShowWindow(new CreateItemControl());
+            };
+            storyboard.Begin();
+        }
 
         private void DeleteItem(FrameworkElement deleteBtn)
         {

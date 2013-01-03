@@ -73,24 +73,27 @@ namespace ToDo.ViewModel
 
             var todayToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.RemindTime < System.DateTime.Today.AddDays(1)
-                                     orderby todo.Priority descending
+                                     orderby todo.Id descending
                                      select todo;
             TodayToDoItems = new ObservableCollection<ToDoItem>(todayToDoItemsInDB);
 
             var tomorrowToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                         where todo.RemindTime < System.DateTime.Today.AddDays(2)
                                         && todo.RemindTime > System.DateTime.Today.AddDays(1)
-                                     select todo;
+                                        orderby todo.Id descending
+                                        select todo;
             TomorrowToDoItems = new ObservableCollection<ToDoItem>(tomorrowToDoItemsInDB);
 
             var laterToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
-                                        where todo.RemindTime > System.DateTime.Today.AddDays(2)
-                                        select todo;
+                                     where todo.RemindTime > System.DateTime.Today.AddDays(2)
+                                     orderby todo.Id descending
+                                     select todo;
             LaterToDoItems = new ObservableCollection<ToDoItem>(laterToDoItemsInDB);
 
             var completedToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
-                                     where todo.IsCompleted == true
-                                     select todo;
+                                         where todo.IsCompleted == true
+                                         orderby todo.Id descending
+                                         select todo;
             CompletedToDoItems = new ObservableCollection<ToDoItem>(completedToDoItemsInDB);
 
         }
@@ -105,7 +108,7 @@ namespace ToDo.ViewModel
             toDoDBContext.SubmitChanges();
 
             // Add a to-do item to the "all" observable collection.
-            TodayToDoItems.Add(newToDoItem);
+            TodayToDoItems.Insert(0, newToDoItem);
         }
 
         // Remove a to-do task item from the database and collections.

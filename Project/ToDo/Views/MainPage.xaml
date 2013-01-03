@@ -29,7 +29,7 @@
                     <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
                             BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Title, Mode=OneWay}" Width="400" FontSize="24" Margin="5,2,2,0" >
+                            <TextBlock Text="{Binding Title, Mode=OneWay}" Width="400" FontSize="24" Margin="0,0,0,0" >
                                 <TextBlock.Foreground>
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
@@ -78,12 +78,12 @@
 
 
         <ScrollViewer x:Name="MainScrollViewer"
-                      Margin="5,0,5,0" Height="Auto" 
+                      Height="Auto" 
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollBarVisibility="Disabled"
                       MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
 
-            <StackPanel x:Name="TodayPanel" Grid.Row="0" Margin="0,0,0,0">
+            <StackPanel x:Name="TodayPanel" Margin="0,0,0,0">
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Today"

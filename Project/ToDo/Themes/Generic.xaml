@@ -21,8 +21,7 @@
                         <Rectangle x:Name="backgroundRect" Grid.Row="0" Fill="White" Opacity="0.9"/>
                         <Border 
                             VerticalAlignment="Top" 
-                            BorderThickness="0" 
-                            BorderBrush="Black">
+                            BorderThickness="0">
                             <StackPanel Margin="0">
                                 <ContentPresenter x:Name="body"/>
                             </StackPanel>
