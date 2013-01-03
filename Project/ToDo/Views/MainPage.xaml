@@ -21,7 +21,7 @@
         <local:IsCompletedConverter x:Key="IsCompletedConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
-            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,10" x:Name="ListItem">
+            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,0" Padding="0,5,0,5" x:Name="ListItem">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                 </Border.BorderBrush>
@@ -47,7 +47,7 @@
                                 Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
                         <Line x:Name="CompletedLine" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}" X2="1" Margin="0,25,0,0"/>
                     </StackPanel>
-                    <StackPanel x:Name="ToolBar" Visibility="Collapsed" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
+                    <StackPanel x:Name="ToolBar" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                         </StackPanel.Background>

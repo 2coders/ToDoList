@@ -82,10 +82,8 @@ namespace ToDo
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkElement ui = sender as FrameworkElement;
-            ToDoItem item = ui.DataContext as ToDoItem;
-            AnimationUtils.RemoveTranslation(ui.FindName("ListItem"));
-            //App.ViewModel.DeleteToDoItem(item);
+            FrameworkElement deleteBtn = sender as FrameworkElement;
+            DeleteItem(deleteBtn);
         }
 
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
@@ -190,6 +188,20 @@ namespace ToDo
         /// Private Function
         /// </summary>
         #region Private Function
+
+        private void DeleteItem(FrameworkElement deleteBtn)
+        {
+            var storyboard = AnimationUtils.GetStoryboard();
+            FrameworkElement item = deleteBtn.FindName("ListItem") as FrameworkElement;
+            AnimationUtils.SetOpacityAnimation(storyboard, item, 0, 0.3);
+            AnimationUtils.SetHeightAnimation(storyboard, item, 0, 0.3);
+
+            storyboard.Completed += delegate(object sender, EventArgs e)
+            {
+                App.ViewModel.DeleteToDoItem(item.DataContext as ToDoItem);
+            };
+            storyboard.Begin();
+        }
 
         private void ShowItemDetails(StackPanel parent)
         {
