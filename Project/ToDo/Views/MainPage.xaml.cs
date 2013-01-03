@@ -214,7 +214,7 @@ namespace ToDo
             var storyboard = AnimationUtils.GetStoryboard();
             if (verticalOffset > 0)
             {
-                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
+                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 600, 0.3);
             }
             AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
                 MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.5);
