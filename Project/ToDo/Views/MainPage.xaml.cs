@@ -303,5 +303,11 @@ namespace ToDo
 
         #endregion
 
+        private void AddItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CreateItem();
+            e.Handled = true;
+        }
+
     }
 }
