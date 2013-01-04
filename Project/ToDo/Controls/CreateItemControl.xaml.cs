@@ -16,6 +16,22 @@ namespace ToDo.Controls
 {
     public partial class CreateItemControl : UserControl
     {
+        private string _GroupName = null;
+        public string GroupName
+        {
+            get 
+            {
+                return _GroupName;
+            }
+            set
+            {
+                _GroupName = value;
+                groupNameTxt.Text = _GroupName;
+            }
+        }
+        
+        public event EventHandler Closed;
+
         public CreateItemControl()
         {
             InitializeComponent();
@@ -37,6 +53,10 @@ namespace ToDo.Controls
                 Log.Info(this.ToString(), "new item created");
             }
             PopupWindow.HideWindow();
+            if (this.Closed != null)
+            {
+                this.Closed(this, null);
+            }
         }
 
         #region 增加新项目
