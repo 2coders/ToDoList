@@ -15,6 +15,22 @@ namespace ToDo.Controls
 {
     public partial class NoteControl : UserControl
     {
+        private double _YPosition = 0;
+        public double YPosition
+        {
+            get 
+            {
+                return _YPosition;
+            }
+            set 
+            {
+                _YPosition = value;
+                NoteTextBox.Margin = new Thickness(0, _YPosition, 0, 0);
+            }
+        }
+
+        public event EventHandler Closed;
+
         public NoteControl()
         {
             InitializeComponent();
@@ -28,14 +44,18 @@ namespace ToDo.Controls
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
-            ContentTextBox.Focus();
-            ContentTextBox.SelectionStart = ContentTextBox.Text.Length;
+            NoteTextBox.Focus();
+            NoteTextBox.SelectionStart = NoteTextBox.Text.Length;
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
+            if (this.Closed != null)
+            {
+                this.Closed(this, null);
+            }
         }
     }
 }
