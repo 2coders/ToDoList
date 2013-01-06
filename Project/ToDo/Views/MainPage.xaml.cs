@@ -5,6 +5,7 @@ using Microsoft.Phone.Controls;
 using ToDo.Controls;
 using ToDo.Model;
 using ToDo.Utils;
+using Microsoft.Phone.Shell;
 
 namespace ToDo
 {
@@ -206,15 +207,45 @@ namespace ToDo
         /// </summary>
         #region Private Function
 
+        public enum ApplicationBarConstant {Add, Done};
+
+        private void ChangeApplicationBarButton(ApplicationBarConstant flag)
+        {
+            var btn = this.ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            if (flag == ApplicationBarConstant.Add)
+            {
+                btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
+                btn.Text = "新建";
+            }
+            else if (flag == ApplicationBarConstant.Done)
+            {
+                btn.IconUri = new Uri("/Images/done.png", UriKind.Relative);
+                btn.Text = "完成";
+            }
+        }
+
         private void CreateItem(String groupName)
         {
             var transform = todayExpanderView.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
             double verticalOffset = pointOffset.Y - 50;
 
+            var createItem = new CreateItemControl()
+            {
+                GroupName = groupName
+            };
+            createItem.Opened += delegate(object sender2, EventArgs e2)
+            {
+                ChangeApplicationBarButton(ApplicationBarConstant.Done);
+            };
+            createItem.Closed += delegate(object sender2, EventArgs e2)
+            {
+                ChangeApplicationBarButton(ApplicationBarConstant.Add);
+            };
+
             if (verticalOffset == 0)
             {
-                PopupWindow.ShowWindow(new CreateItemControl() { GroupName = groupName });
+                PopupWindow.ShowWindow(createItem);
             }
             else
             {
@@ -224,23 +255,19 @@ namespace ToDo
                     AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 500, 0.3);
                 }
                 AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
-                                               MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.5);
+                                               MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.1);
 
                 storyboard.Completed += delegate(object sender, EventArgs e)
                 {
-                    var createItem = new CreateItemControl() 
-                    { 
-                        GroupName = groupName 
-                    };
-                    if (verticalOffset > 0)
+                    createItem.Closed += delegate(object sender2, EventArgs e2)
                     {
-                        createItem.Closed += delegate(object sender2, EventArgs e2)
+                        if (verticalOffset > 0)
                         {
                             var storyboard2 = AnimationUtils.GetStoryboard();
                             AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
                             storyboard2.Begin();
-                        };
-                    }
+                        }
+                    };
                     PopupWindow.ShowWindow(createItem);
                 };
                 storyboard.Begin();

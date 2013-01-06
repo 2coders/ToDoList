@@ -36,6 +36,8 @@ namespace ToDo.Controls
         
         public event EventHandler Closed;
 
+        public event EventHandler Opened;
+
         public CreateItemControl()
         {
             InitializeComponent();
@@ -43,6 +45,10 @@ namespace ToDo.Controls
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Opened != null)
+            {
+                Opened(this, new EventArgs());
+            }
             ContentTextBox.Focus();
             ContentTextBox.SelectionStart = ContentTextBox.Text.Length;
         }
@@ -59,7 +65,7 @@ namespace ToDo.Controls
             PopupWindow.HideWindow();
             if (this.Closed != null)
             {
-                this.Closed(this, null);
+                this.Closed(this, new EventArgs());
             }
         }
 
