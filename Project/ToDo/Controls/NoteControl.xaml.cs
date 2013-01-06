@@ -29,6 +29,8 @@ namespace ToDo.Controls
             }
         }
 
+        public event EventHandler Opened;
+
         public event EventHandler Closed;
 
         public NoteControl()
@@ -44,6 +46,10 @@ namespace ToDo.Controls
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.Opened != null)
+            {
+                this.Opened(this, new EventArgs());
+            }
             NoteTextBox.Focus();
             NoteTextBox.SelectionStart = NoteTextBox.Text.Length;
         }
@@ -54,7 +60,7 @@ namespace ToDo.Controls
             PopupWindow.HideWindow();
             if (this.Closed != null)
             {
-                this.Closed(this, null);
+                this.Closed(this, new EventArgs());
             }
         }
     }

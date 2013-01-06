@@ -43,6 +43,14 @@ namespace ToDo
             if (item != null)
             {
                 NoteControl note = new NoteControl(item);
+                note.Opened += delegate(object sender2, EventArgs e2)
+                {
+                    ChangeApplicationBarButton(ApplicationBarConstant.Done);
+                };
+                note.Closed += delegate(object sender2, EventArgs e2)
+                {
+                    ChangeApplicationBarButton(ApplicationBarConstant.Add);
+                };
                 PopupWindow.ShowWindow(note);
             }
         }
