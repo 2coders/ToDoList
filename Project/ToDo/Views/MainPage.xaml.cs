@@ -10,7 +10,7 @@ namespace ToDo
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private const string TAG = "MainPage";
+        private const String TAG = "MainPage";
 
         private StackPanel mCurrentItemPanel = null;
 
@@ -33,7 +33,7 @@ namespace ToDo
 
         private void CreateItem_Click(object sender, EventArgs e)
         {
-            CreateItem();
+            CreateItem(CreateItemControl.TODAY);
         }
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
@@ -41,7 +41,8 @@ namespace ToDo
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
-                PopupWindow.ShowWindow(new NoteControl(item));
+                NoteControl note = new NoteControl(item);
+                PopupWindow.ShowWindow(note);
             }
         }
 
@@ -170,7 +171,7 @@ namespace ToDo
         /// <summary>
         /// ScrollVeiwer ScrollTo Animation Extend
         /// </summary>
-        #region ScrollVeiwer ScrollTo Animation Extend
+        #region ScrollVeiwer ScrollTo Animation Extension
 
         private DependencyProperty ScrowViewerVerticalOffsetProperty =
             DependencyProperty.Register("ScrollViewerVerticalOffset",
@@ -205,25 +206,45 @@ namespace ToDo
         /// </summary>
         #region Private Function
 
-        private void CreateItem()
+        private void CreateItem(String groupName)
         {
             var transform = todayExpanderView.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
             double verticalOffset = pointOffset.Y - 50;
 
-            var storyboard = AnimationUtils.GetStoryboard();
-            if (verticalOffset > 0)
+            if (verticalOffset == 0)
             {
-                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 600, 0.3);
+                PopupWindow.ShowWindow(new CreateItemControl() { GroupName = groupName });
             }
-            AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
-                MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.5);
-
-            storyboard.Completed += delegate(object sender, EventArgs e)
+            else
             {
-                PopupWindow.ShowWindow(new CreateItemControl());
-            };
-            storyboard.Begin();
+                var storyboard = AnimationUtils.GetStoryboard();
+                if (verticalOffset > 0)
+                {
+                    AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 500, 0.3);
+                }
+                AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
+                                               MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.5);
+
+                storyboard.Completed += delegate(object sender, EventArgs e)
+                {
+                    var createItem = new CreateItemControl() 
+                    { 
+                        GroupName = groupName 
+                    };
+                    if (verticalOffset > 0)
+                    {
+                        createItem.Closed += delegate(object sender2, EventArgs e2)
+                        {
+                            var storyboard2 = AnimationUtils.GetStoryboard();
+                            AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
+                            storyboard2.Begin();
+                        };
+                    }
+                    PopupWindow.ShowWindow(createItem);
+                };
+                storyboard.Begin();
+            }
         }
 
         private void DeleteItem(FrameworkElement deleteBtn)
@@ -305,7 +326,7 @@ namespace ToDo
 
         private void AddItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            CreateItem();
+            //CreateItem();
             e.Handled = true;
         }
 

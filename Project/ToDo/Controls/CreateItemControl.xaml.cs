@@ -16,6 +16,10 @@ namespace ToDo.Controls
 {
     public partial class CreateItemControl : UserControl
     {
+        public const String TODAY = "Today";
+        public const String TOMORROW = "Tomorrow";
+        public const String LATER = "Later";
+
         private string _GroupName = null;
         public string GroupName
         {
