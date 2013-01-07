@@ -14,16 +14,19 @@ using ToDo.Utils;
 
 namespace ToDo.Controls
 {
-    public partial class CreateItemControl : UserControl
+    public partial class CreateItemControl : UserControl, IPopupedControl
     {
         public const String TODAY = "Today";
         public const String TOMORROW = "Tomorrow";
         public const String LATER = "Later";
 
+        public event EventHandler Closed;
+        public event EventHandler Opened;
+
         private string _GroupName = null;
         public string GroupName
         {
-            get 
+            get
             {
                 return _GroupName;
             }
@@ -33,10 +36,6 @@ namespace ToDo.Controls
                 groupNameTxt.Text = _GroupName;
             }
         }
-        
-        public event EventHandler Closed;
-
-        public event EventHandler Opened;
 
         public CreateItemControl()
         {

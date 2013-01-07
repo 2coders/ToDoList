@@ -43,14 +43,7 @@ namespace ToDo
             if (item != null)
             {
                 NoteControl note = new NoteControl(item);
-                note.Opened += delegate(object sender2, EventArgs e2)
-                {
-                    ChangeApplicationBarButton(ApplicationBarConstant.Done);
-                };
-                note.Closed += delegate(object sender2, EventArgs e2)
-                {
-                    ChangeApplicationBarButton(ApplicationBarConstant.Add);
-                };
+                SetPopupedControlEvent(note);
                 PopupWindow.ShowWindow(note);
             }
         }
@@ -215,6 +208,21 @@ namespace ToDo
         /// </summary>
         #region Private Function
 
+        private void SetPopupedControlEvent(IPopupedControl control)
+        {
+            if (control != null)
+            {
+                control.Opened += delegate(object sender2, EventArgs e2)
+                {
+                    ChangeApplicationBarButton(ApplicationBarConstant.Done);
+                };
+                control.Closed += delegate(object sender2, EventArgs e2)
+                {
+                    ChangeApplicationBarButton(ApplicationBarConstant.Add);
+                };
+            }
+        }
+
         public enum ApplicationBarConstant {Add, Done};
 
         private void ChangeApplicationBarButton(ApplicationBarConstant flag)
@@ -242,14 +250,7 @@ namespace ToDo
             {
                 GroupName = groupName
             };
-            createItem.Opened += delegate(object sender2, EventArgs e2)
-            {
-                ChangeApplicationBarButton(ApplicationBarConstant.Done);
-            };
-            createItem.Closed += delegate(object sender2, EventArgs e2)
-            {
-                ChangeApplicationBarButton(ApplicationBarConstant.Add);
-            };
+            SetPopupedControlEvent(createItem);
 
             if (verticalOffset == 0)
             {
@@ -260,7 +261,7 @@ namespace ToDo
                 var storyboard = AnimationUtils.GetStoryboard();
                 if (verticalOffset > 0)
                 {
-                    AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 500, 0.3);
+                    AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 1000, 0.3);
                 }
                 AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
                                                MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.1);

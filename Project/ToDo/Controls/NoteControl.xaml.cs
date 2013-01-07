@@ -13,8 +13,11 @@ using ToDo.Model;
 
 namespace ToDo.Controls
 {
-    public partial class NoteControl : UserControl
+    public partial class NoteControl : UserControl, IPopupedControl
     {
+        public event EventHandler Closed;
+        public event EventHandler Opened;
+
         private double _YPosition = 0;
         public double YPosition
         {
@@ -28,10 +31,6 @@ namespace ToDo.Controls
                 NoteTextBox.Margin = new Thickness(0, _YPosition, 0, 0);
             }
         }
-
-        public event EventHandler Opened;
-
-        public event EventHandler Closed;
 
         public NoteControl()
         {

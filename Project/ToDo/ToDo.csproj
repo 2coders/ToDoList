@@ -70,6 +70,7 @@
     <Compile Include="Controls\CreateItemControl.xaml.cs">
       <DependentUpon>CreateItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IPopupedControl.cs" />
     <Compile Include="Controls\NoteControl.xaml.cs">
       <DependentUpon>NoteControl.xaml</DependentUpon>
     </Compile>
