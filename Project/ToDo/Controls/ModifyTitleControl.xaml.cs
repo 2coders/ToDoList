@@ -13,20 +13,36 @@ using ToDo.Model;
 
 namespace ToDo.Controls
 {
-    public partial class NoteControl : UserControl, IPopupedControl
+    public partial class ModifyTitleControl : UserControl, IPopupedControl
     {
+
         public event EventHandler Closed;
         public event EventHandler Opened;
 
-        public NoteControl()
+        private String preTitle;
+
+        public Thickness TitleMargin
+        {
+            get
+            {
+                return ModifyTextBox.Margin;
+            }
+            set
+            {
+                ModifyTextBox.Margin = value;
+            }
+        }
+
+        public ModifyTitleControl()
         {
             InitializeComponent();
         }
 
-        public NoteControl(ToDoItem item)
+        public ModifyTitleControl(ToDoItem item)
             : this()
         {
             this.DataContext = item;
+            this.preTitle = item.Title;
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
@@ -35,12 +51,17 @@ namespace ToDo.Controls
             {
                 this.Opened(this, new EventArgs());
             }
-            NoteTextBox.Focus();
-            NoteTextBox.SelectionStart = NoteTextBox.Text.Length;
+            ModifyTextBox.Focus();
+            ModifyTextBox.SelectionStart = ModifyTextBox.Text.Length;
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            if (ModifyTextBox.Text.Trim() == "")
+            {
+                ModifyTextBox.Text = this.preTitle;
+            }
+
             App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
             if (this.Closed != null)
@@ -48,5 +69,6 @@ namespace ToDo.Controls
                 this.Closed(this, new EventArgs());
             }
         }
+
     }
 }
