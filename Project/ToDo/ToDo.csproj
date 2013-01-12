@@ -71,6 +71,9 @@
       <DependentUpon>CreateItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IPopupedControl.cs" />
+    <Compile Include="Controls\ModifyTitleControl.xaml.cs">
+      <DependentUpon>ModifyTitleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NoteControl.xaml.cs">
       <DependentUpon>NoteControl.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Controls\CreateItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ModifyTitleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

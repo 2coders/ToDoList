@@ -149,22 +149,40 @@ namespace ToDo
 
         private void ModifyButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
+            if (item == null)
+            {
+                return;
+            }
+
             var transform = (sender as Button).TransformToVisual(Application.Current.RootVisual);
-            var offset = transform.Transform(new Point(0, 0));
-            Log.Info(TAG, "ModifyButton_Tap:" + offset.ToString());
+            var pointOffset = transform.Transform(new Point(0, 0));
 
+            double verticalOffset = pointOffset.Y - 600;
 
+            ModifyTitleControl modify = new ModifyTitleControl(item) 
+            {
+                TitleMargin = new Thickness(pointOffset.X, (verticalOffset > 0) ? 600 : pointOffset.Y, 0, 0)
+            };
+            SetPopupedControlEvent(modify);
 
-            var storyboard = AnimationUtils.GetStoryboard();
-            AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, 600, 0.3);
-            AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
-                MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + 600, 0.5);
-            storyboard.Begin();
-
-            Log.Info(TAG, "ModifyButton_Tap,VacancyStackPanel.Height:" + VacancyStackPanel.Height);
-
-
-
+            if (verticalOffset > 0)
+            {
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
+                AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
+                    MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
+                storyboard.Completed += delegate(object sender1, EventArgs e1)
+                {
+                    PopupWindow.ShowWindow(modify);
+                };
+                storyboard.Begin();
+            }
+            else 
+            {
+                PopupWindow.ShowWindow(modify);
+            }
+            
             e.Handled = true;
         }
 
@@ -264,7 +282,7 @@ namespace ToDo
                     AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 1000, 0.3);
                 }
                 AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
-                                               MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.1);
+                                               MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
 
                 storyboard.Completed += delegate(object sender, EventArgs e)
                 {

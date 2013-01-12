@@ -16,6 +16,6 @@
                  BorderThickness="0"
                  TextWrapping="Wrap" AcceptsReturn="True"
                  LostFocus="ContentTextBox_LostFocus"
-                 Text="{Binding Note, Mode=TwoWay}" />
+                 Text="{Binding Title, Mode=TwoWay}" />
     </Grid>
 </UserControl>
