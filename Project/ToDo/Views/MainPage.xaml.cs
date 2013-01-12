@@ -320,7 +320,8 @@ namespace ToDo
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
-            AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.2);
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.3);
+            AnimationUtils.SetOpacityAnimation(storyboard, toolbar, 1, 0.3);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
             AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 1, 0.3);
@@ -333,10 +334,11 @@ namespace ToDo
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
-            AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.3);
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, AnimationUtils.AnimationHeightHide, 0.2);
+            AnimationUtils.SetOpacityAnimation(storyboard, toolbar, 0, 0.2);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
-            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.3);
+            AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.2);
 
             storyboard.Begin();
         }
