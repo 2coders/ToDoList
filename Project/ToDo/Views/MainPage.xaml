@@ -74,16 +74,17 @@
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
         <ScrollViewer x:Name="MainScrollViewer"
-                      Height="Auto" 
+                      Grid.Row="0"
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollBarVisibility="Disabled"
-                      MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp">
+                      MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp" Tap="MainScrollViewer_Tap">
 
-            <StackPanel x:Name="TodayPanel" Margin="0,0,0,0">
+            <StackPanel x:Name="TodayPanel" Margin="0,0,0,0" Orientation="Vertical">
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       x:Name="todayExpanderView"
@@ -94,7 +95,8 @@
                                       ItemsSource="{Binding TodayToDoItems}"
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"
-                                      BorderBrush="Transparent" Background="Transparent">
+                                      BorderBrush="Transparent" Background="Transparent"
+                                      Tap="todayExpanderView_Tap_1">
                     <toolkit:ExpanderView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Height="83" >
@@ -131,19 +133,26 @@
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemsSource="{Binding LaterToDoItems}" 
                                       Width="Auto"/>
-                
+
                 <StackPanel x:Name="VacancyStackPanel" Height="0"/>
 
+                
             </StackPanel>
-
+            
         </ScrollViewer>
+
+
+        <StackPanel x:Name="CompletedStackPanel" Grid.Row="1" Visibility="Collapsed">
+            <TextBlock TextWrapping="Wrap" Text="1111111111 222222222222" FontSize="36"/>
+        </StackPanel>
 
     </Grid>
 
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.8">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="done" Click="CompletedItem_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="设置"/>
             </shell:ApplicationBar.MenuItems>

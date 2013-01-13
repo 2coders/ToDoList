@@ -15,6 +15,8 @@ namespace ToDo
 
         private StackPanel mCurrentItemPanel = null;
 
+        private bool _completedPanelExpanded = false;
+
         public MainPage()
         {
             InitializeComponent();
@@ -383,8 +385,50 @@ namespace ToDo
         private void AddItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             //CreateItem();
+            Log.Info(TAG, "AddItem_Tap");
             e.Handled = true;
         }
+
+        private void CompletedItem_Click(object sender, EventArgs e)
+        {
+            if (!_completedPanelExpanded)
+            {
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetTranslateAnimation(storyboard, MainScrollViewer, 0.0, -400, 0.3);
+                CompletedStackPanel.Visibility = Visibility.Visible;
+                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel, 0.0, -400, 0.3);
+                storyboard.Begin();
+
+                _completedPanelExpanded = true;
+            }
+        }
+
+        private void todayExpanderView_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Log.Info(TAG, "todayExpanderView_Tap_1");
+            //e.Handled = false;
+        }
+
+        private void MainScrollViewer_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Log.Info(TAG, "MainScrollViewer_Tap");
+            if (_completedPanelExpanded)
+            {
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetTranslateAnimation(storyboard, MainScrollViewer, -400, 0.0, 0.3);
+                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel, -400, 0.0, 0.3);
+                storyboard.Completed += delegate(object sender1, EventArgs e1)
+                {
+                    CompletedStackPanel.Visibility = Visibility.Collapsed;
+                };
+                storyboard.Begin();
+
+                _completedPanelExpanded = false;
+                e.Handled = true;
+            }
+        }
+
+
 
     }
 }

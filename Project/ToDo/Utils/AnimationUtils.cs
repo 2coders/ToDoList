@@ -73,6 +73,32 @@ namespace ToDo.Utils
 
         }
 
+        public static void SetTranslateAnimation(Storyboard storyboard, FrameworkElement container, double from, double to, double clock)
+        {
+            if (storyboard == null || container == null)
+            {
+                return;
+            }
+
+            TranslateTransform translation = new TranslateTransform();
+            container.RenderTransform = translation;
+
+            DoubleAnimation anyAnimation = new DoubleAnimation();
+            Storyboard.SetTarget(anyAnimation, translation);
+            Storyboard.SetTargetProperty(anyAnimation, new PropertyPath(TranslateTransform.YProperty));
+
+            Duration duration = TimeSpan.FromSeconds(clock);
+            anyAnimation.Duration = duration;
+
+            //IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            //anyAnimation.EasingFunction = easingFunction;
+
+            anyAnimation.From = from;
+            anyAnimation.To = to;
+
+            storyboard.Children.Add(anyAnimation);
+        }
+
         public static void SetWidthAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
         {
             if (storyboard == null || container == null)
