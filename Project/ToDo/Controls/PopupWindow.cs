@@ -11,6 +11,7 @@ namespace ToDo.Controls
         private System.Windows.Controls.ContentPresenter body;
         private System.Windows.Shapes.Rectangle backgroundRect;
         private Control content;
+        private bool isShowBackPanel;
 
         private static PopupWindow mWindow = null;
 
@@ -19,6 +20,7 @@ namespace ToDo.Controls
             //这将类的styleKey设置为MyMessage,这样在模板中的style才能通过TargetType="local:MyMessage"与之相互绑定
             this.DefaultStyleKey = typeof(PopupWindow);
         }
+
         //重写OnApplyTemplate()方法获取模板样式的子控件
         public override void OnApplyTemplate()
         {
@@ -39,6 +41,14 @@ namespace ToDo.Controls
             get
             {
                 return Application.Current == null ? null : Application.Current.RootVisual as PhoneApplicationFrame;
+            }
+        }
+
+        public bool IsShowBackPanel
+        {
+            set
+            {
+                this.isShowBackPanel = value;
             }
         }
         
@@ -77,8 +87,7 @@ namespace ToDo.Controls
         {
             if (this.body == null)
                 return;
-            this.backgroundRect.Visibility = System.Windows.Visibility.Visible;
-            //把模板中得body控件内容赋值为你传过来的控件
+            this.backgroundRect.Visibility = this.isShowBackPanel ? Visibility.Visible : Visibility.Collapsed;
             this.body.Content = content;
             this.Height = 800;
         }
@@ -86,10 +95,14 @@ namespace ToDo.Controls
 
         public static void ShowWindow(Control control)
         {
-            
+            PopupWindow.ShowWindow(control, true);
+        }
+
+        public static void ShowWindow(Control control, bool isShowBackpanel)
+        {
             if (mWindow == null)
             {
-                mWindow = new PopupWindow { content = control };
+                mWindow = new PopupWindow { content = control, IsShowBackPanel = isShowBackpanel };
                 mWindow.Show();
             }
         }

@@ -16,6 +16,18 @@ namespace ToDo
         private StackPanel mCurrentItemPanel = null;
 
         private bool _completedPanelExpanded = false;
+        public bool CompletedPanelExpanded 
+        {
+            get
+            {
+                return _completedPanelExpanded;
+            }
+            set
+            {
+                _completedPanelExpanded = value;
+                //MainScrollViewer.VerticalScrollBarVisibility = _completedPanelExpanded ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
+            }
+        }
 
         public MainPage()
         {
@@ -29,11 +41,6 @@ namespace ToDo
         /// </summary>
         #region Event Hander Function
 
-        private void ScrollViewer_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-        }
-
         private void CreateItem_Click(object sender, EventArgs e)
         {
             CreateItem(CreateItemControl.TODAY);
@@ -41,6 +48,11 @@ namespace ToDo
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
         {
+            if (PreventTap())
+            {
+                return;
+            }
+
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -52,6 +64,11 @@ namespace ToDo
 
         private void FlagButton_Click(object sender, RoutedEventArgs e)
         {
+            if (PreventTap())
+            {
+                return;
+            }
+
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -63,6 +80,11 @@ namespace ToDo
 
         private void Remind_Click(object sender, EventArgs e)
         {
+            if (PreventTap())
+            {
+                return;
+            }
+
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -71,22 +93,13 @@ namespace ToDo
             }
         }
 
-        private void Complete_Click(object sender, RoutedEventArgs e)
-        {
-            FrameworkElement button = sender as FrameworkElement;
-            ToDoItem item = button.DataContext as ToDoItem;
-            if (item != null)
-            {
-                if (item.IsCompleted)
-                {
-                    item.IsCompleted = false;
-                }
-            }
-
-        }
-
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            if (PreventTap())
+            {
+                return;
+            }
+
             FrameworkElement deleteBtn = sender as FrameworkElement;
             DeleteItem(deleteBtn);
         }
@@ -120,6 +133,11 @@ namespace ToDo
 
         private void Border_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (PreventTap())
+            {
+                return;
+            }
+
             FrameworkElement tbx = sender as FrameworkElement;
             if (tbx == null)
             {
@@ -391,43 +409,51 @@ namespace ToDo
 
         private void CompletedItem_Click(object sender, EventArgs e)
         {
-            if (!_completedPanelExpanded)
-            {
-                var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetTranslateAnimation(storyboard, MainScrollViewer, 0.0, -400, 0.3);
-                CompletedStackPanel.Visibility = Visibility.Visible;
-                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel, 0.0, -400, 0.3);
-                storyboard.Begin();
 
-                _completedPanelExpanded = true;
-            }
+            PopupWindow.ShowWindow(new CompletedItemListControl(this.ActualHeight * 0.618) { MainScrollViewer = this.MainScrollViewer }, false);
+
         }
 
         private void todayExpanderView_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Log.Info(TAG, "todayExpanderView_Tap_1");
-            //e.Handled = false;
+            e.Handled = false;
         }
 
         private void MainScrollViewer_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Log.Info(TAG, "MainScrollViewer_Tap");
-            if (_completedPanelExpanded)
-            {
-                var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetTranslateAnimation(storyboard, MainScrollViewer, -400, 0.0, 0.3);
-                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel, -400, 0.0, 0.3);
-                storyboard.Completed += delegate(object sender1, EventArgs e1)
-                {
-                    CompletedStackPanel.Visibility = Visibility.Collapsed;
-                };
-                storyboard.Begin();
 
-                _completedPanelExpanded = false;
-                e.Handled = true;
-            }
+            e.Handled = true;
         }
 
+        private bool PreventTap()
+        {
+            return CompletedPanelExpanded;
+        }
+
+        private void MainScrollViewer_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
+        {
+            //CloseCompletedPanel();
+            //e.Handled = true;
+
+            Log.Info(TAG, "MainScrollViewer_ManipulationStarted");
+        }
+
+        private void MainScrollViewer_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Log.Info(TAG, "MainScrollViewer_MouseMove");
+        }
+
+        private void MainScrollViewer_ManipulationDelta(object sender, System.Windows.Input.ManipulationDeltaEventArgs e)
+        {
+            Log.Info(TAG, "MainScrollViewer_ManipulationDelta");
+        }
+
+        private void MainScrollViewer_ManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
+        {
+            Log.Info(TAG, "MainScrollViewer_ManipulationCompleted");
+        }
 
 
     }

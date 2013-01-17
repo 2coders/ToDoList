@@ -51,7 +51,6 @@
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                         </StackPanel.Background>
-                        <Button x:Name="CompleteButton" Content="Complete" Click="Complete_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
@@ -74,7 +73,6 @@
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -82,9 +80,9 @@
                       Grid.Row="0"
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollBarVisibility="Disabled"
-                      MouseLeftButtonUp="ScrollViewer_MouseLeftButtonUp" Tap="MainScrollViewer_Tap">
+                      Tap="MainScrollViewer_Tap" ManipulationStarted="MainScrollViewer_ManipulationStarted" MouseMove="MainScrollViewer_MouseMove" ManipulationDelta="MainScrollViewer_ManipulationDelta" ManipulationCompleted="MainScrollViewer_ManipulationCompleted">
 
-            <StackPanel x:Name="TodayPanel" Margin="0,0,0,0" Orientation="Vertical">
+            <StackPanel x:Name="TodayPanel" Margin="0,0,0,60" Orientation="Vertical">
 
                 <toolkit:ExpanderView IsExpanded="True" 
                                       x:Name="todayExpanderView"
@@ -134,23 +132,17 @@
                                       ItemsSource="{Binding LaterToDoItems}" 
                                       Width="Auto"/>
 
-                <StackPanel x:Name="VacancyStackPanel" Height="0"/>
+                <StackPanel x:Name="VacancyStackPanel" Height="0" />
 
                 
             </StackPanel>
             
         </ScrollViewer>
-
-
-        <StackPanel x:Name="CompletedStackPanel" Grid.Row="1" Visibility="Collapsed">
-            <TextBlock TextWrapping="Wrap" Text="1111111111 222222222222" FontSize="36"/>
-        </StackPanel>
-
     </Grid>
 
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="done" Click="CompletedItem_Click"/>
             <shell:ApplicationBar.MenuItems>
