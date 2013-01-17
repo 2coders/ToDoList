@@ -120,13 +120,14 @@ namespace ToDo
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
                         item.IsCompleted = true;
-                        this.SetItemCompleted(parent);
+                        this.SetItemCompleted(parent, item);
 
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
                     {
                         this.SetItemUnCompleted(parent, item);
                     }
+                    App.ViewModel.SaveChangesToDB();
                 }
             }
         }
@@ -363,7 +364,7 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void SetItemCompleted(StackPanel parent)
+        private void SetItemCompleted(StackPanel parent, ToDoItem item)
         {
             var storyboard = AnimationUtils.GetStoryboard();
 
@@ -379,6 +380,11 @@ namespace ToDo
 
                 mCurrentItemPanel = null;
             }
+
+            storyboard.Completed += delegate(object sender, EventArgs e)
+            {
+                item.IsCompleted = true;
+            };
 
             storyboard.Begin();
         }
