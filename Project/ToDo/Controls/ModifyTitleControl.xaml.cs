@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using ToDo.Model;
+using ToDo.Utils;
 
 namespace ToDo.Controls
 {
@@ -29,7 +30,16 @@ namespace ToDo.Controls
             }
             set
             {
-                ModifyTextBox.Margin = value;
+                //ModifyTextBox.Margin = new Thickness(0, 0, 0, 0);//value;
+                Log.Info("ModifyTitleControl", String.Format("left:{0},top:{0}", value.Left, value.Top));
+            }
+        }
+
+        public double TitleHeight
+        {
+            set
+            {
+                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value, 0, 0);
             }
         }
 

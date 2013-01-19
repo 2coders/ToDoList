@@ -7,16 +7,17 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    Loaded="LayoutRoot_Loaded">
 
-    <StackPanel x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded"
+    <StackPanel x:Name="LayoutRoot"
                 Width="480" Height="800"
                 Orientation="Vertical">
         <TextBlock x:Name="groupNameTxt" Text="Today" 
                    FontSize="48" Foreground="#FF1BA1E2"
                    FontStyle="Normal" Margin="10,50,0,0"/>
         <TextBox x:Name="ContentTextBox" HorizontalAlignment="Left" 
-                 Margin="15,0,15,0" VerticalAlignment="Top" Width="369"
+                 Margin="8,0,15,0" VerticalAlignment="Top" Width="369"
                  Background="Transparent" BorderThickness="0"
                  TextWrapping="Wrap" AcceptsReturn="True" 
                  LostFocus="ContentTextBox_LostFocus"

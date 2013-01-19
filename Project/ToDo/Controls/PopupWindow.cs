@@ -35,6 +35,7 @@ namespace ToDo.Controls
             get;
             private set;
         }
+
         //获取当前应用程序的UI框架PhoneApplicationFrame
         private static PhoneApplicationFrame RootVisual
         {

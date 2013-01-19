@@ -7,15 +7,19 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    Loaded="LayoutRoot_Loaded">
 
-    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded"
-          Width="480" Height="800">
-        <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Center" 
-                 Margin="0,100,0,0" VerticalAlignment="Top" Width="380"
-                 BorderThickness="0"
-                 TextWrapping="Wrap" AcceptsReturn="True"
+    <StackPanel x:Name="LayoutRoot"
+                Width="480" Height="800"
+                Orientation="Vertical">
+        
+        <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Left" 
+                 Margin="8,0,15,0" VerticalAlignment="Top" Width="369"
+                 Background="Transparent" BorderThickness="0"
+                 TextWrapping="Wrap" AcceptsReturn="True" 
+                 FontSize="24"
                  LostFocus="ContentTextBox_LostFocus"
-                 Text="{Binding Title, Mode=TwoWay}" />
-    </Grid>
+                 Text="{Binding Title, Mode=TwoWay}"/>
+    </StackPanel>
 </UserControl>

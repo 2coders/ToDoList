@@ -175,15 +175,22 @@ namespace ToDo
             {
                 return;
             }
-
-            var transform = (sender as Button).TransformToVisual(Application.Current.RootVisual);
+            var parent = (sender as FrameworkElement).Parent as StackPanel;
+            if (parent == null)
+            {
+                return;
+            }
+            var text = parent.FindName("ItemTitleText") as FrameworkElement;
+            Log.Info(TAG, (text as TextBlock).Text);
+            var transform = text.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
-
-            double verticalOffset = pointOffset.Y - 600;
+            Log.Info(TAG, String.Format("left:{0},top:{1}", pointOffset.X, pointOffset.Y));
+            double verticalOffset = pointOffset.Y - 300;
 
             ModifyTitleControl modify = new ModifyTitleControl(item) 
             {
-                TitleMargin = new Thickness(pointOffset.X, (verticalOffset > 0) ? 600 : pointOffset.Y, 0, 0)
+                //TitleMargin = new Thickness(pointOffset.X, (verticalOffset > 0) ? 500 : pointOffset.Y, 0, 0)
+                TitleHeight = (verticalOffset > 0) ? 300 : pointOffset.Y
             };
             SetPopupedControlEvent(modify);
 

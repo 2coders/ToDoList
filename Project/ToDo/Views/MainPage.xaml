@@ -29,7 +29,7 @@
                     <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
                             BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Title, Mode=OneWay}" Width="400" FontSize="24" Margin="0,0,0,0" >
+                            <TextBlock x:Name="ItemTitleText" Text="{Binding Title, Mode=OneWay}" Width="400" FontSize="24" Margin="0,0,0,0" >
                                 <TextBlock.Foreground>
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
