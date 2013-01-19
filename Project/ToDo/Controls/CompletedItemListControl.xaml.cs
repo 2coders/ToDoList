@@ -49,21 +49,9 @@ namespace ToDo.Controls
 
             var storyboard = AnimationUtils.GetStoryboard();
             AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, 0, -_height, 0.5);
-            AnimationUtils.SetHeightAnimation(storyboard, CompletedStackPanel as FrameworkElement, _height, 0.5);
+            AnimationUtils.SetHeightAnimation(storyboard, CompletedList as FrameworkElement, _height, 0.5);
             storyboard.Begin();
             
-        }
-
-        private void LayoutRoot_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            var storyboard = AnimationUtils.GetStoryboard();
-            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.5);
-            AnimationUtils.SetHeightAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, 0.5);
-            storyboard.Completed += delegate(object sender1, EventArgs e1)
-            {
-                OnClose();
-            };
-            storyboard.Begin();
         }
 
         private void OnClose()
@@ -73,6 +61,18 @@ namespace ToDo.Controls
             {
                 Closed(this, new EventArgs());
             }
+        }
+
+        private void CompletedPanelTop_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var storyboard = AnimationUtils.GetStoryboard();
+            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.5);
+            AnimationUtils.SetHeightAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, 0.5);
+            storyboard.Completed += delegate(object sender1, EventArgs e1)
+            {
+                OnClose();
+            };
+            storyboard.Begin();
         }
     }
 }

@@ -10,17 +10,25 @@
     d:DesignHeight="480" d:DesignWidth="480"
     Loaded="UserControl_Loaded">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent" Tap="LayoutRoot_Tap">
+    <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="0"></StackPanel>
+        <StackPanel Grid.Row="0" Background="Transparent" x:Name="CompletedPanelTop" Tap="CompletedPanelTop_Tap"></StackPanel>
         
-        <StackPanel Background="White" Orientation="Vertical" Grid.Row="1" x:Name="CompletedStackPanel" VerticalAlignment="Bottom" Height="0">
+        <StackPanel Background="White" 
+                    Orientation="Vertical" 
+                    Grid.Row="1"
+                    Margin="10"
+                    x:Name="CompletedStackPanel" 
+                    VerticalAlignment="Bottom" >
+            
             <TextBlock Text="Completed" FontStyle="Normal" FontSize="48" Foreground="#FF1BA1E2"/>
+            
             <ListBox x:Name="CompletedList"
+                     Height="0"
                      ItemsSource="{Binding CompletedToDoItems}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
