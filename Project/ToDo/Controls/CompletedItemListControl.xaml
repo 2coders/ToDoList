@@ -18,7 +18,7 @@
         
         <StackPanel Grid.Row="0"></StackPanel>
         
-        <StackPanel Background="White" Orientation="Vertical" Grid.Row="1" x:Name="CompletedStackPanel" VerticalAlignment="Bottom">
+        <StackPanel Background="White" Orientation="Vertical" Grid.Row="1" x:Name="CompletedStackPanel" VerticalAlignment="Bottom" Height="0">
             <TextBlock Text="Completed" FontStyle="Normal" FontSize="48" Foreground="#FF1BA1E2"/>
             <ListBox x:Name="CompletedList"
                      ItemsSource="{Binding CompletedToDoItems}">
