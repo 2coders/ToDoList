@@ -74,11 +74,24 @@ namespace ToDo.Controls
             ToDoItem item = new ToDoItem();
             item.Title = content;
             item.CreateTime = DateTime.Now;
-            item.RemindTime = DateTime.Now;
             item.IsCompleted = false;
             item.Note = "";
             item.Priority = 0;
-            App.ViewModel.AddToDoItem(item);
+
+            if (_GroupName != null && _GroupName.Equals(TOMORROW))
+            {
+                item.RemindTime = DateTime.Now.AddDays(1);
+            }
+            else if (_GroupName != null && _GroupName.Equals(LATER))
+            {
+                item.RemindTime = DateTime.Now.AddDays(2);
+            }
+            else
+            {
+                item.RemindTime = DateTime.Now;
+            }
+            
+            App.ViewModel.AddToDoItem(item, _GroupName);
         }
         #endregion
     }

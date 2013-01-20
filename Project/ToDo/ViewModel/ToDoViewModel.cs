@@ -3,6 +3,7 @@ using ToDo.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System;
+using ToDo.Controls;
 
 namespace ToDo.ViewModel
 {
@@ -102,7 +103,7 @@ namespace ToDo.ViewModel
         }
 
         // Add a to-do item to the database and collections.
-        public void AddToDoItem(ToDoItem newToDoItem)
+        public void AddToDoItem(ToDoItem newToDoItem, string group)
         {
             // Add a to-do item to the data context.
             toDoDBContext.Items.InsertOnSubmit(newToDoItem);
@@ -110,8 +111,23 @@ namespace ToDo.ViewModel
             // Save changes to the database.
             toDoDBContext.SubmitChanges();
 
-            // Add a to-do item to the "all" observable collection.
-            TodayToDoItems.Insert(0, newToDoItem);
+            if (group == null)
+            {
+                return;
+            }
+            if (group.Equals(CreateItemControl.TOMORROW))
+            {
+                TomorrowToDoItems.Insert(0, newToDoItem);
+            }
+            else if (group.Equals(CreateItemControl.LATER))
+            {
+                LaterToDoItems.Insert(0, newToDoItem);
+            }
+            else // add to today as default
+            {
+                // Add a to-do item to the "all" observable collection.
+                TodayToDoItems.Insert(0, newToDoItem);
+            }
         }
 
         // Remove a to-do task item from the database and collections.
