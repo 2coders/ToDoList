@@ -7,7 +7,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="800" d:DesignWidth="480">
+    d:DesignHeight="800" d:DesignWidth="480"
+    Loaded="LayoutRoot_Loaded">
 	<UserControl.Resources>
 		<ControlTemplate x:Key="PhoneDisabledTextBoxTemplate" TargetType="TextBox">
 			<ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch"/>
@@ -50,14 +51,13 @@
 			</Setter>
 		</Style>
 	</UserControl.Resources>
-    
-    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded"
-          Width="480" Height="800">
-        <TextBox x:Name="NoteTextBox" HorizontalAlignment="Center" 
-                 Margin="0,100,0,0" VerticalAlignment="Top" Width="380"
+
+
+    <TextBox x:Name="NoteTextBox" HorizontalAlignment="Center" 
+                 Margin="0,70,0,0" VerticalAlignment="Top" Width="400" Height="200"
                  Background="Transparent" BorderThickness="0"
                  TextWrapping="Wrap" AcceptsReturn="True"
                  LostFocus="ContentTextBox_LostFocus"
                  Text="{Binding Note, Mode=TwoWay}" Style="{StaticResource TextBoxStyle1}" />
-    </Grid>
+
 </UserControl>

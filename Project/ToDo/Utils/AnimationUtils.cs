@@ -39,8 +39,8 @@ namespace ToDo.Utils
             Duration opacityDuration = TimeSpan.FromSeconds(clock);
             opacityAnimation.Duration = opacityDuration;
             
-            IEasingFunction opacityEasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
-            opacityAnimation.EasingFunction = opacityEasingFunction;
+            //IEasingFunction opacityEasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            //opacityAnimation.EasingFunction = opacityEasingFunction;
 
             opacityAnimation.From = container.Opacity;
             opacityAnimation.To = to;
@@ -63,7 +63,7 @@ namespace ToDo.Utils
             Duration duration = TimeSpan.FromSeconds(clock);
             anyAnimation.Duration = duration;
 
-            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut, Exponent = 4 };
             anyAnimation.EasingFunction = easingFunction;
 
             anyAnimation.From = from;
@@ -90,8 +90,8 @@ namespace ToDo.Utils
             Duration duration = TimeSpan.FromSeconds(clock);
             anyAnimation.Duration = duration;
 
-            IEasingFunction easingFunction = new SineEase { EasingMode = EasingMode.EaseInOut};
-            anyAnimation.EasingFunction = easingFunction;
+            //IEasingFunction easingFunction = new SineEase { EasingMode = EasingMode.EaseInOut};
+            //anyAnimation.EasingFunction = easingFunction;
 
             anyAnimation.From = from;
             anyAnimation.To = to;
@@ -113,8 +113,8 @@ namespace ToDo.Utils
             Duration duration = TimeSpan.FromSeconds(clock);
             widthAnimation.Duration = duration;
 
-            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
-            widthAnimation.EasingFunction = easingFunction;
+            //IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            //widthAnimation.EasingFunction = easingFunction;
 
             widthAnimation.From = container.ActualWidth;
             widthAnimation.To = to;
@@ -147,7 +147,7 @@ namespace ToDo.Utils
             
             Duration duration = TimeSpan.FromSeconds(clock);
             heightAnimation.Duration = duration;
-            
+
             IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
             heightAnimation.EasingFunction = easingFunction;
 

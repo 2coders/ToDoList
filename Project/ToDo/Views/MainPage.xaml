@@ -63,7 +63,7 @@
                     </StackPanel>
                     
                     <toolkit:GestureService.GestureListener>
-                        <toolkit:GestureListener   Flick="GestureListener_Flick" />
+                        <toolkit:GestureListener Flick="GestureListener_Flick" />
                     </toolkit:GestureService.GestureListener>
                     
                 </StackPanel>
@@ -86,36 +86,29 @@
         <ScrollViewer x:Name="MainScrollViewer"
                       Grid.Row="0"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Disabled"
-                      Tap="MainScrollViewer_Tap" ManipulationStarted="MainScrollViewer_ManipulationStarted" MouseMove="MainScrollViewer_MouseMove" ManipulationDelta="MainScrollViewer_ManipulationDelta" ManipulationCompleted="MainScrollViewer_ManipulationCompleted">
-
+                      HorizontalScrollBarVisibility="Disabled">
+            
             <StackPanel x:Name="TodayPanel" Margin="0,0,0,60" Orientation="Vertical">
-
+                
+                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80" Margin="350,0,0,-200" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
+                                      Header="Today"
                                       x:Name="todayExpanderView"
                                       FontStyle="Normal"
                                       HorizontalAlignment="Left" 
                                       Height="Auto" Margin="10,50,0,0"
                                       VerticalAlignment="Top"
                                       ItemsSource="{Binding TodayToDoItems}"
-                                      ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"
-                                      BorderBrush="Transparent" Background="Transparent"
-                                      Tap="todayExpanderView_Tap_1">
-                    <toolkit:ExpanderView.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Height="83" >
-                                <TextBlock Text="Today" FontSize="48" Foreground="#FF1BA1E2" HorizontalAlignment="Left" />
-                                <Button Content="++++++" Tap="AddItem_Tap" FontSize="40" Foreground="Black"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </toolkit:ExpanderView.HeaderTemplate>
+                                      ExpanderTemplate="{StaticResource ExpanderTemplate}"
+                                      BorderBrush="Transparent" Background="Transparent">
                 </toolkit:ExpanderView>
 
+                <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80"  Margin="350,0,0,-100"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Tomorrow"
                                       FontSize="48"
-                                      x:Name="tomorrowToDoItemsListBox"
+                                      x:Name="tomorrowExpanderView"
 									  Foreground="#FF1BA1E2"
                                       FontStyle="Normal"
                                       HorizontalAlignment="Left" 
@@ -126,10 +119,11 @@
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       Width="Auto" />
 
+                <Button x:Name="LaterNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80" Margin="350,0,0,-100" Tap="LaterNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Later"
                                       FontSize="48"
-                                      x:Name="laterToDoItemsListBox"
+                                      x:Name="laterExpanderView"
                                       Foreground="#FF1BA1E2"
                                       HorizontalAlignment="Left" 
                                       Height="Auto" Margin="10,10,0,0"
@@ -141,7 +135,6 @@
 
                 <StackPanel x:Name="VacancyStackPanel" Height="0" />
 
-                
             </StackPanel>
             
         </ScrollViewer>

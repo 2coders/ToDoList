@@ -30,8 +30,7 @@ namespace ToDo.Controls
             }
             set
             {
-                //ModifyTextBox.Margin = new Thickness(0, 0, 0, 0);//value;
-                Log.Info("ModifyTitleControl", String.Format("left:{0},top:{0}", value.Left, value.Top));
+                ModifyTextBox.Margin = value;
             }
         }
 
@@ -39,7 +38,7 @@ namespace ToDo.Controls
         {
             set
             {
-                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value, 0, 0);
+                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value - 10, 0, 0);
             }
         }
 

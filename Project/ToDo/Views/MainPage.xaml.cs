@@ -43,16 +43,11 @@ namespace ToDo
 
         private void CreateItem_Click(object sender, EventArgs e)
         {
-            CreateItem(CreateItemControl.TODAY);
+            CreateItem(todayExpanderView, CreateItemControl.TODAY);
         }
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PreventTap())
-            {
-                return;
-            }
-
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -64,11 +59,6 @@ namespace ToDo
 
         private void FlagButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PreventTap())
-            {
-                return;
-            }
-
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -80,11 +70,6 @@ namespace ToDo
 
         private void Remind_Click(object sender, EventArgs e)
         {
-            if (PreventTap())
-            {
-                return;
-            }
-
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
             if (item != null)
             {
@@ -95,17 +80,13 @@ namespace ToDo
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (PreventTap())
-            {
-                return;
-            }
-
             FrameworkElement deleteBtn = sender as FrameworkElement;
             DeleteItem(deleteBtn);
         }
 
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
         {
+            Log.Info(TAG, sender.ToString());
             if (e.Direction == System.Windows.Controls.Orientation.Horizontal)
             {
                 StackPanel parent = sender as StackPanel;
@@ -132,11 +113,6 @@ namespace ToDo
 
         private void Border_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (PreventTap())
-            {
-                return;
-            }
-
             FrameworkElement tbx = sender as FrameworkElement;
             if (tbx == null)
             {
@@ -169,46 +145,8 @@ namespace ToDo
         private void ModifyButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ToDoItem item = (sender as FrameworkElement).DataContext as ToDoItem;
-            if (item == null)
-            {
-                return;
-            }
             var parent = (sender as FrameworkElement).Parent as StackPanel;
-            if (parent == null)
-            {
-                return;
-            }
-            var text = parent.FindName("ItemTitleText") as FrameworkElement;
-            Log.Info(TAG, (text as TextBlock).Text);
-            var transform = text.TransformToVisual(Application.Current.RootVisual);
-            var pointOffset = transform.Transform(new Point(0, 0));
-            Log.Info(TAG, String.Format("left:{0},top:{1}", pointOffset.X, pointOffset.Y));
-            double verticalOffset = pointOffset.Y - 300;
-
-            ModifyTitleControl modify = new ModifyTitleControl(item) 
-            {
-                //TitleMargin = new Thickness(pointOffset.X, (verticalOffset > 0) ? 500 : pointOffset.Y, 0, 0)
-                TitleHeight = (verticalOffset > 0) ? 300 : pointOffset.Y
-            };
-            SetPopupedControlEvent(modify);
-
-            if (verticalOffset > 0)
-            {
-                var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
-                AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
-                    MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
-                storyboard.Completed += delegate(object sender1, EventArgs e1)
-                {
-                    PopupWindow.ShowWindow(modify);
-                };
-                storyboard.Begin();
-            }
-            else 
-            {
-                PopupWindow.ShowWindow(modify);
-            }
-            
+            ModifyItemTitle(parent, item);
             e.Handled = true;
         }
 
@@ -284,9 +222,9 @@ namespace ToDo
             }
         }
 
-        private void CreateItem(String groupName)
+        private void CreateItem(FrameworkElement list, String groupName)
         {
-            var transform = todayExpanderView.TransformToVisual(Application.Current.RootVisual);
+            var transform = list.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
             double verticalOffset = pointOffset.Y - 50;
 
@@ -295,6 +233,16 @@ namespace ToDo
                 GroupName = groupName
             };
             SetPopupedControlEvent(createItem);
+
+            createItem.Closed += delegate(object sender, EventArgs e)
+            {
+                if (verticalOffset > 0)
+                {
+                    var storyboard2 = AnimationUtils.GetStoryboard();
+                    AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
+                    storyboard2.Begin();
+                }
+            };
 
             if (verticalOffset == 0)
             {
@@ -312,15 +260,6 @@ namespace ToDo
 
                 storyboard.Completed += delegate(object sender, EventArgs e)
                 {
-                    createItem.Closed += delegate(object sender2, EventArgs e2)
-                    {
-                        if (verticalOffset > 0)
-                        {
-                            var storyboard2 = AnimationUtils.GetStoryboard();
-                            AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
-                            storyboard2.Begin();
-                        }
-                    };
                     PopupWindow.ShowWindow(createItem);
                 };
                 storyboard.Begin();
@@ -371,6 +310,11 @@ namespace ToDo
 
         private void SetItemCompleted(StackPanel parent, ToDoItem item)
         {
+            if (item == null || parent == null)
+            {
+                return;
+            }
+
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
@@ -407,6 +351,11 @@ namespace ToDo
 
         private void SetItemUnCompleted(StackPanel parent, ToDoItem item)
         {
+            if (item == null || parent == null)
+            {
+                return;
+            }
+
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement completedLine = parent.FindName("CompletedLine") as FrameworkElement;
@@ -420,61 +369,79 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        #endregion
-
-        private void AddItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ModifyItemTitle(StackPanel parent, ToDoItem item)
         {
-            //CreateItem();
-            Log.Info(TAG, "AddItem_Tap");
-            e.Handled = true;
+            if (item == null || parent == null)
+            {
+                return;
+            }
+
+            var text = parent.FindName("ItemTitleText") as FrameworkElement;
+            var transform = text.TransformToVisual(Application.Current.RootVisual);
+            var pointOffset = transform.Transform(new Point(0, 0));
+
+            double verticalOffset = pointOffset.Y - 200;
+
+            ModifyTitleControl modify = new ModifyTitleControl(item)
+            {
+                TitleHeight = (verticalOffset > 0) ? 200 : pointOffset.Y
+            };
+            SetPopupedControlEvent(modify);
+
+            modify.Closed += delegate(object sender, EventArgs e)
+            {
+                if (verticalOffset > 0)
+                {
+                    var storyboard2 = AnimationUtils.GetStoryboard();
+                    AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
+                    storyboard2.Begin();
+                }
+            };
+
+            if (verticalOffset > 0)
+            {
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
+                AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
+                    MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
+                storyboard.Completed += delegate(object sender1, EventArgs e1)
+                {
+                    PopupWindow.ShowWindow(modify);
+                };
+                storyboard.Begin();
+            }
+            else
+            {
+                PopupWindow.ShowWindow(modify);
+            }
+            
         }
+
+
+        #endregion
 
         private void CompletedItem_Click(object sender, EventArgs e)
         {
-
             PopupWindow.ShowWindow(new CompletedItemListControl(this.ActualHeight * 0.618) { MainScrollViewer = this.MainScrollViewer }, false);
-
         }
 
-        private void todayExpanderView_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            Log.Info(TAG, "todayExpanderView_Tap_1");
-            e.Handled = false;
-        }
 
-        private void MainScrollViewer_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void TodayNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Log.Info(TAG, "MainScrollViewer_Tap");
-
+            CreateItem(todayExpanderView, CreateItemControl.TODAY);
             e.Handled = true;
         }
 
-        private bool PreventTap()
+        private void TomorrowNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            return CompletedPanelExpanded;
+            CreateItem(tomorrowExpanderView, CreateItemControl.TOMORROW);
+            e.Handled = true;
         }
 
-        private void MainScrollViewer_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
+        private void LaterNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            //CloseCompletedPanel();
-            //e.Handled = true;
-
-            Log.Info(TAG, "MainScrollViewer_ManipulationStarted");
-        }
-
-        private void MainScrollViewer_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Log.Info(TAG, "MainScrollViewer_MouseMove");
-        }
-
-        private void MainScrollViewer_ManipulationDelta(object sender, System.Windows.Input.ManipulationDeltaEventArgs e)
-        {
-            Log.Info(TAG, "MainScrollViewer_ManipulationDelta");
-        }
-
-        private void MainScrollViewer_ManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
-        {
-            Log.Info(TAG, "MainScrollViewer_ManipulationCompleted");
+            CreateItem(laterExpanderView, CreateItemControl.LATER);
+            e.Handled = true;
         }
 
 

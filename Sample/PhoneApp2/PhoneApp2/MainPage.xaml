@@ -30,7 +30,9 @@
         <Grid x:Name="ContentPane2" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel x:Name="TitlePane2" Grid.Row="0" Margin="12,17,0,28">
                 <TextBlock x:Name="aa" Text="Title" MouseLeftButtonDown="aa_MouseLeftButtonDown" Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBox x:Name="cc" Height="72" TextWrapping="Wrap" Text="TextBox" MouseLeftButtonDown="cc_MouseLeftButtonDown"/>
+                <TextBox x:Name="cc" Height="72" TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Text="TextBox"/>
                 <TextBlock x:Name="bb" Text="content" Margin="9,-7,0,0" Visibility="Collapsed" Style="{StaticResource PhoneTextTitle1Style}"/>
                 <Button Content="Button" Click="Button_Click_1"/>
             </StackPanel>

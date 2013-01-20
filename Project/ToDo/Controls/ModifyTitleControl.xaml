@@ -10,16 +10,12 @@
     d:DesignHeight="480" d:DesignWidth="480"
     Loaded="LayoutRoot_Loaded">
 
-    <StackPanel x:Name="LayoutRoot"
-                Width="480" Height="800"
-                Orientation="Vertical">
-        
-        <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Left" 
-                 Margin="8,0,15,0" VerticalAlignment="Top" Width="369"
+    <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Left" 
+                 Margin="8,200,0,0" VerticalAlignment="Top" Width="400"
                  Background="Transparent" BorderThickness="0"
-                 TextWrapping="Wrap" AcceptsReturn="True" 
+                 TextWrapping="Wrap"
                  FontSize="24"
                  LostFocus="ContentTextBox_LostFocus"
                  Text="{Binding Title, Mode=TwoWay}"/>
-    </StackPanel>
+
 </UserControl>
