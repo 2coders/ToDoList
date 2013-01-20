@@ -90,7 +90,7 @@ namespace ToDo.Utils
             Duration duration = TimeSpan.FromSeconds(clock);
             anyAnimation.Duration = duration;
 
-            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+            IEasingFunction easingFunction = new SineEase { EasingMode = EasingMode.EaseInOut};
             anyAnimation.EasingFunction = easingFunction;
 
             anyAnimation.From = from;

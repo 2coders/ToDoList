@@ -119,7 +119,6 @@ namespace ToDo
                 {
                     if (e.HorizontalVelocity > 0)//flick to right
                     {
-                        item.IsCompleted = true;
                         this.SetItemCompleted(parent, item);
 
                     }
@@ -127,7 +126,6 @@ namespace ToDo
                     {
                         this.SetItemUnCompleted(parent, item);
                     }
-                    App.ViewModel.SaveChangesToDB();
                 }
             }
         }
@@ -388,9 +386,20 @@ namespace ToDo
                 mCurrentItemPanel = null;
             }
 
+            var storyboard2 = AnimationUtils.GetStoryboard();
+            FrameworkElement listItem = parent.FindName("ListItem") as FrameworkElement;
+            AnimationUtils.SetTranslateAnimation(storyboard2, parent, 0, Application.Current.Host.Content.ActualHeight, 0.5);
+            AnimationUtils.SetHeightAnimation(storyboard2, listItem, 0, 0.5);
+
             storyboard.Completed += delegate(object sender, EventArgs e)
             {
                 item.IsCompleted = true;
+                storyboard2.Begin();
+            };
+
+            storyboard2.Completed += delegate(object sender, EventArgs e)
+            {
+                App.ViewModel.ChangeCompletedStatus(item, true);
             };
 
             storyboard.Begin();

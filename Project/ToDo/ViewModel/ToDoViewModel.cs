@@ -73,6 +73,7 @@ namespace ToDo.ViewModel
 
             var todayToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.RemindTime < System.DateTime.Today.AddDays(1)
+                                     && todo.IsCompleted == false
                                      orderby todo.Id descending
                                      select todo;
             TodayToDoItems = new ObservableCollection<ToDoItem>(todayToDoItemsInDB);
@@ -80,12 +81,14 @@ namespace ToDo.ViewModel
             var tomorrowToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                         where todo.RemindTime < System.DateTime.Today.AddDays(2)
                                         && todo.RemindTime > System.DateTime.Today.AddDays(1)
+                                        && todo.IsCompleted == false
                                         orderby todo.Id descending
                                         select todo;
             TomorrowToDoItems = new ObservableCollection<ToDoItem>(tomorrowToDoItemsInDB);
 
             var laterToDoItemsInDB = from ToDoItem todo in toDoDBContext.Items
                                      where todo.RemindTime > System.DateTime.Today.AddDays(2)
+                                     && todo.IsCompleted == false
                                      orderby todo.Id descending
                                      select todo;
             LaterToDoItems = new ObservableCollection<ToDoItem>(laterToDoItemsInDB);
@@ -121,11 +124,22 @@ namespace ToDo.ViewModel
             // Save changes to the database.
             toDoDBContext.SubmitChanges();
 
-            TodayToDoItems.Remove(toDoForDelete);
+            if (TodayToDoItems.Contains(toDoForDelete))
+            {
+                TodayToDoItems.Remove(toDoForDelete);
+            }
+            else if (TomorrowToDoItems.Contains(toDoForDelete))
+            {
+                TomorrowToDoItems.Remove(toDoForDelete);
+            }
+            else if (LaterToDoItems.Contains(toDoForDelete))
+            {
+                LaterToDoItems.Remove(toDoForDelete);
+            }
         }
 
         // Write changes in the data context to the database. 
-        public void updateToDoItem(ToDoItem newItem)
+        public void UpdateToDoItem(ToDoItem newItem)
         {
             ToDoItem oldItem = toDoDBContext.Items.Single(item => item.Id == newItem.Id);
             oldItem.IsCompleted = newItem.IsCompleted;
@@ -136,11 +150,34 @@ namespace ToDo.ViewModel
             toDoDBContext.SubmitChanges();
         }
 
-        public void updateRemindTime(int id, DateTime newDateTime)
+        public void UpdateRemindTime(int id, DateTime newDateTime)
         {
             ToDoItem oldItem = toDoDBContext.Items.Single(item => item.Id == id);
             oldItem.RemindTime = newDateTime;
             toDoDBContext.SubmitChanges();
+        }
+
+        public void ChangeCompletedStatus(ToDoItem item, bool completed)
+        {
+            toDoDBContext.SubmitChanges();
+
+            if (item == null)
+            { 
+                return;
+            }
+            if (TodayToDoItems.Contains(item))
+            {
+                TodayToDoItems.Remove(item);
+            }
+            else if (TomorrowToDoItems.Contains(item))
+            {
+                TomorrowToDoItems.Remove(item);
+            }
+            else if (LaterToDoItems.Contains(item))
+            {
+                LaterToDoItems.Remove(item);
+            }
+            CompletedToDoItems.Insert(0, item);
         }
 
         // Write changes in the data context to the database.

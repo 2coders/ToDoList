@@ -21,19 +21,21 @@
         <local:IsCompletedConverter x:Key="IsCompletedConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
-            <Border BorderThickness="0,0,0,2" Margin="-45,0,0,0" Padding="0,5,0,5" x:Name="ListItem">
+            <Border x:Name="ListItem" BorderThickness="0,0,0,2" Margin="-45,0,0,0" Padding="0,5,0,5">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Vertical" Width="480" Background="Transparent" >
                     <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
                             BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
+                        
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="ItemTitleText" Text="{Binding Title, Mode=OneWay}" Width="400" FontSize="24" Margin="0,0,0,0" >
                                 <TextBlock.Foreground>
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
                             </TextBlock>
+                            
                             <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" 
                                     Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0"
                                     Tap="ModifyButton_Tap">
@@ -42,11 +44,14 @@
                                 </Button.Background>
                             </Button>
                         </StackPanel>
+                        
                     </Border>
+                    
                     <StackPanel Visibility="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource IsCompletedConverter}}"
                                 Width="480" Height="50" Margin="0,-50,0,0" Background="White" Opacity="0.6">
                         <Line x:Name="CompletedLine" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource PhoneChromeBrush}" X2="1" Margin="0,25,0,0"/>
                     </StackPanel>
+                    
                     <StackPanel x:Name="ToolBar" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
                         <StackPanel.Background>
                             <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
@@ -56,9 +61,11 @@
                         <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
                         <Button x:Name="DeleteButton" Content="Delete" Click="Delete_Click" FontSize="16" BorderThickness="1,0,1,0" />
                     </StackPanel>
+                    
                     <toolkit:GestureService.GestureListener>
                         <toolkit:GestureListener   Flick="GestureListener_Flick" />
                     </toolkit:GestureService.GestureListener>
+                    
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -142,7 +149,7 @@
 
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.5">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.9">
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="done" Click="CompletedItem_Click"/>
             <shell:ApplicationBar.MenuItems>
