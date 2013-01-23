@@ -18,6 +18,7 @@
     <phone:PhoneApplicationPage.Resources>
         <local:DateConverter x:Key="DateConverter" />
         <local:TimeConverter x:Key="TimeConverter" />
+        <local:ToggleSwitchConverter x:Key="ToggleSwitchConverter" />
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
@@ -34,7 +35,7 @@
 
         <!--ContentPanel - 在此处放置其他内容-->
         <StackPanel x:Name="TitlePanel2" Grid.Row="1" Margin="12,17,0,28">
-            <toolkit:ToggleSwitch x:Name="reminderSwitch" Header="Reminder" IsChecked="true" Unchecked="reminderSwitch_Unchecked" Checked="reminderSwitch_Checked"/>
+            <toolkit:ToggleSwitch x:Name="reminderSwitch" Header="Reminder" IsChecked="{Binding Remind,Mode=OneTime,Converter={StaticResource ToggleSwitchConverter}}" Unchecked="reminderSwitch_Unchecked" Checked="reminderSwitch_Checked"/>
             <toolkit:DatePicker x:Name="datePicker" Header="Remind Date" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource DateConverter}}" />
             <toolkit:TimePicker x:Name="timePicker" Header="Remind Time" ValueStringFormat="{}{0:t}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource TimeConverter}}"/>
         </StackPanel>

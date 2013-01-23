@@ -163,6 +163,7 @@ namespace ToDo.ViewModel
             oldItem.Priority = newItem.Priority;
             oldItem.RemindTime = newItem.RemindTime;
             oldItem.Title = newItem.Title;
+            oldItem.Remind = newItem.Remind;
             toDoDBContext.SubmitChanges();
         }
 

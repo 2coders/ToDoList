@@ -101,6 +101,24 @@ namespace ToDo.Model
             }
         }
 
+        // 提醒开关标志
+        private bool _remind;
+
+        [Column]
+        public bool Remind
+        {
+            get { return _remind; }
+            set
+            {
+                if (_remind != value)
+                {
+                    NotifyPropertyChanging("Remind");
+                    _remind = value;
+                    NotifyPropertyChanged("Remind");
+                }
+            }
+        }
+
         // 优先级
         private int _priority;
 

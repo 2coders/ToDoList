@@ -31,6 +31,8 @@ namespace ToDo
             DateTime time = (DateTime) this.timePicker.Value;
             DateTime beginTime = date + time.TimeOfDay;
             App.TodoParams.RemindTime = beginTime;
+            bool b = (bool) reminderSwitch.IsChecked;
+            App.TodoParams.Remind = b;
             SetReminder(beginTime);
             App.ViewModel.SaveChangesToDB();
 
@@ -40,6 +42,11 @@ namespace ToDo
         #region set reminder
         private void SetReminder(DateTime beginTime)
         {
+            if (beginTime <= DateTime.Now)
+            {
+                return;
+            }
+
             string name = App.TodoParams.Id.ToString();
             if (ScheduledActionService.Find(name) != null)
             {

@@ -77,6 +77,7 @@ namespace ToDo.Controls
             item.IsCompleted = false;
             item.Note = "";
             item.Priority = 0;
+            item.Remind = false; // 默认提醒关闭
 
             if (_GroupName != null && _GroupName.Equals(TOMORROW))
             {
