@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Controls\PopupWindow.cs" />
     <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\StringCutConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Converters\PriorityConverter.cs" />
     <Compile Include="Converters\IsCompletedConverter.cs" />
