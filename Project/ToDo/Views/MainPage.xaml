@@ -149,6 +149,7 @@
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="done" Click="CompletedItem_Click"/>
             <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="CompletedMenuItem" Text="已完成" Click="CompletedMenuItem_Click"/>
                 <shell:ApplicationBarMenuItem Text="设置"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
