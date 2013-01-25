@@ -86,7 +86,11 @@ namespace ToDo
 
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
         {
-            Log.Info(TAG, sender.ToString());
+            if (PopupWindow.IsShown)
+            {
+                return;
+            }
+
             if (e.Direction == System.Windows.Controls.Orientation.Horizontal)
             {
                 StackPanel parent = sender as StackPanel;
@@ -197,6 +201,7 @@ namespace ToDo
                 control.Opened += delegate(object sender2, EventArgs e2)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Done);
+                    
                 };
                 control.Closed += delegate(object sender2, EventArgs e2)
                 {

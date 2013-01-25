@@ -116,5 +116,20 @@ namespace ToDo.Controls
                 mWindow = null;
             }
         }
+
+        public static bool IsShown
+        {
+            get
+            {
+                if (mWindow != null)
+                {
+                    return mWindow.IsOpen;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
