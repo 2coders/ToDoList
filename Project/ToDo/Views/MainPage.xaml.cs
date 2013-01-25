@@ -6,6 +6,7 @@ using ToDo.Controls;
 using ToDo.Model;
 using ToDo.Utils;
 using Microsoft.Phone.Shell;
+using ToDo.Converters;
 
 namespace ToDo
 {
@@ -123,6 +124,14 @@ namespace ToDo
                 Log.Error(TAG, "Border_Tap, tbx is null.");
                 return;
             }
+
+            ToDoItem item = tbx.DataContext as ToDoItem;
+            if (item == null)
+            {
+                Log.Error(TAG, "Border_Tap, item is null.");
+                return;
+            }
+
             StackPanel parent = tbx.Parent as StackPanel;
             if (parent == null)
             {
@@ -132,13 +141,13 @@ namespace ToDo
             
             if (mCurrentItemPanel != null)
             {
-                HideItemDetails(mCurrentItemPanel);
+                HideItemDetails(mCurrentItemPanel, item);
             }
 
             if (mCurrentItemPanel != parent)
             {
                 mCurrentItemPanel = parent;
-                this.ShowItemDetails(mCurrentItemPanel);
+                this.ShowItemDetails(mCurrentItemPanel, item);
             }
             else
             {
@@ -292,8 +301,10 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void ShowItemDetails(StackPanel parent)
+        private void ShowItemDetails(StackPanel parent, ToDoItem item)
         {
+            StringCutConverter.ShowAll(item, "Title", item.Title);
+
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
@@ -306,8 +317,10 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void HideItemDetails(StackPanel parent)
+        private void HideItemDetails(StackPanel parent, ToDoItem item)
         {
+            StringCutConverter.ShowPart(item, "Title", item.Title);
+
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;

@@ -56,7 +56,7 @@ namespace ToDo.Model
             get { return _title; }
             set
             {
-                if (_title != value)
+                //if (_title != value)
                 {
                     NotifyPropertyChanging("Title");
                     _title = value;
