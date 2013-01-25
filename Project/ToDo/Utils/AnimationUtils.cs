@@ -134,7 +134,7 @@ namespace ToDo.Utils
             }
         }
 
-        public static void SetHeightAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
+        public static void SetHeightAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock, bool easing)
         {
             if (storyboard == null || container == null)
             {
@@ -148,8 +148,11 @@ namespace ToDo.Utils
             Duration duration = TimeSpan.FromSeconds(clock);
             heightAnimation.Duration = duration;
 
-            IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
-            heightAnimation.EasingFunction = easingFunction;
+            if (easing)
+            {
+                IEasingFunction easingFunction = new ExponentialEase { EasingMode = EasingMode.EaseInOut, Exponent = 4 };
+                heightAnimation.EasingFunction = easingFunction;
+            }
 
             heightAnimation.From = container.ActualHeight;
             heightAnimation.To = to;
@@ -168,5 +171,12 @@ namespace ToDo.Utils
             //    container.Visibility = Visibility.Visible;
             //}
         }
+
+        public static void SetHeightAnimation(Storyboard storyboard, FrameworkElement container, double to, double clock)
+        {
+            SetHeightAnimation(storyboard, container, to, clock, true);
+        }
+
+
     }
 }

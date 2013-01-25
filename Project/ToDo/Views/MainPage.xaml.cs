@@ -234,6 +234,12 @@ namespace ToDo
             };
             SetPopupedControlEvent(createItem);
 
+            createItem.Opened += delegate(object sender, EventArgs e)
+            {
+                // 新建数据展开ExpanderView
+                ((ExpanderView)list).IsExpanded = true;
+            };
+
             createItem.Closed += delegate(object sender, EventArgs e)
             {
                 if (verticalOffset > 0)
@@ -242,6 +248,7 @@ namespace ToDo
                     AnimationUtils.SetHeightAnimation(storyboard2, VacancyStackPanel as FrameworkElement, 0, 0.3);
                     storyboard2.Begin();
                 }
+
             };
 
             if (verticalOffset == 0)

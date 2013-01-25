@@ -157,6 +157,7 @@
     <Content Include="Images\feature.alarm.png" />
     <Content Include="Images\feature.calendar.png" />
     <Content Include="Images\feature.settings.png" />
+    <Content Include="Images\main_bg.png" />
     <Content Include="Images\overflowdots.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\save.png" />

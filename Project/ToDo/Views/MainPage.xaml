@@ -22,7 +22,7 @@
         <local:StringCutConverter x:Key="StringCutConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
-            <Border x:Name="ListItem" BorderThickness="0,0,0,2" Margin="-45,0,0,0" Padding="0,5,0,5">
+            <Border x:Name="ListItem" BorderThickness="0,0,0,2" Margin="-45,0,15,0" Padding="0,5,0,5">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                 </Border.BorderBrush>
@@ -78,6 +78,10 @@
         </DataTemplate>
 
     </phone:PhoneApplicationPage.Resources>
+    
+    <phone:PhoneApplicationPage.Background>
+        <ImageBrush Stretch="Fill" ImageSource="/Images/main_bg.png"/>
+    </phone:PhoneApplicationPage.Background>
 
 
     <Grid x:Name="LayoutRoot" Background="White">
@@ -92,8 +96,8 @@
                       HorizontalScrollBarVisibility="Disabled">
             
             <StackPanel x:Name="TodayPanel" Margin="0,0,0,60" Orientation="Vertical">
-                
-                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80" Margin="350,0,0,-200" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
+
+                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-200" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Today"
                                       x:Name="todayExpanderView"
@@ -107,7 +111,7 @@
                                       BorderBrush="Transparent" Background="Transparent">
                 </toolkit:ExpanderView>
 
-                <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80"  Margin="350,0,0,-100"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
+                <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" FontSize="30"  Width="80" Height="80"  Margin="350,0,0,-100"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Tomorrow"
                                       FontSize="48"
@@ -122,7 +126,7 @@
                                       ExpanderTemplate="{StaticResource ExpanderTemplate}"
                                       Width="Auto" />
 
-                <Button x:Name="LaterNewButton" Content="+" Foreground="Black" Background="Red" Width="80" Height="80" Margin="350,0,0,-100" Tap="LaterNewButton_Tap"  Canvas.ZIndex="100" />
+                <Button x:Name="LaterNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-100" Tap="LaterNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="Later"
                                       FontSize="48"
@@ -145,7 +149,7 @@
 
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="0.9">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF1BA1E2" Opacity="1.0">
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="新建" Click="CreateItem_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/add.png" Text="done" Click="CompletedItem_Click"/>
             <shell:ApplicationBar.MenuItems>
