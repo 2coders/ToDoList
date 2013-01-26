@@ -206,10 +206,11 @@ namespace ToDo.ViewModel
         public int getIncompletedItemCount()
         {
             var incompletedItemsInDB = from ToDoItem todo in toDoDBContext.Items
-                                     where todo.IsCompleted == false
-                                     select todo;
+                                       where todo.RemindTime < System.DateTime.Today.AddDays(1)
+                                       && todo.IsCompleted == false
+                                       select todo;
             ObservableCollection<ToDoItem> incompletedItems = new ObservableCollection<ToDoItem>(incompletedItemsInDB);
-            if (incompletedItems != null && incompletedItems.Count > 0)
+            if (incompletedItems != null)
             {
                 return incompletedItems.Count;
             }

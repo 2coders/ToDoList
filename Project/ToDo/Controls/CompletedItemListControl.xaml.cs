@@ -49,9 +49,8 @@ namespace ToDo.Controls
 
             CompletedStackPanel.Height = _height;
             var storyboard = AnimationUtils.GetStoryboard();
-            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, 0, -_height, 6);
-            AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, _height, 0, 6);
-            //AnimationUtils.SetHeightAnimation(storyboard, CompletedStackPanel as FrameworkElement, _height, 5, false);
+            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, 0, -_height, 0.6);
+            AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, _height, 0, 0.6);
             storyboard.Begin();
 
         }
@@ -71,7 +70,6 @@ namespace ToDo.Controls
             var storyboard = AnimationUtils.GetStoryboard();
             AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.6);
             AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, _height, 0.6);
-            //AnimationUtils.SetHeightAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, 0.5, false);
             storyboard.Completed += delegate(object sender1, EventArgs e1)
             {
                 OnClose();

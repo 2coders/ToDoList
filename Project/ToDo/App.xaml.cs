@@ -87,6 +87,8 @@ namespace ToDo
 
             // Query the local database and load observable collections.
             viewModel.LoadCollectionsFromDatabase();
+
+            TileModel.updateTile();
         }
 
         // 应用程序启动(例如，从“开始”菜单启动)时执行的代码
