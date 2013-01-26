@@ -12,7 +12,7 @@
 
     <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Left" 
                  Margin="8,200,0,0" VerticalAlignment="Top" Width="400"
-                 Background="Transparent" BorderThickness="0"
+                 BorderThickness="0"
                  TextWrapping="Wrap"
                  FontSize="24"
                  LostFocus="ContentTextBox_LostFocus"
