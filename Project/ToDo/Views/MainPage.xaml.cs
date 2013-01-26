@@ -163,6 +163,35 @@ namespace ToDo
             e.Handled = true;
         }
 
+
+        private void CompletedItem_Click(object sender, EventArgs e)
+        {
+            this.ShowCompletedItem();
+        }
+
+        private void CompletedMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ShowCompletedItem();
+        }
+
+        private void TodayNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CreateItem(todayExpanderView, CreateItemControl.TODAY);
+            e.Handled = true;
+        }
+
+        private void TomorrowNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CreateItem(tomorrowExpanderView, CreateItemControl.TOMORROW);
+            e.Handled = true;
+        }
+
+        private void LaterNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CreateItem(laterExpanderView, CreateItemControl.LATER);
+            e.Handled = true;
+        }
+
         #endregion
 
         /// <summary>
@@ -207,12 +236,12 @@ namespace ToDo
         {
             if (control != null)
             {
-                control.Opened += delegate(object sender2, EventArgs e2)
+                control.Opened += delegate(object sender, EventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Done);
                     
                 };
-                control.Closed += delegate(object sender2, EventArgs e2)
+                control.Closed += delegate(object sender, EventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Add);
                 };
@@ -431,7 +460,7 @@ namespace ToDo
                     MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
                 storyboard.Completed += delegate(object sender1, EventArgs e1)
                 {
-                    PopupWindow.ShowWindow(modify);
+                    PopupWindow.ShowWindow(modify, PopupWindow.PopupWindowBackgroundType.Flash);
                 };
                 storyboard.Begin();
             }
@@ -442,38 +471,14 @@ namespace ToDo
             
         }
 
+        private void ShowCompletedItem()
+        {
+            PopupWindow.ShowWindow(
+                new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer }, 
+                PopupWindow.PopupWindowBackgroundType.None);
+        }
 
         #endregion
-
-        private void CompletedItem_Click(object sender, EventArgs e)
-        {
-            PopupWindow.ShowWindow(new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer }, false);
-        }
-
-
-        private void TodayNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            CreateItem(todayExpanderView, CreateItemControl.TODAY);
-            e.Handled = true;
-        }
-
-        private void TomorrowNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            CreateItem(tomorrowExpanderView, CreateItemControl.TOMORROW);
-            e.Handled = true;
-        }
-
-        private void LaterNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            CreateItem(laterExpanderView, CreateItemControl.LATER);
-            e.Handled = true;
-        }
-
-        private void CompletedMenuItem_Click(object sender, EventArgs e)
-        {
-            PopupWindow.ShowWindow(new CompletedItemListControl(this.ActualHeight * 0.618) { MainScrollViewer = this.MainScrollViewer }, false);
-        }
-
 
     }
 }

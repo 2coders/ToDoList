@@ -3,15 +3,22 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Controls;
+using ToDo.Utils;
+using System;
 
 namespace ToDo.Controls
 {
     public class PopupWindow: ContentControl
     {
+        public enum PopupWindowBackgroundType
+        {
+            None, Show, Transluent, Flash
+        }
+
         private System.Windows.Controls.ContentPresenter body;
         private System.Windows.Shapes.Rectangle backgroundRect;
         private Control content;
-        private bool isShowBackPanel;
+        private PopupWindowBackgroundType backgroundType = PopupWindowBackgroundType.None;
 
         private static PopupWindow mWindow = null;
 
@@ -45,27 +52,42 @@ namespace ToDo.Controls
             }
         }
 
-        public bool IsShowBackPanel
+        public PopupWindowBackgroundType BackgroundType
         {
             set
             {
-                this.isShowBackPanel = value;
+                this.backgroundType = value;
             }
         }
-        
-        public void Hide()
-        {
-            if (this.body != null)
-            {
-                this.ChildWindowPopup.IsOpen = false;
-            }
-        }
+
 
         public bool IsOpen
         {
             get
             {
                 return ChildWindowPopup != null && ChildWindowPopup.IsOpen;
+            }
+        }
+
+        public void Hide()
+        {
+            if (this.body != null)
+            {
+                //When backroundType is flash, run animation before hide.
+                if (this.backgroundType == PopupWindowBackgroundType.Flash)
+                {
+                    var storyboard = AnimationUtils.GetStoryboard();
+                    AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
+                    storyboard.Begin();
+                    storyboard.Completed += delegate(object sender, EventArgs e)
+                    {
+                        this.ChildWindowPopup.IsOpen = false;
+                    };
+                }
+                else
+                {
+                    this.ChildWindowPopup.IsOpen = false;
+                }
             }
         }
 
@@ -82,28 +104,57 @@ namespace ToDo.Controls
                 InitializeMessagePrompt();
                 this.ChildWindowPopup.IsOpen = true;
             }
+
+            //When backroundType is flash, start animation.
+            if (this.backgroundType == PopupWindowBackgroundType.Flash)
+            {
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
+                storyboard.Begin();
+            }
         }
         //初始化弹窗
         private void InitializeMessagePrompt()
         {
             if (this.body == null)
                 return;
-            this.backgroundRect.Visibility = this.isShowBackPanel ? Visibility.Visible : Visibility.Collapsed;
+
+            switch(this.backgroundType)
+            {
+                case PopupWindowBackgroundType.None:
+                    this.backgroundRect.Visibility = Visibility.Collapsed;
+                    break;
+                case PopupWindowBackgroundType.Show:
+                    this.backgroundRect.Visibility = Visibility.Visible;
+                    this.backgroundRect.Opacity = 1;
+                    break;
+                case PopupWindowBackgroundType.Transluent:
+                    this.backgroundRect.Visibility = Visibility.Visible;
+                    this.backgroundRect.Opacity = 0.9;
+                    break;
+                case PopupWindowBackgroundType.Flash:
+                    this.backgroundRect.Opacity = 0;
+                    this.backgroundRect.Visibility = Visibility.Visible;
+                    break;
+            }
+            this.backgroundRect.Visibility = (this.backgroundType == PopupWindowBackgroundType.None) ? Visibility.Collapsed : Visibility.Visible;
+            
+           
             this.body.Content = content;
-            this.Height = 800;
+            //this.Height = 800;
         }
 
 
         public static void ShowWindow(Control control)
         {
-            PopupWindow.ShowWindow(control, true);
+            PopupWindow.ShowWindow(control, PopupWindowBackgroundType.Transluent);
         }
 
-        public static void ShowWindow(Control control, bool isShowBackpanel)
+        public static void ShowWindow(Control control, PopupWindowBackgroundType backgroundType)
         {
             if (mWindow == null)
             {
-                mWindow = new PopupWindow { content = control, IsShowBackPanel = isShowBackpanel };
+                mWindow = new PopupWindow { content = control, BackgroundType = backgroundType };
                 mWindow.Show();
             }
         }

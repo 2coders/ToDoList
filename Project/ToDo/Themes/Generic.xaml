@@ -18,7 +18,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:PopupWindow">
                     <Grid VerticalAlignment="Stretch">
-                        <Rectangle x:Name="backgroundRect" Fill="White" Opacity="0.9"/>
+                        <Rectangle x:Name="backgroundRect" Fill="Snow" Opacity="0.9"/>
                         <ContentPresenter x:Name="body"/>
                     </Grid>
                 </ControlTemplate>
