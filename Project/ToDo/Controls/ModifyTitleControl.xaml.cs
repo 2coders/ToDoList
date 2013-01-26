@@ -38,7 +38,7 @@ namespace ToDo.Controls
         {
             set
             {
-                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value - 10, 0, 0);
+                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value - 15, 0, 0);
             }
         }
 

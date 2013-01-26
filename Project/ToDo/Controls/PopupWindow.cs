@@ -18,7 +18,7 @@ namespace ToDo.Controls
         private System.Windows.Controls.ContentPresenter body;
         private System.Windows.Shapes.Rectangle backgroundRect;
         private Control content;
-        private PopupWindowBackgroundType backgroundType = PopupWindowBackgroundType.None;
+        private PopupWindowBackgroundType backgroundType = PopupWindowBackgroundType.Transluent;
 
         private static PopupWindow mWindow = null;
 
@@ -77,7 +77,7 @@ namespace ToDo.Controls
                 if (this.backgroundType == PopupWindowBackgroundType.Flash)
                 {
                     var storyboard = AnimationUtils.GetStoryboard();
-                    AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
+                    AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0, 0.5);
                     storyboard.Begin();
                     storyboard.Completed += delegate(object sender, EventArgs e)
                     {
@@ -108,9 +108,16 @@ namespace ToDo.Controls
             //When backroundType is flash, start animation.
             if (this.backgroundType == PopupWindowBackgroundType.Flash)
             {
-                var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
-                storyboard.Begin();
+                if (content is IPopupedControl)
+                {
+                    (content as IPopupedControl).Opened += delegate(object sender, EventArgs e)
+                    {
+                        var storyboard = AnimationUtils.GetStoryboard();
+                        AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
+                        storyboard.Begin();
+                    };
+                }
+                
             }
         }
         //初始化弹窗
@@ -133,8 +140,8 @@ namespace ToDo.Controls
                     this.backgroundRect.Opacity = 0.9;
                     break;
                 case PopupWindowBackgroundType.Flash:
-                    this.backgroundRect.Opacity = 0;
                     this.backgroundRect.Visibility = Visibility.Visible;
+                    this.backgroundRect.Opacity = 0;
                     break;
             }
             this.backgroundRect.Visibility = (this.backgroundType == PopupWindowBackgroundType.None) ? Visibility.Collapsed : Visibility.Visible;

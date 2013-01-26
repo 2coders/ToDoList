@@ -452,7 +452,7 @@ namespace ToDo
             }
             else
             {
-                PopupWindow.ShowWindow(modify);
+                PopupWindow.ShowWindow(modify, PopupWindow.PopupWindowBackgroundType.Flash);
             }
             
         }
