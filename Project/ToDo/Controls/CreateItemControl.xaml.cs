@@ -16,9 +16,9 @@ namespace ToDo.Controls
 {
     public partial class CreateItemControl : UserControl, IPopupedControl
     {
-        public const String TODAY = "Today";
-        public const String TOMORROW = "Tomorrow";
-        public const String LATER = "Later";
+        public static String TODAY = AppResources.ExpandHeaderToday;
+        public static String TOMORROW = AppResources.ExpandHeaderTomorrow;
+        public static String LATER = AppResources.ExpandHeaderLater;
 
         public event EventHandler Closed;
         public event EventHandler Opened;
