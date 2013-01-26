@@ -12,14 +12,14 @@
     Foreground="#FF1BA1E2"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
-    xmlns:local="clr-namespace:ToDo.Converters"
+    xmlns:converter="clr-namespace:ToDo.Converters"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480" BorderBrush="Transparent">
 
     <phone:PhoneApplicationPage.Resources>
 
-        <local:PriorityConverter x:Key="PriorityConverter" />
-        <local:IsCompletedConverter x:Key="IsCompletedConverter" />
-        <local:StringCutConverter x:Key="StringCutConverter" />
+        <converter:PriorityConverter x:Key="PriorityConverter" />
+        <converter:IsCompletedConverter x:Key="IsCompletedConverter" />
+        <converter:StringCutConverter x:Key="StringCutConverter" />
         
         <DataTemplate x:Key="ListItemTemplate">
             <Border x:Name="ListItem" BorderThickness="0,0,0,2" Margin="-45,0,15,0" Padding="0,5,0,5">
@@ -99,7 +99,7 @@
 
                 <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-200" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
-                                      Header="Today"
+                                      Header="{Binding Path=LocalizedResources.ExpandHeaderToday, Source={StaticResource LocalizedStrings}}"
                                       x:Name="todayExpanderView"
                                       FontStyle="Normal"
                                       HorizontalAlignment="Left" 
@@ -113,7 +113,7 @@
 
                 <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" FontSize="30"  Width="80" Height="80"  Margin="350,0,0,-100"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
-                                      Header="Tomorrow"
+                                      Header="{Binding Path=LocalizedResources.ExpandHeaderTomorrow, Source={StaticResource LocalizedStrings}}"
                                       FontSize="48"
                                       x:Name="tomorrowExpanderView"
 									  Foreground="#FF1BA1E2"
@@ -128,7 +128,7 @@
 
                 <Button x:Name="LaterNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-100" Tap="LaterNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
-                                      Header="Later"
+                                      Header="{Binding Path=LocalizedResources.ExpandHeaderLater, Source={StaticResource LocalizedStrings}}"
                                       FontSize="48"
                                       x:Name="laterExpanderView"
                                       Foreground="#FF1BA1E2"

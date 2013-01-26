@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("ToDo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("alcatel-lucent")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ToDo")]
-[assembly: AssemblyCopyright("Copyright © alcatel-lucent 2012")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -447,7 +447,7 @@ namespace ToDo
 
         private void CompletedItem_Click(object sender, EventArgs e)
         {
-            PopupWindow.ShowWindow(new CompletedItemListControl(this.ActualHeight * 0.618) { MainScrollViewer = this.MainScrollViewer }, false);
+            PopupWindow.ShowWindow(new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer }, false);
         }
 
 

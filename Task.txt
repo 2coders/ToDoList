@@ -1,11 +1,13 @@
-1、PopupWindow后Gesture触发判断
+1、PopupWindow后Gesture触发判断		W
 
-2、分类计数，分类新建按钮
+4、修改Title，Title截断显示		W
 
-4、修改Title，Title截断显示
+6、本地化			Y
 
-5、动画卡顿现象
+7、Tile				Y
 
-6、本地化
+8、新建动画			W
 
-7、Tile
+9、note样式			W
+
+10、编辑title popupwindow背景渐变	W
