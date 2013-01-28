@@ -44,7 +44,15 @@ namespace ToDo
 
         private void CreateItem_Click(object sender, EventArgs e)
         {
-            CreateItem(todayExpanderView, CreateItemControl.TODAY);
+            if (currentAppBarFlag == ApplicationBarConstant.Add)
+            {
+                CreateItem(todayExpanderView, CreateItemControl.TODAY);
+            }
+            else if (currentAppBarFlag == ApplicationBarConstant.Clean)
+            {
+                CleanAllCompletedItems();
+            }
+            
         }
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
@@ -163,17 +171,6 @@ namespace ToDo
             e.Handled = true;
         }
 
-
-        private void CompletedItem_Click(object sender, EventArgs e)
-        {
-            this.ShowCompletedItem();
-        }
-
-        private void CompletedMenuItem_Click(object sender, EventArgs e)
-        {
-            this.ShowCompletedItem();
-        }
-
         private void TodayNewButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             CreateItem(todayExpanderView, CreateItemControl.TODAY);
@@ -248,22 +245,6 @@ namespace ToDo
             }
         }
 
-        public enum ApplicationBarConstant {Add, Done};
-
-        private void ChangeApplicationBarButton(ApplicationBarConstant flag)
-        {
-            var btn = this.ApplicationBar.Buttons[0] as ApplicationBarIconButton;
-            if (flag == ApplicationBarConstant.Add)
-            {
-                btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
-                btn.Text = "新建";
-            }
-            else if (flag == ApplicationBarConstant.Done)
-            {
-                btn.IconUri = new Uri("/Images/done.png", UriKind.Relative);
-                btn.Text = "完成";
-            }
-        }
 
         private void CreateItem(FrameworkElement list, String groupName)
         {
@@ -314,6 +295,11 @@ namespace ToDo
                 };
                 storyboard.Begin();
             }
+        }
+
+        private void CleanAllCompletedItems()
+        {
+            App.ViewModel.DeleteAllCompletedItems();
         }
 
         private void DeleteItem(FrameworkElement deleteBtn)
@@ -471,11 +457,69 @@ namespace ToDo
             
         }
 
-        private void ShowCompletedItem()
+        #endregion
+
+
+        #region ApplicationBar
+
+        private ApplicationBarConstant currentAppBarFlag;
+        public enum ApplicationBarConstant { Add, Done, Clean };
+
+        private void ChangeApplicationBarButton(ApplicationBarConstant flag)
         {
-            PopupWindow.ShowWindow(
-                new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer }, 
-                PopupWindow.PopupWindowBackgroundType.None);
+            var btn = this.ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            if (flag == ApplicationBarConstant.Add)
+            {
+                btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
+                btn.Text = "新建";
+                currentAppBarFlag = ApplicationBarConstant.Add;
+
+                RemoveSecondButton();
+            }
+            else if (flag == ApplicationBarConstant.Done)
+            {
+                btn.IconUri = new Uri("/Images/done.png", UriKind.Relative);
+                btn.Text = "完成";
+                currentAppBarFlag = ApplicationBarConstant.Done;
+
+                ApplicationBarIconButton cancel = new ApplicationBarIconButton();
+                cancel.IconUri = new Uri("/Images/cancel.png", UriKind.Relative);
+                cancel.Text = "取消";
+                this.ApplicationBar.Buttons.Add(cancel);
+
+                cancel.Click += delegate(object sender, EventArgs e)
+                {
+                    PopupWindow.HideWindow();
+                };
+            }
+            else if (flag == ApplicationBarConstant.Clean)
+            {
+                btn.IconUri = new Uri("/Images/delete.png", UriKind.Relative);
+                btn.Text = "清除";
+                currentAppBarFlag = ApplicationBarConstant.Clean;
+
+                RemoveSecondButton();
+            }
+        }
+
+        private void RemoveSecondButton()
+        {
+            if (this.ApplicationBar.Buttons.Count > 1)
+            {
+                this.ApplicationBar.Buttons.RemoveAt(1);
+            }
+        }
+
+        
+        private void CompletedMenuItem_Click(object sender, EventArgs e)
+        {
+            CompletedItemListControl control = new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer };
+            PopupWindow.ShowWindow(control, PopupWindow.PopupWindowBackgroundType.None);
+            control.Closed += delegate(object sender1, EventArgs e1)
+            {
+                ChangeApplicationBarButton(ApplicationBarConstant.Add);
+            };
+            ChangeApplicationBarButton(ApplicationBarConstant.Clean);
         }
 
         #endregion
