@@ -154,6 +154,15 @@ namespace ToDo.ViewModel
             }
         }
 
+        // Remove completed items from the database and collections.
+        public void DeleteAllCompletedItems()
+        {
+            toDoDBContext.Items.DeleteAllOnSubmit(CompletedToDoItems);
+            // Save changes to the database.
+            toDoDBContext.SubmitChanges();
+            CompletedToDoItems.Clear();
+        }
+
         // Write changes in the data context to the database. 
         public void UpdateToDoItem(ToDoItem newItem)
         {
