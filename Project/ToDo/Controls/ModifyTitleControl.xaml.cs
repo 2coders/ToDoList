@@ -38,7 +38,7 @@ namespace ToDo.Controls
         {
             set
             {
-                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value - 15, 0, 0);
+                ModifyTextBox.Margin = new Thickness(ModifyTextBox.Margin.Left, value - 16, 0, 0);
             }
         }
 
@@ -72,11 +72,17 @@ namespace ToDo.Controls
             }
 
             App.ViewModel.SaveChangesToDB();
-            PopupWindow.HideWindow();
-            if (this.Closed != null)
+            if (PopupWindow.CurrentWindow != null)
             {
-                this.Closed(this, new EventArgs());
+                PopupWindow.CurrentWindow.Closed += delegate(object sender1, EventArgs e1)
+                {
+                    if (this.Closed != null)
+                    {
+                        this.Closed(this, new EventArgs());
+                    }
+                };
             }
+            PopupWindow.HideWindow();
         }
 
     }

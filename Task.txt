@@ -1,6 +1,5 @@
-1、PopupWindow后Gesture触发判断		W
 
-4、修改Title，Title截断显示		W
+
 
 6、本地化			Y
 

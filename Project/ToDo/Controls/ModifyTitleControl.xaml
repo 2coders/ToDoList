@@ -11,7 +11,7 @@
     Loaded="LayoutRoot_Loaded">
 
     <TextBox x:Name="ModifyTextBox" HorizontalAlignment="Left" 
-                 Margin="8,200,0,0" VerticalAlignment="Top" Width="400"
+                 Margin="7,200,0,0" VerticalAlignment="Top" Width="420"
                  BorderThickness="0"
                  TextWrapping="Wrap"
                  FontSize="24"

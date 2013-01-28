@@ -15,6 +15,8 @@ namespace ToDo.Controls
             None, Show, Transluent, Flash
         }
 
+        public EventHandler Closed = null;
+
         private System.Windows.Controls.ContentPresenter body;
         private System.Windows.Shapes.Rectangle backgroundRect;
         private Control content;
@@ -60,6 +62,15 @@ namespace ToDo.Controls
             }
         }
 
+        public static PopupWindow CurrentWindow
+        {
+            get 
+            {
+                return PopupWindow.mWindow;
+            }
+        }
+
+
 
         public bool IsOpen
         {
@@ -82,6 +93,10 @@ namespace ToDo.Controls
                     storyboard.Completed += delegate(object sender, EventArgs e)
                     {
                         this.ChildWindowPopup.IsOpen = false;
+                        if(this.Closed != null)
+                        {
+                            this.Closed(this, new EventArgs());
+                        }
                     };
                 }
                 else
@@ -113,7 +128,7 @@ namespace ToDo.Controls
                     (content as IPopupedControl).Opened += delegate(object sender, EventArgs e)
                     {
                         var storyboard = AnimationUtils.GetStoryboard();
-                        AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.5);
+                        AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.3);
                         storyboard.Begin();
                     };
                 }

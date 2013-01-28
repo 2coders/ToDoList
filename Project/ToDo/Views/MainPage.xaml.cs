@@ -416,15 +416,17 @@ namespace ToDo
                 return;
             }
 
+            int topOffset = 180;
+
             var text = parent.FindName("ItemTitleText") as FrameworkElement;
             var transform = text.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
 
-            double verticalOffset = pointOffset.Y - 200;
+            double verticalOffset = pointOffset.Y - topOffset;
 
             ModifyTitleControl modify = new ModifyTitleControl(item)
             {
-                TitleHeight = (verticalOffset > 0) ? 200 : pointOffset.Y
+                TitleHeight = (verticalOffset > 0) ? topOffset : pointOffset.Y
             };
             SetPopupedControlEvent(modify);
 
