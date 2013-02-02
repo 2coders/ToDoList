@@ -135,13 +135,13 @@ namespace ToDo
             
             if (mCurrentItemPanel != null)
             {
-                HideItemDetails(mCurrentItemPanel, item);
+                HideItemDetails(mCurrentItemPanel);
             }
 
             if (mCurrentItemPanel != parent)
             {
                 mCurrentItemPanel = parent;
-                this.ShowItemDetails(mCurrentItemPanel, item);
+                this.ShowItemDetails(mCurrentItemPanel);
             }
             else
             {
@@ -219,12 +219,12 @@ namespace ToDo
         {
             if (control != null)
             {
-                control.Opened += delegate(object sender, EventArgs e)
+                control.Opened += delegate(object sender, PopupEventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Done);
                     
                 };
-                control.Closed += delegate(object sender, EventArgs e)
+                control.Closed += delegate(object sender, PopupEventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Add);
                 };
@@ -232,11 +232,12 @@ namespace ToDo
         }
 
 
-        private void CreateItem(FrameworkElement list, String groupName)
+        private void CreateItem(ExpanderView list, String groupName)
         {
             var transform = list.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
             double verticalOffset = pointOffset.Y - 50;
+            list.IsExpanded = true;
 
             var createItem = new CreateItemControl()
             {
@@ -244,13 +245,7 @@ namespace ToDo
             };
             SetPopupedControlEvent(createItem);
 
-            createItem.Opened += delegate(object sender, EventArgs e)
-            {
-                // 新建数据展开ExpanderView
-                ((ExpanderView)list).IsExpanded = true;
-            };
-
-            createItem.Closed += delegate(object sender, EventArgs e)
+            createItem.Closed += delegate(object sender, PopupEventArgs e)
             {
                 if (verticalOffset > 0)
                 {
@@ -302,7 +297,7 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void ShowItemDetails(StackPanel parent, ToDoItem item)
+        private void ShowItemDetails(StackPanel parent)
         {
             var title = parent.FindName("ItemTitleText") as TextBlock;
             title.TextWrapping = TextWrapping.Wrap;
@@ -320,7 +315,7 @@ namespace ToDo
             storyboard.Begin();
         }
 
-        private void HideItemDetails(StackPanel parent, ToDoItem item)
+        private void HideItemDetails(StackPanel parent)
         {
             var title = parent.FindName("ItemTitleText") as TextBlock;
             title.TextWrapping = TextWrapping.NoWrap;
@@ -424,7 +419,7 @@ namespace ToDo
             };
             SetPopupedControlEvent(modify);
 
-            modify.Closed += delegate(object sender, EventArgs e)
+            modify.Closed += delegate(object sender, PopupEventArgs e)
             {
                 if (verticalOffset > 0)
                 {
@@ -511,7 +506,7 @@ namespace ToDo
         {
             CompletedItemListControl control = new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer };
             PopupWindow.ShowWindow(control, PopupWindow.PopupWindowBackgroundType.None);
-            control.Closed += delegate(object sender1, EventArgs e1)
+            control.Closed += delegate(object sender1, PopupEventArgs e1)
             {
                 ChangeApplicationBarButton(ApplicationBarConstant.Add);
             };

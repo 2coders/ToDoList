@@ -5,9 +5,16 @@ using System.Text;
 
 namespace ToDo.Controls
 {
+    public class PopupEventArgs : EventArgs
+    {
+ 
+    }
+
+    public delegate void PopupEventHandler(object sender, PopupEventArgs e);
+
     interface IPopupedControl
     {
-        event EventHandler Closed;
-        event EventHandler Opened;
+        event PopupEventHandler Closed;
+        event PopupEventHandler Opened;
     }
 }

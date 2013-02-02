@@ -14,8 +14,8 @@ namespace ToDo.Controls
 {
     public partial class CompletedItemListControl : UserControl, IPopupedControl
     {
-        public event EventHandler Closed;
-        public event EventHandler Opened;
+        public event PopupEventHandler Closed;
+        public event PopupEventHandler Opened;
 
         private double _height;
 
@@ -44,7 +44,7 @@ namespace ToDo.Controls
         {
             if (Opened != null)
             {
-                Opened(this, new EventArgs());
+                Opened(this, new PopupEventArgs());
             }
 
             CompletedStackPanel.Height = _height;
@@ -72,7 +72,7 @@ namespace ToDo.Controls
         {
             if (this.Closed != null)
             {
-                this.Closed(this, new EventArgs());
+                this.Closed(this, new PopupEventArgs());
             }
         }
     }

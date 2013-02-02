@@ -17,8 +17,8 @@ namespace ToDo.Controls
     public partial class ModifyTitleControl : UserControl, IPopupedControl
     {
 
-        public event EventHandler Closed;
-        public event EventHandler Opened;
+        public event PopupEventHandler Closed;
+        public event PopupEventHandler Opened;
 
         private String preTitle;
 
@@ -58,7 +58,7 @@ namespace ToDo.Controls
         {
             if (this.Opened != null)
             {
-                this.Opened(this, new EventArgs());
+                this.Opened(this, new PopupEventArgs());
             }
             ModifyTextBox.Focus();
             ModifyTextBox.SelectionStart = ModifyTextBox.Text.Length;
@@ -79,7 +79,7 @@ namespace ToDo.Controls
         {
             if (this.Closed != null)
             {
-                this.Closed(this, new EventArgs());
+                this.Closed(this, new PopupEventArgs());
             }
         }
 

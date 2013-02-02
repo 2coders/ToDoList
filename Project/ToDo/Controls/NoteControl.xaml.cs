@@ -15,8 +15,8 @@ namespace ToDo.Controls
 {
     public partial class NoteControl : UserControl, IPopupedControl
     {
-        public event EventHandler Closed;
-        public event EventHandler Opened;
+        public event PopupEventHandler Closed;
+        public event PopupEventHandler Opened;
 
         public NoteControl()
         {
@@ -33,7 +33,7 @@ namespace ToDo.Controls
         {
             if (this.Opened != null)
             {
-                this.Opened(this, new EventArgs());
+                this.Opened(this, new PopupEventArgs());
             }
             NoteTextBox.Focus();
             NoteTextBox.SelectionStart = NoteTextBox.Text.Length;
@@ -49,7 +49,7 @@ namespace ToDo.Controls
         {
             if (this.Closed != null)
             {
-                this.Closed(this, new EventArgs());
+                this.Closed(this, new PopupEventArgs());
             }
         }
     }

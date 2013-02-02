@@ -20,8 +20,8 @@ namespace ToDo.Controls
         public static String TOMORROW = AppResources.ExpandHeaderTomorrow;
         public static String LATER = AppResources.ExpandHeaderLater;
 
-        public event EventHandler Closed;
-        public event EventHandler Opened;
+        public event PopupEventHandler Closed;
+        public event PopupEventHandler Opened;
 
         private ToDoItem item = null;
 
@@ -48,11 +48,11 @@ namespace ToDo.Controls
         {
             if (Opened != null)
             {
-                Opened(this, new EventArgs());
+                Opened(this, new PopupEventArgs());
             }
             ContentTextBox.Focus();
             ContentTextBox.SelectionStart = ContentTextBox.Text.Length;
-            //AddNewItem("");
+            AddNewItem(" ");
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -60,14 +60,18 @@ namespace ToDo.Controls
             String content;
             if ((content = ContentTextBox.Text.Trim()).Length > 0)
             {
-                AddNewItem(content);
+                //AddNewItem(content);
+                item.Title = ContentTextBox.Text.Trim();
                 App.ViewModel.SaveChangesToDB();
                 Log.Info(this.ToString(), "new item created");
+            }
+            else
+            {
+                App.ViewModel.DeleteToDoItem(item);
             }
             PopupWindow.HideWindow();
         }
 
-        #region 增加新项目
         private void AddNewItem(string content)
         {
             item = new ToDoItem();
@@ -84,7 +88,7 @@ namespace ToDo.Controls
             }
             else if (_GroupName != null && _GroupName.Equals(LATER))
             {
-                item.RemindTime = DateTime.MaxValue;
+                item.RemindTime = DateTime.Now.AddDays(2);
             }
             else
             {
@@ -93,13 +97,12 @@ namespace ToDo.Controls
             
             App.ViewModel.AddToDoItem(item, _GroupName);
         }
-        #endregion
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             if (this.Closed != null)
             {
-                this.Closed(this, new EventArgs());
+                this.Closed(this, new PopupEventArgs());
             }
         }
     }

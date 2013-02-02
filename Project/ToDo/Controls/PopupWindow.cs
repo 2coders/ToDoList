@@ -119,7 +119,7 @@ namespace ToDo.Controls
             {
                 if (content is IPopupedControl)
                 {
-                    (content as IPopupedControl).Opened += delegate(object sender, EventArgs e)
+                    (content as IPopupedControl).Opened += delegate(object sender, PopupEventArgs e)
                     {
                         var storyboard = AnimationUtils.GetStoryboard();
                         AnimationUtils.SetOpacityAnimation(storyboard, this.backgroundRect as FrameworkElement, 0.9, 0.3);
