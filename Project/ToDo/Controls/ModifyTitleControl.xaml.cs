@@ -54,7 +54,7 @@ namespace ToDo.Controls
             this.preTitle = item.Title;
         }
 
-        private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (this.Opened != null)
             {
@@ -72,17 +72,15 @@ namespace ToDo.Controls
             }
 
             App.ViewModel.SaveChangesToDB();
-            if (PopupWindow.CurrentWindow != null)
-            {
-                PopupWindow.CurrentWindow.Closed += delegate(object sender1, EventArgs e1)
-                {
-                    if (this.Closed != null)
-                    {
-                        this.Closed(this, new EventArgs());
-                    }
-                };
-            }
             PopupWindow.HideWindow();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (this.Closed != null)
+            {
+                this.Closed(this, new EventArgs());
+            }
         }
 
     }

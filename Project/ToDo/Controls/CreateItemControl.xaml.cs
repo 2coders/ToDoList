@@ -23,6 +23,8 @@ namespace ToDo.Controls
         public event EventHandler Closed;
         public event EventHandler Opened;
 
+        private ToDoItem item = null;
+
         private string _GroupName = null;
         public string GroupName
         {
@@ -42,7 +44,7 @@ namespace ToDo.Controls
             InitializeComponent();
         }
 
-        private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (Opened != null)
             {
@@ -50,6 +52,7 @@ namespace ToDo.Controls
             }
             ContentTextBox.Focus();
             ContentTextBox.SelectionStart = ContentTextBox.Text.Length;
+            //AddNewItem("");
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -62,16 +65,12 @@ namespace ToDo.Controls
                 Log.Info(this.ToString(), "new item created");
             }
             PopupWindow.HideWindow();
-            if (this.Closed != null)
-            {
-                this.Closed(this, new EventArgs());
-            }
         }
 
         #region 增加新项目
         private void AddNewItem(string content)
         {
-            ToDoItem item = new ToDoItem();
+            item = new ToDoItem();
             item.Title = content;
             item.CreateTime = DateTime.Now;
             item.IsCompleted = false;
@@ -85,7 +84,7 @@ namespace ToDo.Controls
             }
             else if (_GroupName != null && _GroupName.Equals(LATER))
             {
-                item.RemindTime = DateTime.Now.AddDays(2);
+                item.RemindTime = DateTime.MaxValue;
             }
             else
             {
@@ -95,5 +94,13 @@ namespace ToDo.Controls
             App.ViewModel.AddToDoItem(item, _GroupName);
         }
         #endregion
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (this.Closed != null)
+            {
+                this.Closed(this, new EventArgs());
+            }
+        }
     }
 }

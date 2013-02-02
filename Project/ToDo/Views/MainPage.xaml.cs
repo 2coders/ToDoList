@@ -16,20 +16,6 @@ namespace ToDo
 
         private StackPanel mCurrentItemPanel = null;
 
-        private bool _completedPanelExpanded = false;
-        public bool CompletedPanelExpanded 
-        {
-            get
-            {
-                return _completedPanelExpanded;
-            }
-            set
-            {
-                _completedPanelExpanded = value;
-                //MainScrollViewer.VerticalScrollBarVisibility = _completedPanelExpanded ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
-            }
-        }
-
         public MainPage()
         {
             InitializeComponent();

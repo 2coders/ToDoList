@@ -55,15 +55,6 @@ namespace ToDo.Controls
 
         }
 
-        private void OnClose()
-        {
-            PopupWindow.HideWindow();
-            if (Closed != null)
-            {
-                Closed(this, new EventArgs());
-            }
-        }
-
         private void CompletedPanelTop_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             double completedPanelHeight = CompletedStackPanel.ActualHeight;
@@ -72,9 +63,17 @@ namespace ToDo.Controls
             AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, _height, 0.6);
             storyboard.Completed += delegate(object sender1, EventArgs e1)
             {
-                OnClose();
+                PopupWindow.HideWindow();
             };
             storyboard.Begin();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (this.Closed != null)
+            {
+                this.Closed(this, new EventArgs());
+            }
         }
     }
 }

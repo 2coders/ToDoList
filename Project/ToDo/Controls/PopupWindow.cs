@@ -15,8 +15,6 @@ namespace ToDo.Controls
             None, Show, Transluent, Flash
         }
 
-        public EventHandler Closed = null;
-
         private System.Windows.Controls.ContentPresenter body;
         private System.Windows.Shapes.Rectangle backgroundRect;
         private Control content;
@@ -93,10 +91,6 @@ namespace ToDo.Controls
                     storyboard.Completed += delegate(object sender, EventArgs e)
                     {
                         this.ChildWindowPopup.IsOpen = false;
-                        if(this.Closed != null)
-                        {
-                            this.Closed(this, new EventArgs());
-                        }
                     };
                 }
                 else

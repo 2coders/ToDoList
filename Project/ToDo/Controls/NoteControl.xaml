@@ -8,7 +8,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="800" d:DesignWidth="480"
-    Loaded="LayoutRoot_Loaded">
+    Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded">
 	<UserControl.Resources>
 		<ControlTemplate x:Key="PhoneDisabledTextBoxTemplate" TargetType="TextBox">
 			<ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch"/>
