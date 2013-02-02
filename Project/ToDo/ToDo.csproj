@@ -100,6 +100,7 @@
     <Compile Include="Utils\AnimationUtils.cs" />
     <Compile Include="Utils\DeviceUtils.cs" />
     <Compile Include="Utils\Log.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

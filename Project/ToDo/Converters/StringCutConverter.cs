@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Windows;
+using ToDo.Utils;
 
 namespace ToDo.Converters
 {
@@ -37,11 +38,7 @@ namespace ToDo.Converters
             {
                 maxLength = System.Convert.ToInt32(parameter);
             }
-            if(str.Length > maxLength)
-            {
-                str = str.Substring(0, maxLength) + "...";
-            }
-            return str;
+            return StringUtils.GetSubString(str, maxLength, "...");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

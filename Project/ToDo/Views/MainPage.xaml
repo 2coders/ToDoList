@@ -32,8 +32,8 @@
                         
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="ItemTitleText"
-                                       Text="{Binding Title, Mode=OneWay, Converter={StaticResource StringCutConverter}, ConverterParameter=15}" 
-                                       TextWrapping="Wrap"  Width="400" FontSize="24" Margin="0,0,0,0" >
+                                       Text="{Binding Title, Mode=OneWay}" 
+                                       TextTrimming="WordEllipsis" Width="400" FontSize="24" Margin="0,0,0,0" >
                                 <TextBlock.Foreground>
                                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                                 </TextBlock.Foreground>
@@ -41,7 +41,7 @@
                             
                             <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" 
                                     Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0"
-                                    Tap="ModifyButton_Tap">
+                                    Tap="ModifyButton_Tap" Visibility="Collapsed">
                                 <Button.Background>
                                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                                 </Button.Background>

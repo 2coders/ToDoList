@@ -318,7 +318,8 @@ namespace ToDo
 
         private void ShowItemDetails(StackPanel parent, ToDoItem item)
         {
-            StringCutConverter.ShowAll(item, "Title", item.Title);
+            var title = parent.FindName("ItemTitleText") as TextBlock;
+            title.TextWrapping = TextWrapping.Wrap;
 
             var storyboard = AnimationUtils.GetStoryboard();
 
@@ -327,6 +328,7 @@ namespace ToDo
             AnimationUtils.SetOpacityAnimation(storyboard, toolbar, 1, 0.3);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
+            modifyButton.Visibility = Visibility.Visible;
             AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 1, 0.3);
 
             storyboard.Begin();
@@ -334,7 +336,8 @@ namespace ToDo
 
         private void HideItemDetails(StackPanel parent, ToDoItem item)
         {
-            StringCutConverter.ShowPart(item, "Title", item.Title);
+            var title = parent.FindName("ItemTitleText") as TextBlock;
+            title.TextWrapping = TextWrapping.NoWrap;
 
             var storyboard = AnimationUtils.GetStoryboard();
 
@@ -344,6 +347,11 @@ namespace ToDo
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;
             AnimationUtils.SetOpacityAnimation(storyboard, modifyButton, 0, 0.2);
+
+            storyboard.Completed += delegate(object sender, EventArgs e)
+            {
+                modifyButton.Visibility = Visibility.Collapsed;
+            };
 
             storyboard.Begin();
         }
@@ -416,12 +424,12 @@ namespace ToDo
                 return;
             }
 
-            int topOffset = 180;
+            const int topOffset = 180;
 
             var text = parent.FindName("ItemTitleText") as FrameworkElement;
             var transform = text.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
-
+            Log.Info(TAG, "pointOffset.Y:" + pointOffset.Y.ToString());
             double verticalOffset = pointOffset.Y - topOffset;
 
             ModifyTitleControl modify = new ModifyTitleControl(item)
@@ -443,7 +451,7 @@ namespace ToDo
             if (verticalOffset > 0)
             {
                 var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset, 0.3);
+                AnimationUtils.SetHeightAnimation(storyboard, VacancyStackPanel as FrameworkElement, verticalOffset + 1000, 0.3);
                 AnimationUtils.SetAnyAnimation(storyboard, this as FrameworkElement, ScrowViewerVerticalOffsetProperty,
                     MainScrollViewer.VerticalOffset, MainScrollViewer.VerticalOffset + verticalOffset, 0.3);
                 storyboard.Completed += delegate(object sender1, EventArgs e1)
