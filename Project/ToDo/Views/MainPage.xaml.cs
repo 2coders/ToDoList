@@ -36,7 +36,18 @@ namespace ToDo
             }
             else if (currentAppBarFlag == ApplicationBarConstant.Clean)
             {
-                CleanAllCompletedItems();
+                MessageBoxResult result = MessageBox.Show("确定清除所有已完成条目？", "提示", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    CleanAllCompletedItems();
+
+                    if (App.ViewModel.CompletedToDoItems == null || App.ViewModel.CompletedToDoItems.Count == 0)
+                    {
+                        ApplicationBarIconButton btn = sender as ApplicationBarIconButton;
+                        btn.IsEnabled = false;
+                    }
+                }
+                
             }
             
         }
@@ -459,6 +470,7 @@ namespace ToDo
         private void ChangeApplicationBarButton(ApplicationBarConstant flag)
         {
             var btn = this.ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            btn.IsEnabled = true;
             if (flag == ApplicationBarConstant.Add)
             {
                 btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
@@ -483,13 +495,18 @@ namespace ToDo
                     PopupWindow.HideWindow();
                 };
             }
-            else if (flag == ApplicationBarConstant.Clean)
+            else if (flag == ApplicationBarConstant.Clean)  // Completed items delete
             {
                 btn.IconUri = new Uri("/Images/delete.png", UriKind.Relative);
                 btn.Text = "清除";
                 currentAppBarFlag = ApplicationBarConstant.Clean;
 
                 RemoveSecondButton();
+
+                if (App.ViewModel.CompletedToDoItems == null || App.ViewModel.CompletedToDoItems.Count == 0)
+                {
+                    btn.IsEnabled = false;
+                }
             }
         }
 

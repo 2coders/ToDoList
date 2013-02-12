@@ -129,6 +129,9 @@
   <data name="CompletedList" xml:space="preserve">
     <value>已完成</value>
   </data>
+  <data name="DeleteCompletedItems" xml:space="preserve">
+    <value>确定清除所有已完成条目？</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>完成</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="ExpandHeaderTomorrow" xml:space="preserve">
     <value>明天</value>
+  </data>
+  <data name="MessageBoxTip" xml:space="preserve">
+    <value>提示</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>新建</value>
