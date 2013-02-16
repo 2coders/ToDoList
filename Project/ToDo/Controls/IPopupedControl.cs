@@ -7,7 +7,12 @@ namespace ToDo.Controls
 {
     public class PopupEventArgs : EventArgs
     {
- 
+        private bool done = false;
+        public bool Done
+        {
+            get { return done; }
+            set { done = value; }
+        }
     }
 
     public delegate void PopupEventHandler(object sender, PopupEventArgs e);

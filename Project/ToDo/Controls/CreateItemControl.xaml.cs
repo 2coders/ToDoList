@@ -24,6 +24,7 @@ namespace ToDo.Controls
         public event PopupEventHandler Opened;
 
         private ToDoItem item = null;
+        private bool itemAdded = false;
 
         private string _GroupName = null;
         public string GroupName
@@ -63,6 +64,7 @@ namespace ToDo.Controls
                 //AddNewItem(content);
                 item.Title = ContentTextBox.Text.Trim();
                 App.ViewModel.SaveChangesToDB();
+                itemAdded = true;
                 Log.Info(this.ToString(), "new item created");
             }
             else
@@ -102,7 +104,7 @@ namespace ToDo.Controls
         {
             if (this.Closed != null)
             {
-                this.Closed(this, new PopupEventArgs());
+                this.Closed(this, new PopupEventArgs() { Done = itemAdded });
             }
         }
     }

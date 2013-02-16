@@ -265,6 +265,24 @@ namespace ToDo
                     storyboard2.Begin();
                 }
 
+                if (e.Done)//Expand the new item
+                {
+                    FrameworkElement item = list.Items[0] as FrameworkElement;
+                    if (item != null)
+                    {
+                        StackPanel panel = item.FindName("ItemPanel") as StackPanel;
+                        if (panel != null)
+                        {
+                            if (mCurrentItemPanel != null)
+                            {
+                                HideItemDetails(mCurrentItemPanel);
+                            }
+                            ShowItemDetails(panel);
+                            mCurrentItemPanel = panel;
+                        }
+                    }
+                }
+
             };
 
             if (verticalOffset == 0)

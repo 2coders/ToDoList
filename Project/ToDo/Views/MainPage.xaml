@@ -26,7 +26,7 @@
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                 </Border.BorderBrush>
-                <StackPanel Orientation="Vertical" Width="480" Background="Transparent" >
+                <StackPanel x:Name="ItemPanel" Orientation="Vertical" Width="480" Background="Transparent" >
                     <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
                             BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
                         
@@ -78,13 +78,16 @@
         </DataTemplate>
 
     </phone:PhoneApplicationPage.Resources>
-    
+
     <phone:PhoneApplicationPage.Background>
-        <ImageBrush Stretch="Fill" ImageSource="/Images/main_bg.png"/>
+        <ImageBrush Stretch="Fill"/>
     </phone:PhoneApplicationPage.Background>
 
 
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/Images/main_bg.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
