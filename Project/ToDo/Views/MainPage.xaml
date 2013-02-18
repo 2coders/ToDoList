@@ -79,15 +79,8 @@
 
     </phone:PhoneApplicationPage.Resources>
 
-    <phone:PhoneApplicationPage.Background>
-        <ImageBrush Stretch="Fill"/>
-    </phone:PhoneApplicationPage.Background>
-
-
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
-            <ImageBrush Stretch="Fill" ImageSource="/Images/main_bg.png"/>
-        </Grid.Background>
+    
+    <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>

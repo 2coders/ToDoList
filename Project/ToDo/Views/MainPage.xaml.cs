@@ -393,9 +393,9 @@ namespace ToDo
             AnimationUtils.SetTranslateAnimation(storyboard2, parent, 0, Application.Current.Host.Content.ActualHeight, 0.5);
             AnimationUtils.SetHeightAnimation(storyboard2, listItem, 0, 0.5);
 
+            item.IsCompleted = true;
             storyboard.Completed += delegate(object sender, EventArgs e)
             {
-                item.IsCompleted = true;
                 storyboard2.Begin();
             };
 
