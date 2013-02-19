@@ -18,6 +18,21 @@ namespace ToDo.Controls
         public event PopupEventHandler Closed;
         public event PopupEventHandler Opened;
 
+        bool isCanceled = false;
+        public bool IsCanceled
+        {
+            get
+            {
+                return isCanceled;
+            }
+            set
+            {
+                isCanceled = value;
+            }
+        }
+
+        private String preNote;
+
         public NoteControl()
         {
             InitializeComponent();
@@ -35,21 +50,35 @@ namespace ToDo.Controls
             {
                 this.Opened(this, new PopupEventArgs());
             }
+
+            preNote = NoteTextBox.Text;
             NoteTextBox.Focus();
             NoteTextBox.SelectionStart = NoteTextBox.Text.Length;
         }
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            SaveChanges();
             if (this.Closed != null)
             {
                 this.Closed(this, new PopupEventArgs());
+            }
+        }
+
+        private void SaveChanges()
+        {
+            if (!this.isCanceled)
+            {
+                App.ViewModel.SaveChangesToDB();
+            }
+            else
+            {
+                NoteTextBox.Text = preNote;
             }
         }
     }

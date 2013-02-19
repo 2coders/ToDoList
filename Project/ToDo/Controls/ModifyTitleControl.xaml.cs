@@ -20,6 +20,19 @@ namespace ToDo.Controls
         public event PopupEventHandler Closed;
         public event PopupEventHandler Opened;
 
+        bool isCanceled = false;
+        public bool IsCanceled
+        {
+            get
+            {
+                return isCanceled;
+            }
+            set
+            {
+                isCanceled = value;
+            }
+        }
+
         private String preTitle;
 
         public Thickness TitleMargin
@@ -66,20 +79,34 @@ namespace ToDo.Controls
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (ModifyTextBox.Text.Trim() == "")
-            {
-                ModifyTextBox.Text = this.preTitle;
-            }
-
-            App.ViewModel.SaveChangesToDB();
             PopupWindow.HideWindow();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            SaveChanges();
             if (this.Closed != null)
             {
                 this.Closed(this, new PopupEventArgs());
+            }
+        }
+
+        private void SaveChanges()
+        {
+            if (!this.isCanceled)
+            {
+                if (ModifyTextBox.Text.Trim() == "")
+                {
+                    ModifyTextBox.Text = this.preTitle;
+                }
+                else
+                {
+                App.ViewModel.SaveChangesToDB();
+                }
+            }
+            else 
+            {
+                ModifyTextBox.Text = this.preTitle;
             }
         }
 

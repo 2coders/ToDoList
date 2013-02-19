@@ -21,5 +21,7 @@ namespace ToDo.Controls
     {
         event PopupEventHandler Closed;
         event PopupEventHandler Opened;
+
+        bool IsCanceled {get;set;}
     }
 }

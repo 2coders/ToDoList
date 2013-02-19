@@ -23,6 +23,19 @@ namespace ToDo.Controls
         public event PopupEventHandler Closed;
         public event PopupEventHandler Opened;
 
+        bool isCanceled = false;
+        public bool IsCanceled
+        { 
+            get 
+            {
+                return isCanceled;
+            } 
+            set 
+            {
+                isCanceled = value;
+            } 
+        }
+
         private ToDoItem item = null;
         private bool itemAdded = false;
 
@@ -58,19 +71,6 @@ namespace ToDo.Controls
 
         private void ContentTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            String content;
-            if ((content = ContentTextBox.Text.Trim()).Length > 0)
-            {
-                //AddNewItem(content);
-                item.Title = ContentTextBox.Text.Trim();
-                App.ViewModel.SaveChangesToDB();
-                itemAdded = true;
-                Log.Info(this.ToString(), "new item created");
-            }
-            else
-            {
-                App.ViewModel.DeleteToDoItem(item);
-            }
             PopupWindow.HideWindow();
         }
 
@@ -102,9 +102,26 @@ namespace ToDo.Controls
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            SaveChanges();
             if (this.Closed != null)
             {
                 this.Closed(this, new PopupEventArgs() { Done = itemAdded });
+            }
+        }
+
+        private void SaveChanges()
+        {
+            String content;
+            if (!this.isCanceled && (content = ContentTextBox.Text.Trim()).Length > 0)
+            {
+                item.Title = ContentTextBox.Text.Trim();
+                App.ViewModel.SaveChangesToDB();
+                itemAdded = true;
+                Log.Info(this.ToString(), "new item created");
+            }
+            else
+            {
+                App.ViewModel.DeleteToDoItem(item);
             }
         }
     }

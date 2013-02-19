@@ -47,7 +47,10 @@ namespace ToDo
                         btn.IsEnabled = false;
                     }
                 }
-                
+            }
+            else if (currentAppBarFlag == ApplicationBarConstant.Done)
+            {
+                PopupWindow.HideWindow();
             }
             
         }
@@ -493,7 +496,6 @@ namespace ToDo
             {
                 btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
                 btn.Text = "新建";
-                currentAppBarFlag = ApplicationBarConstant.Add;
 
                 RemoveSecondButton();
             }
@@ -501,7 +503,6 @@ namespace ToDo
             {
                 btn.IconUri = new Uri("/Images/done.png", UriKind.Relative);
                 btn.Text = "完成";
-                currentAppBarFlag = ApplicationBarConstant.Done;
 
                 ApplicationBarIconButton cancel = new ApplicationBarIconButton();
                 cancel.IconUri = new Uri("/Images/cancel.png", UriKind.Relative);
@@ -510,14 +511,13 @@ namespace ToDo
 
                 cancel.Click += delegate(object sender, EventArgs e)
                 {
-                    PopupWindow.HideWindow();
+                    PopupWindow.HideWindow(true);
                 };
             }
             else if (flag == ApplicationBarConstant.Clean)  // Completed items delete
             {
                 btn.IconUri = new Uri("/Images/delete.png", UriKind.Relative);
                 btn.Text = "清除";
-                currentAppBarFlag = ApplicationBarConstant.Clean;
 
                 RemoveSecondButton();
 
@@ -526,6 +526,7 @@ namespace ToDo
                     btn.IsEnabled = false;
                 }
             }
+            currentAppBarFlag = flag;
         }
 
         private void RemoveSecondButton()

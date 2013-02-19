@@ -78,10 +78,12 @@ namespace ToDo.Controls
             }
         }
 
-        public void Hide()
+        public void Hide(Boolean isCanceled)
         {
             if (this.body != null)
             {
+                (content as IPopupedControl).IsCanceled = isCanceled;
+
                 //When backroundType is flash, run animation before hide.
                 if (this.backgroundType == PopupWindowBackgroundType.Flash)
                 {
@@ -177,9 +179,14 @@ namespace ToDo.Controls
 
         public static void HideWindow()
         {
+            PopupWindow.HideWindow(false);
+        }
+
+        public static void HideWindow(bool isCanceled)
+        {
             if (mWindow != null)
             {
-                mWindow.Hide();
+                mWindow.Hide(isCanceled);
                 mWindow = null;
             }
         }

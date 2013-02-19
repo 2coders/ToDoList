@@ -17,6 +17,19 @@ namespace ToDo.Controls
         public event PopupEventHandler Closed;
         public event PopupEventHandler Opened;
 
+        bool isCanceled = false;
+        public bool IsCanceled
+        {
+            get
+            {
+                return isCanceled;
+            }
+            set
+            {
+                isCanceled = value;
+            }
+        }
+
         private double _height;
 
         private ScrollViewer _mainScrollViewer;
