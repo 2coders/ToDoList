@@ -31,6 +31,7 @@ namespace ToDo.Controls
         }
 
         private double _height;
+        private bool isClosing = false;
 
         private ScrollViewer _mainScrollViewer;
         public ScrollViewer MainScrollViewer
@@ -70,15 +71,7 @@ namespace ToDo.Controls
 
         private void CompletedPanelTop_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            double completedPanelHeight = CompletedStackPanel.ActualHeight;
-            var storyboard = AnimationUtils.GetStoryboard();
-            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.6);
-            AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, _height, 0.6);
-            storyboard.Completed += delegate(object sender1, EventArgs e1)
-            {
-                PopupWindow.HideWindow();
-            };
-            storyboard.Begin();
+            HideWindow();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
@@ -86,6 +79,23 @@ namespace ToDo.Controls
             if (this.Closed != null)
             {
                 this.Closed(this, new PopupEventArgs());
+            }
+        }
+
+        public void HideWindow()
+        {
+            if (!isClosing)
+            {
+                isClosing = true;
+                double completedPanelHeight = CompletedStackPanel.ActualHeight;
+                var storyboard = AnimationUtils.GetStoryboard();
+                AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.6);
+                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, _height, 0.6);
+                storyboard.Completed += delegate(object sender1, EventArgs e1)
+                {
+                    PopupWindow.HideWindow();
+                };
+                storyboard.Begin();
             }
         }
     }

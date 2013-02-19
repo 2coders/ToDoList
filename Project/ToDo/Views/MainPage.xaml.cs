@@ -236,11 +236,13 @@ namespace ToDo
                 control.Opened += delegate(object sender, PopupEventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Done);
+                    SetMenuItemVisibility(false);
                     
                 };
                 control.Closed += delegate(object sender, PopupEventArgs e)
                 {
                     ChangeApplicationBarButton(ApplicationBarConstant.Add);
+                    SetMenuItemVisibility(true);
                 };
             }
         }
@@ -529,6 +531,25 @@ namespace ToDo
             currentAppBarFlag = flag;
         }
 
+        private void SetMenuItemVisibility(Boolean show)
+        {
+            if (show)
+            {
+                ApplicationBarMenuItem uncompletedItem = new ApplicationBarMenuItem();
+                uncompletedItem.Text = "未完成";
+                uncompletedItem.Click += CompletedMenuItem_Click;
+                ApplicationBarMenuItem settingItem = new ApplicationBarMenuItem();
+                settingItem.Text = "设置";
+
+                this.ApplicationBar.MenuItems.Add(uncompletedItem);
+                this.ApplicationBar.MenuItems.Add(settingItem);
+            }
+            else
+            {
+                this.ApplicationBar.MenuItems.Clear();
+            }
+        }
+
         private void RemoveSecondButton()
         {
             if (this.ApplicationBar.Buttons.Count > 1)
@@ -537,19 +558,43 @@ namespace ToDo
             }
         }
 
-        
+        private CompletedItemListControl completedControl;
         private void CompletedMenuItem_Click(object sender, EventArgs e)
         {
-            CompletedItemListControl control = new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer };
-            PopupWindow.ShowWindow(control, PopupWindow.PopupWindowBackgroundType.None);
-            control.Closed += delegate(object sender1, PopupEventArgs e1)
+            if (completedControl == null)
             {
-                ChangeApplicationBarButton(ApplicationBarConstant.Add);
-            };
-            ChangeApplicationBarButton(ApplicationBarConstant.Clean);
+                completedControl = new CompletedItemListControl(HeightUtils.GoldSectionHeight(this)) { MainScrollViewer = this.MainScrollViewer };
+                PopupWindow.ShowWindow(completedControl, PopupWindow.PopupWindowBackgroundType.None);
+                completedControl.Opened += delegate(object sender1, PopupEventArgs e1)
+                {
+                    SetMenuItemVisibility(false);
+
+                };
+                completedControl.Closed += delegate(object sender1, PopupEventArgs e1)
+                {
+                    SetMenuItemVisibility(true);
+                    ChangeApplicationBarButton(ApplicationBarConstant.Add);
+                    completedControl = null;
+                };
+                ChangeApplicationBarButton(ApplicationBarConstant.Clean);
+            }
         }
 
         #endregion
+
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (currentAppBarFlag == ApplicationBarConstant.Clean)
+            {
+                if (completedControl != null)
+                {
+                    completedControl.HideWindow();
+                    e.Cancel = true;
+                }
+            }
+        }
+
+
 
     }
 }
