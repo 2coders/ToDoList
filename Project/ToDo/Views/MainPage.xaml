@@ -93,7 +93,7 @@
             
             <StackPanel x:Name="TodayPanel" Margin="0,0,0,60" Orientation="Vertical">
 
-                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-200" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
+                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-160" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderToday, Source={StaticResource LocalizedStrings}}"
                                       x:Name="todayExpanderView"
@@ -107,7 +107,7 @@
                                       BorderBrush="Transparent" Background="Transparent">
                 </toolkit:ExpanderView>
 
-                <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" FontSize="30"  Width="80" Height="80"  Margin="350,0,0,-100"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
+                <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" FontSize="30"  Width="80" Height="80"  Margin="350,0,0,-90"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderTomorrow, Source={StaticResource LocalizedStrings}}"
                                       FontSize="48"
