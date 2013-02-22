@@ -126,9 +126,6 @@
   <data name="Clean" xml:space="preserve">
     <value>Clean</value>
   </data>
-  <data name="CompletedItemsHeader" xml:space="preserve">
-    <value>Completed</value>
-  </data>
   <data name="CompletedList" xml:space="preserve">
     <value>Completed</value>
   </data>
