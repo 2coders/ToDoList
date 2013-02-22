@@ -90,6 +90,15 @@ namespace ToDo {
         /// <summary>
         ///   查找类似 已完成 的本地化字符串。
         /// </summary>
+        public static string CompletedItemsHeader {
+            get {
+                return ResourceManager.GetString("CompletedItemsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已完成 的本地化字符串。
+        /// </summary>
         public static string CompletedList {
             get {
                 return ResourceManager.GetString("CompletedList", resourceCulture);
