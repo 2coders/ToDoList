@@ -12,14 +12,15 @@ namespace ToDo.ViewModel
             ShellTile TileToFind = ShellTile.ActiveTiles.First();
             if (TileToFind != null)
             {
+                var item = App.ViewModel.getTopIncompletedItem();
                 StandardTileData NewTileData = new StandardTileData()
                 {
                     Title = "ToDo",
                     BackgroundImage = new Uri("ApplicationIcon.png", UriKind.Relative),
                     Count = App.ViewModel.getIncompletedItemCount(),
-                    BackTitle = "backtitle",
+                    BackTitle = (item == null) ? "" : "Urgent",
                     BackBackgroundImage = new Uri("SplashScreenImage.jgp", UriKind.Relative),
-                    BackContent = "backcontent"
+                    BackContent = (item == null) ? "Good Job !" : item.Title
 
                 };
                 TileToFind.Update(NewTileData);

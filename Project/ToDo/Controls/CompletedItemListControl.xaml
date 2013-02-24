@@ -9,35 +9,37 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480"
     Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded" >
+    <Grid VerticalAlignment="Stretch"  x:Name="LayoutRoot">
+        <Rectangle x:Name="BackgroundRect" Opacity="0" Fill="Black"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="800"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Background="Transparent" x:Name="CompletedPanelTop" Tap="CompletedPanelTop_Tap"></StackPanel>
-        
-        <StackPanel Background="White" 
-                    Orientation="Vertical"
+            <StackPanel Grid.Row="0" Background="Transparent" x:Name="CompletedPanelTop" Tap="CompletedPanelTop_Tap"></StackPanel>
+
+            <StackPanel Background="White" 
+                    Orientation="Vertical" 
                     Grid.Row="1"
-                    Margin="10"
                     x:Name="CompletedStackPanel" 
                     VerticalAlignment="Bottom" >
 
-            <TextBlock Text="{Binding Path=LocalizedResources.CompletedItemsHeader, Source={StaticResource LocalizedStrings}}"
+                <TextBlock Text="{Binding Path=LocalizedResources.CompletedItemsHeader, Source={StaticResource LocalizedStrings}}"
                        FontStyle="Normal" FontSize="48" Foreground="#FF1BA1E2"/>
-            
-            <ListBox x:Name="CompletedList"
+
+                <ListBox x:Name="CompletedList" Height="500"
                      ItemsSource="{Binding CompletedToDoItems}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Title, Mode=OneWay}" Foreground="Black" Width="400" FontSize="24" Margin="0,0,0,0" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Title, Mode=OneWay}" Foreground="Black" Width="400" FontSize="24" Margin="0,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Grid>
     </Grid>
+    
 </UserControl>

@@ -594,6 +594,11 @@ namespace ToDo
             }
         }
 
+        private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Log.Info(TAG, "PhoneApplicationPage_Unloaded");
+        }
+
 
 
     }

@@ -173,6 +173,7 @@
     <Content Include="Images\overflowdots.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\save.png" />
+    <Content Include="Images\border.bg.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

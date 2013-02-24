@@ -49,7 +49,7 @@ namespace ToDo.Controls
         public CompletedItemListControl(double height)
         {
             InitializeComponent();
-            _height = height;
+            _height = 600;
 
             this.DataContext = App.ViewModel;
         }
@@ -59,12 +59,13 @@ namespace ToDo.Controls
             if (Opened != null)
             {
                 Opened(this, new PopupEventArgs());
-            }
+            } 
 
             CompletedStackPanel.Height = _height;
             var storyboard = AnimationUtils.GetStoryboard();
-            AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, 0, -_height, 0.6);
-            AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, _height, 0, 0.6);
+            //AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, 0, -_height, 0.6);
+            AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, -_height, 0.3);
+            AnimationUtils.SetOpacityAnimation(storyboard, BackgroundRect as FrameworkElement, 0.5, 0.3);
             storyboard.Begin();
 
         }
@@ -89,13 +90,15 @@ namespace ToDo.Controls
                 isClosing = true;
                 double completedPanelHeight = CompletedStackPanel.ActualHeight;
                 var storyboard = AnimationUtils.GetStoryboard();
-                AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.6);
-                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, 0, _height, 0.6);
+                //AnimationUtils.SetTranslateAnimation(storyboard, _mainScrollViewer as FrameworkElement, -_height, 0, 0.6);
+                AnimationUtils.SetTranslateAnimation(storyboard, CompletedStackPanel as FrameworkElement, -_height, 0, 0.3);
+                AnimationUtils.SetOpacityAnimation(storyboard, BackgroundRect as FrameworkElement, 0, 0.3);
                 storyboard.Completed += delegate(object sender1, EventArgs e1)
                 {
                     PopupWindow.HideWindow();
                 };
                 storyboard.Begin();
+
             }
         }
     }

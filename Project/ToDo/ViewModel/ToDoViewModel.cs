@@ -218,14 +218,17 @@ namespace ToDo.ViewModel
                                        where todo.RemindTime < System.DateTime.Today.AddDays(1)
                                        && todo.IsCompleted == false
                                        select todo;
-            ObservableCollection<ToDoItem> incompletedItems = new ObservableCollection<ToDoItem>(incompletedItemsInDB);
-            if (incompletedItems != null)
-            {
-                return incompletedItems.Count;
-            }
-            return 0;
+            return incompletedItemsInDB.Count();
         }
 
+        public ToDoItem getTopIncompletedItem()
+        {
+            var incompletedItemsInDB = from ToDoItem todo in toDoDBContext.Items
+                                       where todo.RemindTime < System.DateTime.Today.AddDays(1)
+                                       && todo.IsCompleted == false
+                                       select todo;
+            return (incompletedItemsInDB.Count() > 0) ? incompletedItemsInDB.First() : null;
+        }
 
 
         #region INotifyPropertyChanged Members
