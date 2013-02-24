@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>ToDo</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -147,11 +150,29 @@
   <data name="ExpandHeaderTomorrow" xml:space="preserve">
     <value>明天</value>
   </data>
+  <data name="FeedBack" xml:space="preserve">
+    <value>意见反馈</value>
+  </data>
+  <data name="FeedBackContentTitle" xml:space="preserve">
+    <value>内容：</value>
+  </data>
+  <data name="FeedBackEmailSubject" xml:space="preserve">
+    <value>来自ToDo的反馈意见</value>
+  </data>
+  <data name="FeedBackEmailTo" xml:space="preserve">
+    <value>yangchao294@hotmail.com</value>
+  </data>
+  <data name="FeedBackTitle" xml:space="preserve">
+    <value>感谢您使用我们的产品，如果您在使用过程中遇到任何的不便或建议和意见都欢迎您反馈给我们。</value>
+  </data>
   <data name="MessageBoxTip" xml:space="preserve">
     <value>提示</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>新建</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>评分推荐</value>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>设置</value>

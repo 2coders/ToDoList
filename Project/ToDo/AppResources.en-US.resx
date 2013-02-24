@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>ToDo</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -144,8 +147,26 @@
   <data name="ExpandHeaderTomorrow" xml:space="preserve">
     <value>Tomorrow</value>
   </data>
+  <data name="FeedBack" xml:space="preserve">
+    <value>FeedBack</value>
+  </data>
+  <data name="FeedBackContentTitle" xml:space="preserve">
+    <value>Content:</value>
+  </data>
+  <data name="FeedBackEmailSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FeedBackEmailTo" xml:space="preserve">
+    <value>yangchao294@hotmail.com</value>
+  </data>
+  <data name="FeedBackTitle" xml:space="preserve">
+    <value />
+  </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Rate</value>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>

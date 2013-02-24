@@ -580,6 +580,11 @@ namespace ToDo
             }
         }
 
+        private void SettingMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/SettingPage.xaml", UriKind.Relative));
+        }
+
         #endregion
 
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
