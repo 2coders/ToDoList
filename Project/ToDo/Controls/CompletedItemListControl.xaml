@@ -38,6 +38,10 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <StackPanel x:Name="NonePanel" Visibility="Collapsed" Height="500" Margin="100">
+                    <Image Width="200" Height="200" Source="/ApplicationIcon.png"/>
+                </StackPanel>
+                
             </StackPanel>
         </Grid>
     </Grid>

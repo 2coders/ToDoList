@@ -52,10 +52,26 @@ namespace ToDo.Controls
             _height = 600;
 
             this.DataContext = App.ViewModel;
+
+            setListVisibility();
+            App.ViewModel.CompletedToDoItems.CollectionChanged += CompletedToDoItems_CollectionChanged;
+        }
+
+        void CompletedToDoItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            setListVisibility();
+        }
+
+        private void setListVisibility()
+        {
+            bool isNone = App.ViewModel.CompletedToDoItems.Count() == 0;
+            CompletedList.Visibility = isNone ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            NonePanel.Visibility = isNone ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
             if (Opened != null)
             {
                 Opened(this, new PopupEventArgs());
