@@ -30,29 +30,27 @@ namespace ToDo
 
         private void CreateItem_Click(object sender, EventArgs e)
         {
-            if (currentAppBarFlag == ApplicationBarConstant.Add)
-            {
-                CreateItem(todayExpanderView, CreateItemControl.TODAY);
-            }
-            else if (currentAppBarFlag == ApplicationBarConstant.Clean)
-            {
-                MessageBoxResult result = MessageBox.Show("确定清除所有已完成条目？", "提示", MessageBoxButton.OKCancel);
-                if (result == MessageBoxResult.OK)
-                {
-                    CleanAllCompletedItems();
+            CreateItem(todayExpanderView, CreateItemControl.TODAY);
+        }
 
-                    if (App.ViewModel.CompletedToDoItems == null || App.ViewModel.CompletedToDoItems.Count == 0)
-                    {
-                        ApplicationBarIconButton btn = sender as ApplicationBarIconButton;
-                        btn.IsEnabled = false;
-                    }
+        private void CleanItem_Click(object sender, EventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(AppResources.CompletedItemsClearMessage, AppResources.Tip, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                CleanAllCompletedItems();
+
+                if (App.ViewModel.CompletedToDoItems == null || App.ViewModel.CompletedToDoItems.Count == 0)
+                {
+                    ApplicationBarIconButton btn = sender as ApplicationBarIconButton;
+                    btn.IsEnabled = false;
                 }
             }
-            else if (currentAppBarFlag == ApplicationBarConstant.Done)
-            {
-                PopupWindow.HideWindow();
-            }
-            
+        }
+
+        private void DoneItem_Click(object sender, EventArgs e)
+        {
+            PopupWindow.HideWindow();
         }
 
         private void NoteButton_Click(object sender, RoutedEventArgs e)
@@ -492,23 +490,27 @@ namespace ToDo
 
         private void ChangeApplicationBarButton(ApplicationBarConstant flag)
         {
-            var btn = this.ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            this.ApplicationBar.Buttons.Clear();
+            ApplicationBarIconButton btn = new ApplicationBarIconButton();
             btn.IsEnabled = true;
             if (flag == ApplicationBarConstant.Add)
             {
                 btn.IconUri = new Uri("/Images/add.png", UriKind.Relative);
-                btn.Text = "新建";
-
+                btn.Text = AppResources.New;
+                btn.Click += CreateItem_Click;
+                this.ApplicationBar.Buttons.Add(btn);
                 RemoveSecondButton();
             }
             else if (flag == ApplicationBarConstant.Done)
             {
                 btn.IconUri = new Uri("/Images/done.png", UriKind.Relative);
-                btn.Text = "完成";
+                btn.Text = AppResources.Done;
+                btn.Click += DoneItem_Click;
 
                 ApplicationBarIconButton cancel = new ApplicationBarIconButton();
                 cancel.IconUri = new Uri("/Images/cancel.png", UriKind.Relative);
-                cancel.Text = "取消";
+                cancel.Text = AppResources.Cancel;
+                this.ApplicationBar.Buttons.Add(btn);
                 this.ApplicationBar.Buttons.Add(cancel);
 
                 cancel.Click += delegate(object sender, EventArgs e)
@@ -519,8 +521,9 @@ namespace ToDo
             else if (flag == ApplicationBarConstant.Clean)  // Completed items delete
             {
                 btn.IconUri = new Uri("/Images/delete.png", UriKind.Relative);
-                btn.Text = "清除";
-
+                btn.Text = AppResources.Clean;
+                btn.Click += CleanItem_Click;
+                this.ApplicationBar.Buttons.Add(btn);
                 RemoveSecondButton();
 
                 if (App.ViewModel.CompletedToDoItems == null || App.ViewModel.CompletedToDoItems.Count == 0)
@@ -528,6 +531,7 @@ namespace ToDo
                     btn.IsEnabled = false;
                 }
             }
+            
             currentAppBarFlag = flag;
         }
 
@@ -535,14 +539,17 @@ namespace ToDo
         {
             if (show)
             {
-                ApplicationBarMenuItem uncompletedItem = new ApplicationBarMenuItem();
-                uncompletedItem.Text = "未完成";
-                uncompletedItem.Click += CompletedMenuItem_Click;
+                this.ApplicationBar.MenuItems.Clear();
+                ApplicationBarMenuItem completedItem = new ApplicationBarMenuItem();
+                completedItem.Text = AppResources.CompletedItemsHeader;
+                completedItem.Click += CompletedMenuItem_Click;
                 ApplicationBarMenuItem settingItem = new ApplicationBarMenuItem();
-                settingItem.Text = "设置";
+                settingItem.Text = AppResources.Setting;
+                settingItem.Click += SettingMenuItem_Click;
 
-                this.ApplicationBar.MenuItems.Add(uncompletedItem);
+                this.ApplicationBar.MenuItems.Add(completedItem);
                 this.ApplicationBar.MenuItems.Add(settingItem);
+
             }
             else
             {
@@ -599,11 +606,16 @@ namespace ToDo
             }
         }
 
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            ChangeApplicationBarButton(ApplicationBarConstant.Add);
+            SetMenuItemVisibility(true);
+        }
+
         private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
         {
             Log.Info(TAG, "PhoneApplicationPage_Unloaded");
         }
-
 
 
     }

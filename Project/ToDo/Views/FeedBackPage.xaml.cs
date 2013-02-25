@@ -16,6 +16,18 @@ namespace ToDo.Views
         public FeedBackPage()
         {
             InitializeComponent();
+            InitApplicationBar();
+        }
+
+        private void InitApplicationBar()
+        {
+            this.ApplicationBar.Buttons.Clear();
+
+            ApplicationBarIconButton send = new ApplicationBarIconButton();
+            send.IconUri = new Uri("/Images/done.png", UriKind.Relative);
+            send.Text = AppResources.Send;
+            send.Click += ApplicationBarIconButton_Click;
+            this.ApplicationBar.Buttons.Add(send);
         }
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)

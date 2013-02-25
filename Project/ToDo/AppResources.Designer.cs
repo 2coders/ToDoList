@@ -61,7 +61,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 关于 的本地化字符串。
+        ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string About {
             get {
@@ -79,7 +79,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 取消 的本地化字符串。
+        ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
         public static string Cancel {
             get {
@@ -88,7 +88,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 清空 的本地化字符串。
+        ///   查找类似 Clean 的本地化字符串。
         /// </summary>
         public static string Clean {
             get {
@@ -97,7 +97,16 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 已完成 的本地化字符串。
+        ///   查找类似 Are you sure to delete all these items? 的本地化字符串。
+        /// </summary>
+        public static string CompletedItemsClearMessage {
+            get {
+                return ResourceManager.GetString("CompletedItemsClearMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Completed 的本地化字符串。
         /// </summary>
         public static string CompletedItemsHeader {
             get {
@@ -106,7 +115,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 已完成 的本地化字符串。
+        ///   查找类似 Completed 的本地化字符串。
         /// </summary>
         public static string CompletedList {
             get {
@@ -115,16 +124,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 确定清除所有已完成条目？ 的本地化字符串。
-        /// </summary>
-        public static string DeleteCompletedItems {
-            get {
-                return ResourceManager.GetString("DeleteCompletedItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 完成 的本地化字符串。
+        ///   查找类似 Done 的本地化字符串。
         /// </summary>
         public static string Done {
             get {
@@ -133,7 +133,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 以后 的本地化字符串。
+        ///   查找类似 Later 的本地化字符串。
         /// </summary>
         public static string ExpandHeaderLater {
             get {
@@ -142,7 +142,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 今天 的本地化字符串。
+        ///   查找类似 Today 的本地化字符串。
         /// </summary>
         public static string ExpandHeaderToday {
             get {
@@ -151,7 +151,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 明天 的本地化字符串。
+        ///   查找类似 Tomorrow 的本地化字符串。
         /// </summary>
         public static string ExpandHeaderTomorrow {
             get {
@@ -160,7 +160,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 意见反馈 的本地化字符串。
+        ///   查找类似 FeedBack 的本地化字符串。
         /// </summary>
         public static string FeedBack {
             get {
@@ -169,7 +169,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 内容： 的本地化字符串。
+        ///   查找类似 Content: 的本地化字符串。
         /// </summary>
         public static string FeedBackContentTitle {
             get {
@@ -178,7 +178,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 来自ToDo的反馈意见 的本地化字符串。
+        ///   查找类似  的本地化字符串。
         /// </summary>
         public static string FeedBackEmailSubject {
             get {
@@ -196,7 +196,16 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 感谢您使用我们的产品，如果您在使用过程中遇到任何的不便或建议和意见都欢迎您反馈给我们。 的本地化字符串。
+        ///   查找类似 Please write your feedback 的本地化字符串。
+        /// </summary>
+        public static string FeedBackInputTip {
+            get {
+                return ResourceManager.GetString("FeedBackInputTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
         /// </summary>
         public static string FeedBackTitle {
             get {
@@ -205,16 +214,7 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 提示 的本地化字符串。
-        /// </summary>
-        public static string MessageBoxTip {
-            get {
-                return ResourceManager.GetString("MessageBoxTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 新建 的本地化字符串。
+        ///   查找类似 New 的本地化字符串。
         /// </summary>
         public static string New {
             get {
@@ -223,7 +223,25 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 评分推荐 的本地化字符串。
+        ///   查找类似 Off 的本地化字符串。
+        /// </summary>
+        public static string Off {
+            get {
+                return ResourceManager.GetString("Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 On 的本地化字符串。
+        /// </summary>
+        public static string On {
+            get {
+                return ResourceManager.GetString("On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Rate 的本地化字符串。
         /// </summary>
         public static string Rate {
             get {
@@ -232,11 +250,65 @@ namespace ToDo {
         }
         
         /// <summary>
-        ///   查找类似 设置 的本地化字符串。
+        ///   查找类似 Reminder 的本地化字符串。
+        /// </summary>
+        public static string Remind {
+            get {
+                return ResourceManager.GetString("Remind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RemindDate 的本地化字符串。
+        /// </summary>
+        public static string RemindDate {
+            get {
+                return ResourceManager.GetString("RemindDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RemindTime 的本地化字符串。
+        /// </summary>
+        public static string RemindTime {
+            get {
+                return ResourceManager.GetString("RemindTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Send 的本地化字符串。
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Setting 的本地化字符串。
         /// </summary>
         public static string Setting {
             get {
                 return ResourceManager.GetString("Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tip 的本地化字符串。
+        /// </summary>
+        public static string Tip {
+            get {
+                return ResourceManager.GetString("Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Version：v1.0.0 的本地化字符串。
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

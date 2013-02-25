@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using ToDo.Model;
 using System.Diagnostics;
 using Microsoft.Phone.Scheduler;
+using Microsoft.Phone.Shell;
 
 namespace ToDo
 {
@@ -22,7 +23,25 @@ namespace ToDo
         public RemiderPage()
         {
             InitializeComponent();
+            InitApplicationBar();
             this.DataContext = App.TodoParams;
+        }
+
+        private void InitApplicationBar()
+        {
+            this.ApplicationBar.Buttons.Clear();
+
+            ApplicationBarIconButton done = new ApplicationBarIconButton();
+            done.IconUri = new Uri("/Images/done.png", UriKind.Relative);
+            done.Text = AppResources.Done;
+            done.Click += ApplicationBarDone_Click;
+            this.ApplicationBar.Buttons.Add(done);
+
+            ApplicationBarIconButton cancel = new ApplicationBarIconButton();
+            cancel.IconUri = new Uri("/Images/cancel.png", UriKind.Relative);
+            cancel.Text = AppResources.Cancel;
+            cancel.Click += ApplicationBarCancel_Click;
+            this.ApplicationBar.Buttons.Add(cancel);
         }
 
         private void ApplicationBarDone_Click(object sender, EventArgs e)
@@ -72,12 +91,14 @@ namespace ToDo
 
         private void reminderSwitch_Unchecked(object sender, RoutedEventArgs e)
         {
+            reminderSwitch.Content = AppResources.Off;
             this.datePicker.IsEnabled = false;
             this.timePicker.IsEnabled = false;
         }
 
         private void reminderSwitch_Checked(object sender, RoutedEventArgs e)
         {
+            reminderSwitch.Content = AppResources.On;
             this.datePicker.IsEnabled = true;
             this.timePicker.IsEnabled = true;
         }

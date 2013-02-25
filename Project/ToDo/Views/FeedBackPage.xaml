@@ -36,7 +36,7 @@
                 <TextBlock Text="{Binding LocalizedResources.FeedBackContentTitle, Source={StaticResource LocalizedStrings}}" Margin="0,25,344,0"
                 	Foreground="Black"/>
                 <TextBox x:Name="FeedContent" HorizontalAlignment="Center" Foreground="Black" BorderThickness="1" Width="460"
-                    Text="请输入您的反馈意见" Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}" >
+                    Text="{Binding LocalizedResources.FeedBackInputTip, Source={StaticResource LocalizedStrings}}" Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}" >
                     <TextBox.Background>
                         <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
                     </TextBox.Background>
@@ -47,7 +47,6 @@
     
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF1BA1E2" Opacity="1.0">
-            <shell:ApplicationBarIconButton IconUri="/Images/done.png" Text="发送" Click="ApplicationBarIconButton_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

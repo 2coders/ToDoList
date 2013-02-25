@@ -118,87 +118,93 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>ToDo</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="Clean" xml:space="preserve">
-    <value>Clean</value>
+    <value>清空</value>
   </data>
   <data name="CompletedItemsClearMessage" xml:space="preserve">
-    <value>Are you sure to delete all these items?</value>
+    <value>确定清除所有已完成条目？</value>
   </data>
   <data name="CompletedItemsHeader" xml:space="preserve">
-    <value>Completed</value>
+    <value>已完成</value>
   </data>
   <data name="CompletedList" xml:space="preserve">
-    <value>Completed</value>
+    <value>已完成</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
+    <value>完成</value>
   </data>
   <data name="ExpandHeaderLater" xml:space="preserve">
-    <value>Later</value>
+    <value>以后</value>
   </data>
   <data name="ExpandHeaderToday" xml:space="preserve">
-    <value>Today</value>
+    <value>今天</value>
   </data>
   <data name="ExpandHeaderTomorrow" xml:space="preserve">
-    <value>Tomorrow</value>
+    <value>明天</value>
   </data>
   <data name="FeedBack" xml:space="preserve">
-    <value>FeedBack</value>
+    <value>意见反馈</value>
   </data>
   <data name="FeedBackContentTitle" xml:space="preserve">
-    <value>Content:</value>
+    <value>内容：</value>
   </data>
   <data name="FeedBackEmailSubject" xml:space="preserve">
-    <value />
+    <value>来自ToDo的反馈意见</value>
   </data>
   <data name="FeedBackEmailTo" xml:space="preserve">
     <value>yangchao294@hotmail.com</value>
   </data>
   <data name="FeedBackInputTip" xml:space="preserve">
-    <value>Please write your feedback</value>
+    <value>请输入您的反馈意见</value>
   </data>
   <data name="FeedBackTitle" xml:space="preserve">
-    <value />
+    <value>感谢您使用我们的产品，如果您在使用过程中遇到任何的不便或建议和意见都欢迎您反馈给我们。</value>
+  </data>
+  <data name="MessageBoxTip" xml:space="preserve">
+    <value>提示</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>新建</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Off</value>
+    <value>关</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value>On</value>
+    <value>开</value>
   </data>
   <data name="Rate" xml:space="preserve">
-    <value>Rate</value>
+    <value>评分推荐</value>
   </data>
   <data name="Remind" xml:space="preserve">
-    <value>Reminder</value>
+    <value>提醒</value>
   </data>
   <data name="RemindDate" xml:space="preserve">
-    <value>RemindDate</value>
+    <value>提醒日期</value>
   </data>
   <data name="RemindTime" xml:space="preserve">
-    <value>RemindTime</value>
+    <value>提醒时间</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>发送</value>
   </data>
   <data name="Setting" xml:space="preserve">
-    <value>Setting</value>
+    <value>设置</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>提醒时间</value>
   </data>
   <data name="Tip" xml:space="preserve">
-    <value>Tip</value>
+    <value>提示</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version：v1.0.0</value>
+    <value>版本：v1.0.0</value>
   </data>
 </root>
