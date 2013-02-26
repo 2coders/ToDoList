@@ -10,7 +10,7 @@
     d:DesignHeight="480" d:DesignWidth="480"
     Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded">
 
-    <StackPanel x:Name="LayoutRoot"
+    <StackPanel x:Name="LayoutRoot" Background="White"
                 Width="480" Height="800"
                 Orientation="Vertical">
         <TextBlock x:Name="groupNameTxt" Text="Today" 

@@ -39,8 +39,16 @@
                                     <VisualState x:Name="Unfocused"/>
 								</VisualStateGroup>
 							</VisualStateManager.VisualStateGroups>
-							<Border x:Name="EnabledBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="{StaticResource PhoneTouchTargetOverhang}">
-								<ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch"/>
+							<Border x:Name="EnabledBorder" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    Margin="{StaticResource PhoneTouchTargetOverhang}">
+								<ContentControl x:Name="ContentElement"
+                                                BorderThickness="0"
+                                                HorizontalContentAlignment="Stretch"
+                                                Margin="{StaticResource PhoneTextBoxInnerMargin}"
+                                                Padding="{TemplateBinding Padding}"
+                                                VerticalContentAlignment="Stretch"/>
 							</Border>
 							<Border x:Name="DisabledOrReadonlyBorder" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" Margin="{StaticResource PhoneTouchTargetOverhang}" Visibility="Collapsed">
 								<TextBox x:Name="DisabledOrReadonlyContent" Background="Transparent" Foreground="{StaticResource PhoneDisabledBrush}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" IsReadOnly="True" SelectionForeground="{TemplateBinding SelectionForeground}" SelectionBackground="{TemplateBinding SelectionBackground}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="{TemplateBinding TextWrapping}" Text="{TemplateBinding Text}" Template="{StaticResource PhoneDisabledTextBoxTemplate}"/>
@@ -51,13 +59,17 @@
 			</Setter>
 		</Style>
 	</UserControl.Resources>
-
-
-    <TextBox x:Name="NoteTextBox" HorizontalAlignment="Center" 
-                 Margin="0,70,0,0" VerticalAlignment="Top" Width="400" Height="200"
-                 Background="Transparent" BorderThickness="0"
+    <StackPanel Margin="0,0,0,0"  VerticalAlignment="Top" Orientation="Vertical" >
+        
+        <ScrollViewer x:Name="NoteBoardScrollViewer" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,60,0,0"  Width="400" Height="170"
+                      BorderBrush="Gray" BorderThickness="0,0,0,0">
+            <TextBox x:Name="NoteTextBox" FontSize="24"
+                 Background="Transparent" BorderThickness="0" Margin="0,-20,0,0"
                  TextWrapping="Wrap" AcceptsReturn="True"
                  LostFocus="ContentTextBox_LostFocus"
-                 Text="{Binding Note, Mode=TwoWay}" Style="{StaticResource TextBoxStyle1}" />
-
+                 Text="{Binding Note, Mode=TwoWay}" Style="{StaticResource TextBoxStyle1}" TextChanged="NoteTextBox_TextChanged" />
+        </ScrollViewer>
+        <TextBlock Text="{Binding LocalizedResources.Note, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Right"
+                   FontStyle="Normal" FontSize="40" Foreground="#FF1BA1E2"  Margin="0,0,50,0"/>
+    </StackPanel>
 </UserControl>

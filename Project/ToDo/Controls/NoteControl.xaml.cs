@@ -81,5 +81,11 @@ namespace ToDo.Controls
                 NoteTextBox.Text = preNote;
             }
         }
+
+        private void NoteTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (NoteBoardScrollViewer.VerticalOffset < NoteBoardScrollViewer.ScrollableHeight)
+                NoteBoardScrollViewer.ScrollToVerticalOffset(NoteBoardScrollViewer.ScrollableHeight);
+        }
     }
 }

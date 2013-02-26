@@ -223,6 +223,15 @@ namespace ToDo {
         }
         
         /// <summary>
+        ///   查找类似 Note 的本地化字符串。
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Off 的本地化字符串。
         /// </summary>
         public static string Off {

@@ -87,8 +87,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-
         <ScrollViewer x:Name="MainScrollViewer"
                       Grid.Row="0"
                       VerticalScrollBarVisibility="Visible"
@@ -102,7 +100,7 @@
                                       x:Name="todayExpanderView"
                                       FontStyle="Normal"
                                       HorizontalAlignment="Left" 
-                                      Height="Auto" Margin="10,50,0,0"
+                                      Height="Auto" Margin="10,20,0,0"
                                       VerticalAlignment="Top"
                                       ItemsSource="{Binding TodayToDoItems}"
                                       ItemTemplate="{StaticResource ListItemTemplate}"

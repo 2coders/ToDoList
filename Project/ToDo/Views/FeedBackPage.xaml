@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -35,12 +36,13 @@
                            Foreground="Black" Margin="0,0,0,0" HorizontalAlignment="Left" Height="51" TextWrapping="Wrap"/>
                 <TextBlock Text="{Binding LocalizedResources.FeedBackContentTitle, Source={StaticResource LocalizedStrings}}" Margin="0,25,344,0"
                 	Foreground="Black"/>
-                <TextBox x:Name="FeedContent" HorizontalAlignment="Center" Foreground="Black" BorderThickness="1" Width="460"
-                    Text="{Binding LocalizedResources.FeedBackInputTip, Source={StaticResource LocalizedStrings}}" Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}" >
-                    <TextBox.Background>
+                <toolkit:PhoneTextBox x:Name="FeedContent" HorizontalAlignment="Center" Foreground="Black" BorderThickness="1" Width="460"
+                    Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}"
+                    Hint="{Binding LocalizedResources.FeedBackInputTip, Source={StaticResource LocalizedStrings}}">
+                    <toolkit:PhoneTextBox.Background>
                         <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
-                    </TextBox.Background>
-                </TextBox>
+                    </toolkit:PhoneTextBox.Background>
+                </toolkit:PhoneTextBox>
             </StackPanel>
         </Grid>
     </Grid>

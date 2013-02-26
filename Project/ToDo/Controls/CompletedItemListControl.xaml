@@ -26,7 +26,7 @@
                     VerticalAlignment="Bottom" >
 
                 <TextBlock Text="{Binding Path=LocalizedResources.CompletedItemsHeader, Source={StaticResource LocalizedStrings}}"
-                       FontStyle="Normal" FontSize="48" Foreground="#FF1BA1E2"/>
+                       FontStyle="Normal" FontSize="48" Foreground="#FF1BA1E2" Margin="0,20,0,0"/>
 
                 <ListBox x:Name="CompletedList" Height="500"
                      ItemsSource="{Binding CompletedToDoItems}">
