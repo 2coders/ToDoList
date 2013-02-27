@@ -195,6 +195,8 @@
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\save.png" />
     <Content Include="Images\border.bg.png" />
+    <Content Include="Images\Tile_159.png" />
+    <Content Include="Images\Tile_336.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

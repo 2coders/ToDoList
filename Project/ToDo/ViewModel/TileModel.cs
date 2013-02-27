@@ -16,7 +16,7 @@ namespace ToDo.ViewModel
                 StandardTileData NewTileData = new StandardTileData()
                 {
                     Title = "ToDo",
-                    BackgroundImage = new Uri("ApplicationIcon.png", UriKind.Relative),
+                    BackgroundImage = new Uri("/Images/Tile_336.png", UriKind.Relative),
                     Count = App.ViewModel.getIncompletedItemCount(),
                     BackTitle = (item == null) ? "" : "Urgent",
                     BackBackgroundImage = new Uri("SplashScreenImage.jgp", UriKind.Relative),
