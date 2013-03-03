@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:my="clr-namespace:ToDo.Controls"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="48"
     Foreground="#FF1BA1E2"
@@ -31,7 +32,7 @@
                 </Border.BorderBrush>
                 <StackPanel x:Name="ItemPanel" Orientation="Vertical" Width="480" Background="Transparent" >
                     <Border BorderBrush="{Binding Priority, Mode=OneWay, Converter={StaticResource PriorityConverter}}"
-                            BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10">
+                            BorderThickness="5,0,0,0" Tap="Border_Tap" Margin="0,0,0,10" Padding="0,10,0,5">
                         
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="ItemTitleText"
@@ -43,10 +44,10 @@
                             </TextBlock>
                             
                             <Button x:Name="ModifyButton" Margin="0,0,0,0" Opacity="0" HorizontalAlignment="Right" 
-                                    Width="50" Height="50" FontSize="16" BorderThickness="0,0,0,0"
+                                    Width="50" Height="50" BorderThickness="0,0,0,0"
                                     Tap="ModifyButton_Tap" Visibility="Collapsed">
                                 <Button.Background>
-                                    <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="/Images/toolbar.pencil.png"/>
                                 </Button.Background>
                             </Button>
                         </StackPanel>
@@ -60,12 +61,40 @@
                     
                     <StackPanel x:Name="ToolBar" Height="0" Orientation="Horizontal" Margin="0,0,0,0">
                         <StackPanel.Background>
-                            <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>
+                            <SolidColorBrush Color="#FFEDEDED"/>
                         </StackPanel.Background>
-                        <Button x:Name="FlagButton" Content="Flag" Click="FlagButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                        <Button x:Name="RemindButton"  Content="Remind" Click="Remind_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                        <Button x:Name="NoteButton" Content="Note" Click="NoteButton_Click" FontSize="16" BorderThickness="1,0,1,0" />
-                        <Button x:Name="DeleteButton" Content="Delete" Click="Delete_Click" FontSize="16" BorderThickness="1,0,1,0" />
+                        <my:ButtonEx x:Name="FlagButton" Click="FlagButton_Click" Width="80" Height="80" BorderThickness="0,0,0,0" >
+                            <my:ButtonEx.Background >
+                                <ImageBrush ImageSource="/Images/toolbar.flag.png" />
+                            </my:ButtonEx.Background>
+                            <my:ButtonEx.PressedBackground >
+                                <ImageBrush ImageSource="/Images/toolbar.flag.png" />
+                            </my:ButtonEx.PressedBackground>
+                        </my:ButtonEx>
+                        <my:ButtonEx x:Name="RemindButton" Click="Remind_Click" Width="80" Height="80" BorderThickness="0,0,0,0">
+                            <my:ButtonEx.Background >
+                                <ImageBrush ImageSource="/Images/toolbar.star.png" />
+                            </my:ButtonEx.Background>
+                            <my:ButtonEx.PressedBackground >
+                                <ImageBrush ImageSource="/Images/toolbar.star.png" />
+                            </my:ButtonEx.PressedBackground>
+                        </my:ButtonEx>
+                        <my:ButtonEx x:Name="NoteButton" Click="NoteButton_Click" Width="80" Height="80" BorderThickness="0,0,0,0" >
+                            <my:ButtonEx.Background >
+                                <ImageBrush ImageSource="/Images/toolbar.hand.png" />
+                            </my:ButtonEx.Background>
+                            <my:ButtonEx.PressedBackground >
+                                <ImageBrush ImageSource="/Images/toolbar.hand.png" />
+                            </my:ButtonEx.PressedBackground>
+                        </my:ButtonEx>
+                        <my:ButtonEx x:Name="DeleteButton" Click="Delete_Click" Width="80" Height="80" BorderThickness="0,0,0,0">
+                            <my:ButtonEx.Background >
+                                <ImageBrush ImageSource="/Images/toolbar.pencil.png" />
+                            </my:ButtonEx.Background>
+                            <my:ButtonEx.PressedBackground >
+                                <ImageBrush ImageSource="/Images/toolbar.pencil.png" />
+                            </my:ButtonEx.PressedBackground>
+                        </my:ButtonEx>
                     </StackPanel>
                     
                     <toolkit:GestureService.GestureListener>
@@ -94,7 +123,7 @@
             
             <StackPanel x:Name="TodayPanel" Margin="0,0,0,60" Orientation="Vertical">
 
-                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-160" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
+                <Button x:Name="TodayNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-120" Tap="TodayNewButton_Tap" Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderToday, Source={StaticResource LocalizedStrings}}"
                                       x:Name="todayExpanderView"

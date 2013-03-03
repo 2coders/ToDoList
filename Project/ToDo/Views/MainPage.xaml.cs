@@ -93,6 +93,14 @@ namespace ToDo
 
         private void GestureListener_Flick(object sender, FlickGestureEventArgs e)
         {
+            StackPanel p = sender as StackPanel;
+            Log.Info("xxx", e.VerticalVelocity.ToString());
+            Log.Info("xxx", e.HorizontalVelocity.ToString());
+            Log.Info("xxx", e.Angle.ToString());
+            Log.Info("xxx", e.Direction.ToString());
+            Log.Info("xxx", e.GetPosition(p).X.ToString());
+            Log.Info("xxx", e.GetPosition(p).X.ToString());
+
             if (PopupWindow.IsShown)
             {
                 return;
@@ -109,10 +117,9 @@ namespace ToDo
                 ToDoItem item = parent.DataContext as ToDoItem;
                 if (item != null)
                 {
-                    if (e.HorizontalVelocity > 0)//flick to right
+                    if (e.HorizontalVelocity > 1000 && Math.Abs(e.VerticalVelocity) < 300)//flick to right
                     {
                         this.SetItemCompleted(parent, item);
-
                     }
                     else if (e.HorizontalVelocity < 0)//flick to left
                     {
@@ -251,7 +258,6 @@ namespace ToDo
             var transform = list.TransformToVisual(Application.Current.RootVisual);
             var pointOffset = transform.Transform(new Point(0, 0));
             double verticalOffset = pointOffset.Y - 50;
-            list.IsExpanded = true;
 
             var createItem = new CreateItemControl()
             {
@@ -261,6 +267,7 @@ namespace ToDo
 
             createItem.Closed += delegate(object sender, PopupEventArgs e)
             {
+                list.IsExpanded = true;
                 if (verticalOffset > 0)
                 {
                     var storyboard2 = AnimationUtils.GetStoryboard();
@@ -337,7 +344,7 @@ namespace ToDo
             var storyboard = AnimationUtils.GetStoryboard();
 
             FrameworkElement toolbar = parent.FindName("ToolBar") as FrameworkElement;
-            AnimationUtils.SetHeightAnimation(storyboard, toolbar, 50, 0.3);
+            AnimationUtils.SetHeightAnimation(storyboard, toolbar, 80, 0.3);
             AnimationUtils.SetOpacityAnimation(storyboard, toolbar, 1, 0.3);
 
             FrameworkElement modifyButton = parent.FindName("ModifyButton") as FrameworkElement;

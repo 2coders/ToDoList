@@ -15,6 +15,27 @@
     Padding="10"
     shell:SystemTray.IsVisible="True">
 
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition   Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+    
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
@@ -37,7 +58,7 @@
                 <TextBlock Text="{Binding LocalizedResources.FeedBackContentTitle, Source={StaticResource LocalizedStrings}}" Margin="0,25,344,0"
                 	Foreground="Black"/>
                 <toolkit:PhoneTextBox x:Name="FeedContent" HorizontalAlignment="Center" Foreground="Black" BorderThickness="1" Width="460"
-                    Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}"
+                    Margin="0,0,22,0" Height="172" BorderBrush="{StaticResource PhoneTextBoxEditBorderBrush}" LengthIndicatorVisible="True"
                     Hint="{Binding LocalizedResources.FeedBackInputTip, Source={StaticResource LocalizedStrings}}">
                     <toolkit:PhoneTextBox.Background>
                         <SolidColorBrush Color="{StaticResource PhoneInverseInactiveColor}"/>

@@ -14,6 +14,27 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition   Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
     
     <phone:PhoneApplicationPage.Resources>
         <local:DateConverter x:Key="DateConverter" />
@@ -22,7 +43,7 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -31,20 +52,20 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <!--<TextBlock Text="{Binding Path=LocalizedResources.ApplicationName, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>-->
-            <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.RemindTime, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Foreground="#FF1BA1E2" Text="{Binding Path=LocalizedResources.RemindTime, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <StackPanel x:Name="TitlePanel2" Grid.Row="1" Margin="12,17,0,28">
-            <toolkit:ToggleSwitch x:Name="reminderSwitch" Header="{Binding Path=LocalizedResources.Remind, Source={StaticResource LocalizedStrings}}" IsChecked="{Binding Remind,Mode=OneTime,Converter={StaticResource ToggleSwitchConverter}}" Unchecked="reminderSwitch_Unchecked" Checked="reminderSwitch_Checked"/>
-            <toolkit:DatePicker x:Name="datePicker" Header="{Binding Path=LocalizedResources.RemindDate, Source={StaticResource LocalizedStrings}}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource DateConverter}}" />
-            <toolkit:TimePicker x:Name="timePicker" Header="{Binding Path=LocalizedResources.RemindTime, Source={StaticResource LocalizedStrings}}" ValueStringFormat="{}{0:t}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource TimeConverter}}"/>
+            <toolkit:ToggleSwitch x:Name="reminderSwitch" Foreground="#FF1BA1E2" Header="{Binding Path=LocalizedResources.Remind, Source={StaticResource LocalizedStrings}}" IsChecked="{Binding Remind,Mode=OneTime,Converter={StaticResource ToggleSwitchConverter}}" Unchecked="reminderSwitch_Unchecked" Checked="reminderSwitch_Checked"/>
+            <toolkit:DatePicker x:Name="datePicker" Foreground="#FF1BA1E2" IsEnabled="False" Header="{Binding Path=LocalizedResources.RemindDate, Source={StaticResource LocalizedStrings}}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource DateConverter}}" />
+            <toolkit:TimePicker x:Name="timePicker" Foreground="#FF1BA1E2" Background="Red" IsEnabled="False" Header="{Binding Path=LocalizedResources.RemindTime, Source={StaticResource LocalizedStrings}}" ValueStringFormat="{}{0:t}" Value="{Binding RemindTime, Mode=OneTime, Converter={StaticResource TimeConverter}}"/>
         </StackPanel>
     </Grid>
 
     <!--演示 ApplicationBar 用法的示例代码-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF1BA1E2">
             <shell:ApplicationBarIconButton x:Name="done" IconUri="/Images/done.png" Text="done" Click="ApplicationBarDone_Click"/>
             <shell:ApplicationBarIconButton x:Name="cancel" IconUri="/Images/cancel.png" Text="cancel" Click="ApplicationBarCancel_Click"/>
         </shell:ApplicationBar>
