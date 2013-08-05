@@ -233,14 +233,15 @@
     <Content Include="Images\feature.alarm.png" />
     <Content Include="Images\feature.calendar.png" />
     <Content Include="Images\feature.settings.png" />
+    <Content Include="Images\tile1.png" />
+    <Content Include="Images\tile2.png" />
+    <Content Include="Images\tile3.png" />
     <Content Include="Images\toolbar.pencil.png" />
     <Content Include="Images\main_bg.png" />
     <Content Include="Images\overflowdots.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\save.png" />
     <Content Include="Images\border.bg.png" />
-    <Content Include="Images\Tile_159.png" />
-    <Content Include="Images\Tile_336.png" />
     <Content Include="Images\toolbar.delete.png" />
     <Content Include="Images\toolbar.flag.png" />
     <Content Include="Images\toolbar.hand.png" />
