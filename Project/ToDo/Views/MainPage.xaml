@@ -128,6 +128,7 @@
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderToday, Source={StaticResource LocalizedStrings}}"
                                       x:Name="todayExpanderView"
                                       FontStyle="Normal"
+                                      FontSize="60"
                                       HorizontalAlignment="Left" 
                                       Height="Auto" Margin="10,20,0,0"
                                       VerticalAlignment="Top"
@@ -140,7 +141,7 @@
                 <Button x:Name="TomorrowNewButton" Content="+" Foreground="Black" FontSize="30"  Width="80" Height="80"  Margin="350,0,0,-90"  Tap="TomorrowNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderTomorrow, Source={StaticResource LocalizedStrings}}"
-                                      FontSize="48"
+                                      FontSize="60"
                                       x:Name="tomorrowExpanderView"
 									  Foreground="#FF1BA1E2"
                                       FontStyle="Normal"
@@ -155,7 +156,7 @@
                 <Button x:Name="LaterNewButton" Content="+" Foreground="Black" FontSize="30" Width="80" Height="80" Margin="350,0,0,-100" Tap="LaterNewButton_Tap"  Canvas.ZIndex="100" />
                 <toolkit:ExpanderView IsExpanded="True" 
                                       Header="{Binding Path=LocalizedResources.ExpandHeaderLater, Source={StaticResource LocalizedStrings}}"
-                                      FontSize="48"
+                                      FontSize="60"
                                       x:Name="laterExpanderView"
                                       Foreground="#FF1BA1E2"
                                       HorizontalAlignment="Left" 

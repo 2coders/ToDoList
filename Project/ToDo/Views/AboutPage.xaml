@@ -51,7 +51,7 @@
         <!--ContentPanel - 在此处放置其他内容-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                <Image HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center" Source="/ApplicationIcon.png" Stretch="None"/>
+                <Image HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center" Source="/Images/about.png" Stretch="None"/>
                 <TextBlock x:Name="Version" HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.Version, Source={StaticResource LocalizedStrings}}" FontSize="22" Foreground="Black"/>
             </StackPanel>
         </Grid>

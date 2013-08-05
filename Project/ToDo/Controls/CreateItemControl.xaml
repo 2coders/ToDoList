@@ -14,7 +14,7 @@
                 Width="480" Height="800"
                 Orientation="Vertical">
         <TextBlock x:Name="groupNameTxt" Text="Today" 
-                   FontSize="48" Foreground="#FF1BA1E2"
+                   FontSize="60" Foreground="#FF1BA1E2"
                    FontStyle="Normal" Margin="10,50,0,0"/>
         <TextBox x:Name="ContentTextBox" HorizontalAlignment="Left" 
                  Margin="8,0,15,0" VerticalAlignment="Top" Width="369"
